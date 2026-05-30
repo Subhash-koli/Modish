@@ -1,0 +1,476 @@
+/* Modish Design System Tokens */
+:root {
+  /* Brand Colors */
+  --modish-yellow: #FFCC00;
+  --modish-yellow-dark: #E6B800;
+  --modish-yellow-light: #FFF8D6;
+  --modish-nav-bg: #FFCC00;
+  --modish-black: #0A0A0A;
+  --modish-black-soft: #111111;
+  --modish-white: #FFFFFF;
+
+  /* Grey Scale */
+  --modish-grey-50: #FAFAFA;
+  --modish-grey-100: #F5F5F5;
+  --modish-grey-200: #E8E8E8;
+  --modish-grey-400: #AAAAAA;
+  --modish-grey-500: #777777;
+  --modish-grey-700: #444444;
+
+  /* WhatsApp */
+  --modish-whatsapp: #25D366;
+  --modish-whatsapp-dark: #1DA851;
+
+  /* Typography */
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+
+  /* Spacing */
+  --modish-space-1: 4px;
+  --modish-space-2: 8px;
+  --modish-space-3: 12px;
+  --modish-space-4: 16px;
+  --modish-space-5: 20px;
+  --modish-space-6: 24px;
+  --modish-space-8: 32px;
+  --modish-space-10: 40px;
+  --modish-space-12: 48px;
+  --modish-space-16: 64px;
+  --modish-space-20: 80px;
+  --modish-space-24: 96px;
+
+  /* Layout */
+  --modish-container-max: 1280px;
+  --modish-container-pad-mobile: 16px;
+  --modish-container-pad-desktop: 48px;
+  --modish-header-height: 70px;
+  --modish-section-py: 80px;
+
+  /* Border Radius */
+  --modish-radius-sm: 8px;
+  --modish-radius-md: 12px;
+  --modish-radius-lg: 16px;
+  --modish-radius-xl: 20px;
+  --modish-radius-full: 9999px;
+
+  /* Shadows */
+  --modish-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --modish-shadow-md: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --modish-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+  --modish-shadow-yellow: 0 8px 32px rgba(245, 196, 0, 0.3);
+
+  /* Z-index */
+  --modish-z-sticky: 100;
+  --modish-z-modal: 500;
+  --modish-z-floating: 700;
+
+  /* Mobile bottom bar */
+  --modish-bottom-bar-height: 64px;
+}
+
+/* ─── GLOBAL OVERFLOW PROTECTION ───────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+body {
+  font-family: var(--font-body);
+  background-color: var(--modish-white);
+  color: var(--modish-black);
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* ─── RESPONSIVE IMAGES (Global Default) ───────────────────────── */
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Focus ring - branded */
+:focus-visible {
+  outline: 2px solid var(--modish-yellow);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* WhatsApp pulse animation */
+@keyframes pulseWA {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70% { box-shadow: 0 0 0 18px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Scroll reveal */
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  @keyframes marquee {
+    0%, 100% { transform: translateX(0); }
+  }
+  @keyframes pulseWA {
+    0%, 100% { box-shadow: none; }
+  }
+}
+
+/* ─── Container Utility ────────────────────────────────────────── */
+.modish-container {
+  max-width: var(--modish-container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--modish-container-pad-mobile);
+  padding-right: var(--modish-container-pad-mobile);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .modish-container {
+    padding-left: var(--modish-container-pad-desktop);
+    padding-right: var(--modish-container-pad-desktop);
+  }
+}
+
+/* ─── Section Padding ──────────────────────────────────────────── */
+.modish-section {
+  padding-top: var(--modish-space-10);
+  padding-bottom: var(--modish-space-10);
+}
+
+@media (min-width: 768px) {
+  .modish-section {
+    padding-top: var(--modish-space-20);
+    padding-bottom: var(--modish-space-20);
+  }
+}
+
+/* ─── Responsive Utilities ─────────────────────────────────────── */
+
+/* Form / card padding — tighter on mobile */
+.modish-card-pad {
+  padding: var(--modish-space-5);
+}
+@media (min-width: 768px) {
+  .modish-card-pad {
+    padding: var(--modish-space-8);
+  }
+}
+
+/* ─── Stats Counter Grid ───────────────────────────────────────── */
+/* 2-col mobile → 4-col desktop (replaces broken md:grid-cols-4) */
+.modish-stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  row-gap: var(--modish-space-8);
+  column-gap: var(--modish-space-4);
+}
+@media (min-width: 768px) {
+  .modish-stats-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    row-gap: var(--modish-space-12);
+    column-gap: var(--modish-space-12);
+  }
+}
+
+/* ─── Product Grid ─────────────────────────────────────────────── */
+/* Safe minmax that never overflows on small phones */
+.modish-product-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: var(--modish-space-6);
+}
+@media (min-width: 480px) {
+  .modish-product-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (min-width: 1024px) {
+  .modish-product-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* ─── Catalog Downloads Grid ───────────────────────────────────── */
+.modish-catalog-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: var(--modish-space-6);
+}
+@media (min-width: 768px) {
+  .modish-catalog-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ─── Product Modal Layout ─────────────────────────────────────── */
+/* Column on mobile → row on desktop (replaces broken md:flex-row) */
+.modish-modal-body {
+  display: flex !important;
+  flex-direction: column !important;
+  overflow-y: auto;
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .modish-modal-body {
+    flex-direction: row !important;
+  }
+}
+
+.modish-modal-img {
+  min-height: 160px;
+}
+@media (min-width: 768px) {
+  .modish-modal-img {
+    min-height: 100%;
+    width: 50%;
+  }
+}
+
+/* Product modal content */
+.modish-modal-content {
+  padding: var(--modish-space-5);
+  gap: var(--modish-space-4);
+}
+@media (min-width: 768px) {
+  .modish-modal-content {
+    padding: var(--modish-space-8);
+    gap: var(--modish-space-6);
+  }
+}
+
+/* ─── Inquiry Form Grid ────────────────────────────────────────── */
+/* 1-col mobile → 3fr+2fr desktop (replaces broken md:grid-cols-[3fr_2fr]) */
+.modish-inquiry-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: var(--modish-space-6);
+}
+@media (min-width: 768px) {
+  .modish-inquiry-grid {
+    grid-template-columns: 3fr 2fr !important;
+  }
+}
+
+/* Inquiry form field rows — 1-col mobile, 2-col desktop */
+.modish-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--modish-space-4);
+}
+@media (min-width: 768px) {
+  .modish-form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ─── Footer Grid ──────────────────────────────────────────────── */
+/* 1-col mobile → 2-col tablet → 4-col desktop (replaces broken md:grid-cols-[2fr_1fr_1fr_1fr]) */
+.modish-footer-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: var(--modish-space-10);
+}
+@media (min-width: 640px) {
+  .modish-footer-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (min-width: 1024px) {
+  .modish-footer-grid {
+    grid-template-columns: 2fr 1fr 1fr 1fr !important;
+  }
+}
+
+/* ─── Why Choose / Printing Tech Grid ──────────────────────────── */
+/* 1-col mobile → 2-col tablet → 3-col desktop */
+.modish-feature-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: var(--modish-space-5);
+}
+@media (min-width: 640px) {
+  .modish-feature-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (min-width: 1024px) {
+  .modish-feature-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* ─── Diaries Grid ─────────────────────────────────────────────── */
+.modish-diary-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: var(--modish-space-4);
+}
+@media (min-width: 640px) {
+  .modish-diary-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+@media (min-width: 1024px) {
+  .modish-diary-grid {
+    grid-template-columns: repeat(5, 1fr) !important;
+  }
+}
+
+/* ─── Printing Tech Grid ───────────────────────────────────────── */
+.modish-printing-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: var(--modish-space-5);
+}
+@media (min-width: 640px) {
+  .modish-printing-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (min-width: 1024px) {
+  .modish-printing-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+/* WA CTA button — full width + smaller padding on mobile */
+.modish-wa-cta-btn {
+  width: 100%;
+  padding: 16px var(--modish-space-6);
+  font-size: 16px;
+}
+@media (min-width: 480px) {
+  .modish-wa-cta-btn {
+    width: auto;
+    padding: 20px 48px;
+    font-size: 18px;
+  }
+}
+
+/* Hero CTA row — stack on very small screens */
+.modish-hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--modish-space-3);
+}
+@media (max-width: 400px) {
+  .modish-hero-ctas {
+    flex-direction: column;
+  }
+  .modish-hero-ctas > * {
+    width: 100%;
+    justify-content: center;
+  }
+}
+@media (min-width: 401px) {
+  .modish-hero-ctas {
+    gap: var(--modish-space-4);
+  }
+}
+
+/* About values 2-col — collapse to 1 col on small phones */
+.modish-values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--modish-space-3);
+}
+@media (min-width: 480px) {
+  .modish-values-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Product modal — align near top on mobile for more scroll space */
+.modish-modal-outer {
+  align-items: flex-start;
+}
+@media (min-width: 768px) {
+  .modish-modal-outer {
+    align-items: center;
+  }
+}
+
+/* ─── Responsive Show/Hide Utilities ───────────────────────────────
+   Use these instead of Tailwind's hidden/flex combos to avoid
+   conflicts with inline display styles (inline styles always win
+   over class-based display) ───────────────────────────────────── */
+
+/* Desktop only: visible on md+ (≥768px), hidden on mobile */
+.modish-desktop-only {
+  display: none !important;
+}
+@media (min-width: 768px) {
+  .modish-desktop-only {
+    display: flex !important;
+  }
+}
+
+/* Mobile only: visible on mobile (<768px), hidden on desktop */
+.modish-mobile-only {
+  display: flex;
+}
+@media (min-width: 768px) {
+  .modish-mobile-only {
+    display: none !important;
+  }
+}
+
+/* Responsive Grid for Hero Section */
+.modish-hero-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: var(--modish-space-8);
+  width: 100%;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .modish-hero-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* Hide scrollbar utility */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
