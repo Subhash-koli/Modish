@@ -22,15 +22,15 @@ const WA_BASE = "https://wa.me/919136867622";
 const slides = [
   {
     id: "slide-1",
-    bg: "var(--modish-black)",
-    accentColor: "var(--modish-yellow)",
-    textColor: "var(--modish-white)",
+    bg: "var(--modish-grey-50)",
+    accentColor: "#A67B00",
+    textColor: "var(--modish-black)",
     eyebrow: "CUSTOM T-SHIRTS",
     headline: ["Your Brand,", "Your Style,", "Your Story."],
     subtext: "Premium custom printed apparel — from 1 piece to 10,000. Bulk orders with bulk discounts.",
     cta1: { label: "Browse Catalog", href: "https://tinyurl.com/Modish-now", target: "_blank", style: "yellow" },
     cta2: { label: "WhatsApp Now", href: `${WA_BASE}?text=Hi%20Modish!%20I'm%20interested%20in%20placing%20an%20order.`, target: "_blank", style: "wa" },
-    dotColor: "var(--modish-yellow)",
+    dotColor: "var(--modish-black)",
   },
   {
     id: "slide-2",
@@ -46,26 +46,26 @@ const slides = [
   },
   {
     id: "slide-3",
-    bg: "var(--modish-black)",
-    accentColor: "var(--modish-yellow)",
-    textColor: "var(--modish-white)",
+    bg: "var(--modish-grey-100)",
+    accentColor: "#A67B00",
+    textColor: "var(--modish-black)",
     eyebrow: "CORPORATE DIARIES",
     headline: ["Gifts That", "Make a", "Lasting Impression."],
     subtext: "Premium custom diaries and corporate gift sets crafted for brands that want to leave a lasting impression.",
     cta1: { label: "View Diary Catalog", href: "https://tinyurl.com/Diary-modish", target: "_blank", style: "yellow" },
     cta2: { label: "WhatsApp Now", href: `${WA_BASE}?text=Hi%20Modish!%20I%20just%20viewed%20your%20catalog.%20Can%20we%20discuss%20an%20order%3F`, target: "_blank", style: "wa" },
-    dotColor: "var(--modish-yellow)",
+    dotColor: "var(--modish-black)",
   },
   {
     id: "slide-4",
-    bg: "var(--modish-grey-100)",
-    accentColor: "var(--modish-black)",
+    bg: "var(--modish-white)",
+    accentColor: "#A67B00",
     textColor: "var(--modish-black)",
     eyebrow: "EVENT MERCHANDISE",
     headline: ["Merch That", "Moves the", "Crowd."],
     subtext: "Custom merchandise for college fests, corporate events, startups, and every occasion in between.",
     cta1: { label: "Explore Products", href: "#products", target: "_self", style: "black" },
-    cta2: { label: "WhatsApp Now", href: `${WA_BASE}?text=Hi%20Modish!%20I'm%20interested%20in%20event%20merchandise.%20Can%20you%20help%3F`, target: "_blank", style: "wa" },
+    cta2: { label: "WhatsApp Now", href: `${WA_BASE}?text=Hi%20Modish!%20I%20m%20interested%20in%20event%20merchandise.%20Can%20you%20help%3F`, target: "_blank", style: "wa" },
     dotColor: "var(--modish-black)",
   },
 ];
@@ -140,6 +140,38 @@ export function HeroBanner() {
         setTouchStart(null);
       }}
     >
+      {/* Decorative Blur Blobs */}
+      <div
+        className="modish-hero-blob-1"
+        style={{
+          position: "absolute",
+          top: "10%",
+          left: "5%",
+          width: "280px",
+          height: "280px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255, 204, 0, 0.15) 0%, rgba(255, 204, 0, 0) 70%)",
+          filter: "blur(60px)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+      <div
+        className="modish-hero-blob-2"
+        style={{
+          position: "absolute",
+          bottom: "15%",
+          right: "5%",
+          width: "320px",
+          height: "320px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255, 204, 0, 0.12) 0%, rgba(255, 204, 0, 0) 75%)",
+          filter: "blur(70px)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+
       <div
         className="modish-container"
         style={{
@@ -148,6 +180,8 @@ export function HeroBanner() {
           flexDirection: "column",
           gap: "var(--modish-space-6)",
           justifyContent: "center",
+          position: "relative",
+          zIndex: 2,
         }}
       >
         <div className="modish-hero-grid">
@@ -186,7 +220,28 @@ export function HeroBanner() {
             >
               {slide.headline.map((line, i) => (
                 <span key={i} style={{ display: "block" }}>
-                  {i === 0 ? <span style={{ color: slide.accentColor }}>{line}</span> : line}
+                  {i === 0 ? (
+                    <span style={{ 
+                      position: "relative", 
+                      display: "inline-block",
+                      zIndex: 1, 
+                    }}>
+                      <span style={{
+                        position: "absolute",
+                        left: "-4px",
+                        right: "-4px",
+                        bottom: "8%",
+                        height: "26%",
+                        background: slide.bg === "var(--modish-yellow)" ? "var(--modish-white)" : "var(--modish-yellow)",
+                        zIndex: -1,
+                        borderRadius: "2px",
+                        opacity: 0.95,
+                      }} />
+                      <span style={{ color: "var(--modish-black)", position: "relative" }}>
+                        {line}
+                      </span>
+                    </span>
+                  ) : line}
                 </span>
               ))}
             </h1>
@@ -310,24 +365,31 @@ export function HeroBanner() {
                   display: "flex",
                   alignItems: "center",
                   gap: "10px",
-                  background: slide.textColor === "var(--modish-white)" ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.04)",
-                  border: slide.textColor === "var(--modish-white)" ? "1px solid rgba(255,255,255,0.12)" : "1px solid rgba(0,0,0,0.08)",
+                  background: "rgba(255, 255, 255, 0.45)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  border: "1px solid rgba(255, 255, 255, 0.55)",
                   borderRadius: "var(--modish-radius-md)",
                   padding: "6px 14px 6px 6px",
                   textDecoration: "none",
                   cursor: "pointer",
                   flexShrink: 0,
-                  transition: "all 0.2s ease",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.02)",
                 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.background = slide.textColor === "var(--modish-white)" ? "rgba(255,255,255,0.18)" : "rgba(0,0,0,0.08)";
-                  el.style.transform = "translateY(-2px)";
+                  el.style.background = "rgba(255, 255, 255, 0.8)";
+                  el.style.border = "1px solid var(--modish-yellow)";
+                  el.style.transform = "translateY(-3px)";
+                  el.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.06)";
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.background = slide.textColor === "var(--modish-white)" ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.04)";
+                  el.style.background = "rgba(255, 255, 255, 0.45)";
+                  el.style.border = "1px solid rgba(255, 255, 255, 0.55)";
                   el.style.transform = "translateY(0)";
+                  el.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.02)";
                 }}
               >
                 <img

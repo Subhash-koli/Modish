@@ -376,7 +376,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 16px var(--modish-space-6);
   font-size: 16px;
 }
-@media (min-width: 480px) {
+@media (min-width: 640px) {
   .modish-wa-cta-btn {
     width: auto;
     padding: 20px 48px;
@@ -384,34 +384,35 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Hero CTA row — stack on very small screens */
+/* Hero CTA row — stack and make full width on mobile screens (<640px) */
 .modish-hero-ctas {
   display: flex;
   flex-wrap: wrap;
   gap: var(--modish-space-3);
 }
-@media (max-width: 400px) {
+@media (max-width: 639px) {
   .modish-hero-ctas {
     flex-direction: column;
+    width: 100%;
   }
   .modish-hero-ctas > * {
-    width: 100%;
+    width: 100% !important;
     justify-content: center;
   }
 }
-@media (min-width: 401px) {
+@media (min-width: 640px) {
   .modish-hero-ctas {
     gap: var(--modish-space-4);
   }
 }
 
-/* About values 2-col — collapse to 1 col on small phones */
+/* About values 2-col — collapse to 1 col on mobile */
 .modish-values-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--modish-space-3);
 }
-@media (min-width: 480px) {
+@media (min-width: 640px) {
   .modish-values-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -421,7 +422,7 @@ h1, h2, h3, h4, h5, h6 {
 .modish-modal-outer {
   align-items: flex-start;
 }
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .modish-modal-outer {
     align-items: center;
   }
@@ -429,24 +430,23 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Responsive Show/Hide Utilities ───────────────────────────────
    Use these instead of Tailwind's hidden/flex combos to avoid
-   conflicts with inline display styles (inline styles always win
-   over class-based display) ───────────────────────────────────── */
+   conflicts with inline display styles ─────────────────────────── */
 
-/* Desktop only: visible on md+ (≥768px), hidden on mobile */
+/* Desktop only: visible on desktop (≥1024px), hidden on tablet & mobile */
 .modish-desktop-only {
   display: none !important;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .modish-desktop-only {
     display: flex !important;
   }
 }
 
-/* Mobile only: visible on mobile (<768px), hidden on desktop */
+/* Mobile/Tablet only: visible on screens under desktop (<1024px) */
 .modish-mobile-only {
   display: flex;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .modish-mobile-only {
     display: none !important;
   }
@@ -474,3 +474,27 @@ h1, h2, h3, h4, h5, h6 {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Floating animation for hero backdrop blobs */
+@keyframes float-slow {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes float-reverse-slow {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(-40px, 40px) scale(0.9); }
+  66% { transform: translate(20px, -30px) scale(1.15); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.modish-hero-blob-1 {
+  animation: float-slow 20s ease-in-out infinite;
+}
+
+.modish-hero-blob-2 {
+  animation: float-reverse-slow 25s ease-in-out infinite;
+}
+
