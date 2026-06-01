@@ -17,13 +17,13 @@ export function AboutSection() {
           gridTemplateColumns: "1fr",
           gap: "var(--modish-space-12)",
           alignItems: "center",
-        }} className="md:grid-cols-2">
+        }} className="modish-about-grid">
           {/* Left: Text Content */}
           <div>
             <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
               OUR STORY
             </p>
-            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(28px, 3.5vw, 48px)", color: "var(--modish-black)", margin: "0 0 var(--modish-space-5) 0", lineHeight: 1.1 }}>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(22px, 3vw, 32px)", color: "var(--modish-black)", margin: "0 0 var(--modish-space-5) 0", lineHeight: 1.1 }}>
               Made in Mumbai.<br />Worn Across India.
             </h2>
             <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "16px", color: "var(--modish-grey-700)", lineHeight: 1.7, margin: "0 0 var(--modish-space-8) 0" }}>

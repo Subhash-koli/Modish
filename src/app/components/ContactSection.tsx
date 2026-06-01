@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { MessageCircle, Instagram, Mail, MapPin } from "lucide-react";
 
 const contacts = [
@@ -47,7 +48,7 @@ export function ContactSection() {
           <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
             GET IN TOUCH
           </p>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", color: "var(--modish-black)", margin: "0 0 12px 0", lineHeight: 1.1 }}>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(24px, 3.2vw, 36px)", color: "var(--modish-black)", margin: "0 0 12px 0", lineHeight: 1.1 }}>
             Let's Talk Merch
           </h2>
           <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "17px", color: "var(--modish-grey-500)", maxWidth: "500px", margin: "0 auto" }}>
@@ -55,10 +56,7 @@ export function ContactSection() {
           </p>
         </div>
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-          gap: "var(--modish-space-5)",
+        <div className="modish-contact-grid" style={{
           maxWidth: "1080px",
           margin: "0 auto",
         }}>
@@ -72,6 +70,8 @@ export function ContactSection() {
 }
 
 function ContactCard({ contact }: { contact: typeof contacts[0] }) {
+  const [hovered, setHovered] = useState(false);
+  
   const inner = (
     <div style={{
       background: "var(--modish-white)",
@@ -80,39 +80,75 @@ function ContactCard({ contact }: { contact: typeof contacts[0] }) {
       border: "1px solid var(--modish-grey-200)",
       display: "flex",
       flexDirection: "column",
-      gap: "var(--modish-space-3)",
+      gap: "var(--modish-space-4)",
       height: "100%",
       boxSizing: "border-box",
-      transition: "border-color 0.25s ease, box-shadow 0.25s ease",
-      boxShadow: "var(--modish-shadow-sm)",
+      transition: "all 0.3s cubic-bezier(0.4,0,0.2,1)",
+      boxShadow: hovered ? "var(--modish-shadow-lg)" : "var(--modish-shadow-sm)",
+      transform: hovered ? "translateY(-4px)" : "translateY(0)",
+      position: "relative",
+      overflow: "hidden",
     }}
-    onMouseEnter={e => {
-      const el = e.currentTarget as HTMLDivElement;
-      el.style.borderColor = contact.accent === "var(--modish-whatsapp)" ? "var(--modish-whatsapp)" : "var(--modish-yellow)";
-      el.style.boxShadow = "var(--modish-shadow-md)";
-    }}
-    onMouseLeave={e => {
-      const el = e.currentTarget as HTMLDivElement;
-      el.style.borderColor = "var(--modish-grey-200)";
-      el.style.boxShadow = "var(--modish-shadow-sm)";
-    }}
+    onMouseEnter={() => setHovered(true)}
+    onMouseLeave={() => setHovered(false)}
     >
-      <div style={{ color: contact.accent, marginBottom: "var(--modish-space-1)" }}>
+      {/* Top accent bar */}
+      <div style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: "3px",
+        background: contact.accent,
+      }} />
+      
+      {/* Icon container with background */}
+      <div style={{ 
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "56px",
+        height: "56px",
+        borderRadius: "var(--modish-radius-lg)",
+        background: contact.accent === "var(--modish-whatsapp)" ? "rgba(37, 211, 102, 0.08)" : "rgba(244, 205, 0, 0.08)",
+        color: contact.accent,
+      }}>
         {contact.icon}
       </div>
-      <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: 0 }}>
+      
+      {/* Label */}
+      <p style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: 0 }}>
         {contact.label}
       </p>
-      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "17px", color: "var(--modish-black)", margin: 0, wordBreak: "break-all" }}>
+      
+      {/* Value */}
+      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "18px", color: "var(--modish-black)", margin: 0, wordBreak: "break-all", lineHeight: 1.3 }}>
         {contact.value}
       </p>
-      <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "13px", color: "var(--modish-grey-500)", margin: 0, lineHeight: 1.5 }}>
+      
+      {/* Sub text */}
+      <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "13px", color: "var(--modish-grey-500)", margin: 0, lineHeight: 1.6 }}>
         {contact.sub}
       </p>
+      
+      {/* CTA link */}
       {contact.cta && (
-        <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "13px", color: contact.accent, margin: "var(--modish-space-2) 0 0 0" }}>
-          {contact.cta}
-        </p>
+        <div style={{ marginTop: "auto", paddingTop: "var(--modish-space-3)" }}>
+          <p style={{ 
+            fontFamily: "var(--font-heading)", 
+            fontWeight: 700, 
+            fontSize: "13px", 
+            color: contact.accent, 
+            margin: 0,
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
+            cursor: "pointer"
+          }}>
+            {contact.cta}
+            <span style={{ fontSize: "10px" }}>→</span>
+          </p>
+        </div>
       )}
     </div>
   );

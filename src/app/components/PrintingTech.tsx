@@ -45,10 +45,10 @@ export function PrintingTech() {
           <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
             PRINTING TECHNOLOGIES
           </p>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", color: "var(--modish-black)", margin: "0 0 12px 0", lineHeight: 1.1 }}>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(20px, 3vw, 30px)", color: "var(--modish-black)", margin: "0 0 12px 0", lineHeight: 1.1 }}>
             Four Ways We Print
           </h2>
-          <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "17px", color: "var(--modish-grey-500)", maxWidth: "560px", margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "15px", color: "var(--modish-grey-500)", maxWidth: "560px", margin: "0 auto" }}>
             We choose the right method based on your design, quantity, and fabric — not what's easiest for us.
           </p>
         </div>
@@ -63,9 +63,19 @@ export function PrintingTech() {
           />
         </div>
 
-        <div className="modish-printing-grid">
+        {/* Swipe hint — mobile only */}
+        <div className="modish-swipe-hint">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+          Swipe to explore all methods
+        </div>
+
+        <div className="modish-printing-carousel">
           {technologies.map((tech, i) => (
-            <TechCard key={i} tech={tech} delay={i * 80} />
+            <div key={i} className="modish-printing-carousel-card">
+              <TechCard tech={tech} delay={i * 80} />
+            </div>
           ))}
         </div>
       </div>

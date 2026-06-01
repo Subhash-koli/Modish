@@ -16,7 +16,7 @@ export function WhatsAppCTA() {
         <h2 style={{
           fontFamily: "var(--font-heading)",
           fontWeight: 800,
-          fontSize: "clamp(30px, 7vw, 64px)",
+          fontSize: "clamp(24px, 4vw, 36px)",
           color: "var(--modish-black)",
           margin: "0 0 var(--modish-space-4) 0",
           lineHeight: 1.0,

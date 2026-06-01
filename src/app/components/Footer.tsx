@@ -26,12 +26,12 @@ const products = [
 const linkStyle = {
   fontFamily: "var(--font-body)",
   fontWeight: 400,
-  fontSize: "14px",
+  fontSize: "13px",
   color: "var(--modish-grey-400)",
   textDecoration: "none",
   transition: "color 0.2s ease",
   display: "block",
-  lineHeight: 1,
+  lineHeight: 1.6,
 };
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -61,7 +61,7 @@ export function Footer() {
               alt="Modish"
               style={{ height: "36px", width: "auto", objectFit: "contain", objectPosition: "left" }}
             />
-            <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "14px", color: "var(--modish-grey-500)", lineHeight: 1.7, margin: 0, maxWidth: "260px" }}>
+            <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "13px", color: "var(--modish-grey-500)", lineHeight: 1.75, margin: 0, maxWidth: "240px" }}>
               Mumbai's trusted custom merchandise brand. Premium quality prints for brands, colleges, events, and startups — delivered pan India.
             </p>
             {/* Social Icons */}
@@ -189,10 +189,10 @@ export function Footer() {
           flexWrap: "wrap",
           gap: "var(--modish-space-3)",
         }}>
-          <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "13px", color: "var(--modish-grey-500)", margin: 0 }}>
+          <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "12px", color: "var(--modish-grey-500)", lineHeight: 1.6, margin: 0 }}>
             © 2025 Modish. All rights reserved.
           </p>
-          <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "13px", color: "var(--modish-grey-500)", margin: 0 }}>
+          <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "12px", color: "var(--modish-grey-500)", lineHeight: 1.6, margin: 0 }}>
             Made in Mumbai
           </p>
         </div>

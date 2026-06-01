@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { MessageCircle, Eye } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Eye } from "lucide-react";
 import { ProductModal, Product } from "./ProductModal";
 
 // Batch 1 imports (images 3–11)
@@ -133,8 +133,8 @@ function ColorSwatch({ color, name }: { color: string; name: string }) {
     <div
       title={name}
       style={{
-        width: "18px",
-        height: "18px",
+        width: "clamp(14px, 2.5vw, 18px)",
+        height: "clamp(14px, 2.5vw, 18px)",
         borderRadius: "50%",
         background: color,
         border: color === "#FFFFFF" || color === "#F5F5DC" ? "1.5px solid var(--modish-grey-200)" : "2px solid var(--modish-white)",
@@ -150,13 +150,13 @@ function SpecChip({ label }: { label: string }) {
   return (
     <span style={{
       display: "inline-block",
-      padding: "4px 10px",
+      padding: "clamp(2px, 0.8vw, 4px) clamp(5px, 1.5vw, 10px)",
       borderRadius: "var(--modish-radius-full)",
       background: "var(--modish-grey-100)",
       border: "1px solid var(--modish-grey-200)",
       fontFamily: "var(--font-body)",
       fontWeight: 500,
-      fontSize: "11px",
+      fontSize: "clamp(8px, 1.8vw, 11px)",
       color: "var(--modish-grey-700)",
     }}>
       {label}
@@ -166,6 +166,13 @@ function SpecChip({ label }: { label: string }) {
 
 function ProductCard({ product, onViewDetails }: { product: Product; onViewDetails: (p: Product) => void }) {
   const [hovered, setHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
   const waMsg = `Hi Modish! I'm interested in your ${product.name}. Can you share pricing?`;
   const waUrl = `${WA_BASE}?text=${encodeURIComponent(waMsg)}`;
 
@@ -182,33 +189,37 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
         display: "flex",
         flexDirection: "column",
         position: "relative",
+        minHeight: "360px",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Badge */}
-      {product.badge && (
-        <div style={{
-          position: "absolute",
-          top: "12px",
-          left: "12px",
-          background: "var(--modish-yellow)",
-          color: "var(--modish-black)",
-          fontFamily: "var(--font-body)",
-          fontWeight: 700,
-          fontSize: "11px",
-          padding: "3px 10px",
-          borderRadius: "var(--modish-radius-full)",
-          zIndex: 1,
-          letterSpacing: "0.04em",
-        }}>
-          {product.badge}
-        </div>
-      )}
+      {/* Badge Area — Reserved Space */}
+      <div style={{
+        position: "absolute",
+        top: "12px",
+        left: "12px",
+        zIndex: 1,
+        height: "24px",
+      }}>
+        {product.badge && (
+          <div style={{
+            background: "var(--modish-yellow)",
+            color: "var(--modish-black)",
+            fontFamily: "var(--font-body)",
+            fontWeight: 700,
+            fontSize: "11px",
+            padding: "3px 10px",
+            borderRadius: "var(--modish-radius-full)",
+            letterSpacing: "0.04em",
+          }}>
+            {product.badge}
+          </div>
+        )}
+      </div>
 
       {/* Product Image — real catalog photo */}
-      <div style={{
-        aspectRatio: "3/2",
+      <div className="modish-product-image" style={{
         overflow: "hidden",
         background: "var(--modish-grey-50)",
         position: "relative",
@@ -230,49 +241,54 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
       </div>
 
       {/* Content */}
-      <div style={{ padding: "var(--modish-space-5)", flex: 1, display: "flex", flexDirection: "column", gap: "var(--modish-space-3)" }}>
-        <div>
-          <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "18px", color: "var(--modish-black)", margin: "0 0 4px 0" }}>
+      <div style={{ padding: "clamp(5px, 1.2vw, 12px)", flex: 1, display: "flex", flexDirection: "column", gap: "clamp(2px, 0.3vw, 6px)" }}>
+        <div style={{ maxHeight: "clamp(35px, 7vw, 48px)", overflow: "hidden" }}>
+          <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(12px, 2.8vw, 16px)", color: "var(--modish-black)", margin: "0 0 1px 0", lineHeight: 1.2 }}>
             {product.name}
           </h3>
-          <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "13px", color: "var(--modish-grey-500)", margin: 0 }}>
+          <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "clamp(9px, 1.8vw, 12px)", color: "var(--modish-grey-500)", margin: 0, lineHeight: 1.2 }}>
             {product.descriptor}
           </p>
         </div>
 
-        {/* Spec Chips */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--modish-space-2)" }}>
-          {product.specs.slice(0, 3).map(spec => (
+        {/* Description */}
+        <p style={{ margin: 0, color: "var(--modish-grey-700)", fontSize: "8px", lineHeight: 1.2, display: "-webkit-box", WebkitLineClamp: 3 as any, WebkitBoxOrient: "vertical" as any, overflow: "hidden" }}>
+          {product.description}
+        </p>
+
+        {/* Spec Chips — Fixed Height */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(3px, 0.5vw, 8px)", minHeight: "26px", alignContent: "flex-start" }}>
+          {product.specs.slice(0, 2).map(spec => (
             <SpecChip key={spec} label={spec} />
           ))}
         </div>
 
-        {/* Color Swatches */}
-        <div style={{ display: "flex", gap: "var(--modish-space-2)", flexWrap: "wrap" }}>
-          {product.colors.slice(0, 6).map((c, i) => (
+        {/* Color Swatches — Fixed Height */}
+        <div style={{ display: "flex", gap: "clamp(4px, 1vw, 8px)", flexWrap: "wrap", minHeight: "22px", alignContent: "flex-start" }}>
+          {product.colors.slice(0, 4).map((c, i) => (
             <ColorSwatch key={i} color={c} name={product.colorNames[i]} />
           ))}
-          {product.colors.length > 6 && (
+          {product.colors.length > 4 && (
             <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "var(--modish-grey-500)", alignSelf: "center" }}>
-              +{product.colors.length - 6}
+              +{product.colors.length - 4}
             </span>
           )}
         </div>
 
         {/* CTA Buttons */}
-        <div style={{ display: "flex", gap: "var(--modish-space-2)", marginTop: "auto" }}>
+        <div style={{ display: "flex", gap: "8px", marginTop: "auto", flexWrap: "wrap" }}>
           <button
             onClick={() => onViewDetails(product)}
             style={{
-              flex: 1,
+              flex: "1 1 calc(50% - 6px)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "var(--modish-space-1)",
+              gap: "6px",
               fontFamily: "var(--font-heading)",
               fontWeight: 700,
-              fontSize: "13px",
-              padding: "10px 12px",
+              fontSize: isMobile ? "11px" : "13px",
+              padding: isMobile ? "6px 8px" : "8px 12px",
               border: "1.5px solid var(--modish-black)",
               borderRadius: "var(--modish-radius-sm)",
               background: "transparent",
@@ -283,23 +299,23 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
             onMouseEnter={e => { const b = e.currentTarget; b.style.background = "var(--modish-black)"; b.style.color = "var(--modish-yellow)"; }}
             onMouseLeave={e => { const b = e.currentTarget; b.style.background = "transparent"; b.style.color = "var(--modish-black)"; }}
           >
-            <Eye size={14} />
-            View Details
+            <Eye size={isMobile ? 12 : 14} />
+            <span className="modish-button-text">View</span>
           </button>
           <a
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              flex: 1,
+              flex: "1 1 calc(50% - 6px)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "var(--modish-space-1)",
+              gap: "8px",
               fontFamily: "var(--font-heading)",
               fontWeight: 700,
-              fontSize: "13px",
-              padding: "10px 12px",
+              fontSize: isMobile ? "12px" : "14px",
+              padding: isMobile ? "7px 10px" : "9px 14px",
               borderRadius: "var(--modish-radius-sm)",
               background: "var(--modish-whatsapp)",
               color: "var(--modish-white)",
@@ -309,8 +325,12 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
             onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--modish-whatsapp-dark)"; }}
             onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--modish-whatsapp)"; }}
           >
-            <MessageCircle size={14} />
-            WhatsApp
+            {/* Inline WhatsApp icon */}
+            <svg width={isMobile ? 16 : 18} height={isMobile ? 16 : 18} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <path d="M20.52 3.48A11.88 11.88 0 0 0 12 0C5.373 0 .01 5.364.01 12c0 2.115.56 4.078 1.53 5.8L0 24l6.42-1.67A11.92 11.92 0 0 0 12 24c6.627 0 12-5.373 12-12 0-3.2-1.25-6.2-3.48-8.52z" fill="var(--modish-whatsapp)" />
+              <path d="M17.5 14.2c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.1l-.5.5c-.1.1-.4.2-.8.1-.8-.1-2.5-1.5-3.3-3.1-.2-.4.2-.8.4-1l.5-.5c.3-.3.3-.5.1-.8-.1-.2-1-2.4-1.4-3.3-.2-.5-.7-.6-1-.6-.4 0-.8.1-1.2.2-.3.1-.8.3-1.2.6-.4.3-.9.8-1.1 1.3-.2.6-.1 1.2.6 2.6.8 1.6 4 6.6 8.4 8.7 3 .95 3.9.4 4.6.3.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.5-.1-.3-1.2-1-1.5-1.1z" fill="#fff" />
+            </svg>
+            <span className="modish-button-text">WhatsApp</span>
           </a>
         </div>
       </div>
@@ -324,10 +344,10 @@ function SectionHeading({ eyebrow, title, subtitle }: { eyebrow: string; title: 
       <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
         {eyebrow}
       </p>
-      <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", color: "var(--modish-black)", margin: "0 0 12px 0", lineHeight: 1.1 }}>
+      <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(20px, 3vw, 30px)", color: "var(--modish-black)", margin: "0 0 12px 0", lineHeight: 1.1 }}>
         {title}
       </h2>
-      <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "17px", color: "var(--modish-grey-500)", maxWidth: "600px", margin: "0 auto" }}>
+      <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "15px", color: "var(--modish-grey-500)", maxWidth: "600px", margin: "0 auto" }}>
         {subtitle}
       </p>
     </div>

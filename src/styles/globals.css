@@ -45,6 +45,7 @@
   --modish-container-pad-desktop: 48px;
   --modish-header-height: 70px;
   --modish-section-py: 80px;
+  --modish-section-py-sm: 40px;
 
   /* Border Radius */
   --modish-radius-sm: 8px;
@@ -72,6 +73,8 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  background-color: var(--modish-black);
+  font-size: 16px;
 }
 body {
   font-family: var(--font-body);
@@ -79,6 +82,9 @@ body {
   color: var(--modish-black);
   overflow-x: hidden;
   max-width: 100vw;
+  /* Better mobile rendering */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* ─── RESPONSIVE IMAGES (Global Default) ───────────────────────── */
@@ -89,6 +95,134 @@ img, video, svg {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  font-weight: 500;
+  margin: 0;
+  color: var(--modish-black);
+}
+
+/* H1 — Page/Hero Title */
+h1 {
+  font-size: clamp(32px, 5vw, 58px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+/* H2 — Section Heading */
+h2 {
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0em;
+  margin-bottom: 10px;
+}
+
+/* H3 — Subsection Heading */
+h3 {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.002em;
+  margin-bottom: 6px;
+}
+
+/* H4 — Card/Feature Heading */
+h4 {
+  font-size: clamp(16px, 2.2vw, 22px);
+  font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+
+/* H5 — Small Heading */
+h5 {
+  font-size: clamp(3px, 0.7vw, 4px);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+/* H6 — Smallest Heading */
+h6 {
+  font-size: clamp(2px, 0.6vw, 3px);
+  font-weight: 500;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+/* Eyebrow Label — Above headings */
+.modish-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--modish-grey-500);
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Body Text — Default (applies site-wide)
+   Applied subtle background/padding to all paragraphs as requested */
+p {
+  font-family: var(--font-body);
+  font-weight: 400;
+  /* Reduced more to keep all paragraphs very small */
+  font-size: clamp(4px, 0.35vw, 5px);
+  line-height: 1.4;
+  color: var(--modish-grey-700);
+  margin: 8px 0;
+  background: var(--modish-grey-50);
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--modish-grey-200);
+}
+
+/* Eyebrow contrast improvement */
+.modish-eyebrow {
+  color: var(--modish-grey-700);
+}
+
+/* Paragraph background utility for clearer content blocks */
+.modish-paragraph {
+  background: var(--modish-grey-50);
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--modish-grey-200);
+  margin: 8px 0;
+}
+
+/* Accent paragraph option (use sparingly) */
+.modish-paragraph--accent {
+  background: var(--modish-yellow-light);
+  border: 1px solid var(--modish-yellow-dark);
+}
+
+/* Stronger contrast for headings */
+h1, h2, h3, h4 { color: var(--modish-black); }
+
+/* Mobile-specific reductions: extremely small text on compact screens */
+@media (max-width: 640px) {
+  h1 {
+    font-size: clamp(3px, 2vw, 4px);
+    line-height: 1.05;
+  }
+  h2 {
+    font-size: clamp(2px, 1.6vw, 3px);
+    line-height: 1.05;
+  }
+  h3 {
+    font-size: clamp(2px, 1.2vw, 3px);
+    line-height: 1.05;
+  }
+  p {
+    font-size: clamp(2px, 1.0vw, 3px);
+    line-height: 1.2;
+  }
+  .modish-paragraph { padding: 5px; border-radius: 5px; }
 }
 
 /* Focus ring - branded */
@@ -155,8 +289,8 @@ h1, h2, h3, h4, h5, h6 {
   max-width: var(--modish-container-max);
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--modish-container-pad-mobile);
-  padding-right: var(--modish-container-pad-mobile);
+  padding-left: clamp(6px, 2.5vw, 48px);
+  padding-right: clamp(6px, 2.5vw, 48px);
   box-sizing: border-box;
   width: 100%;
 }
@@ -169,13 +303,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─── Section Padding ──────────────────────────────────────────── */
-.modish-section {
+.modish-section,
+#wa-cta {
   padding-top: var(--modish-space-10);
   padding-bottom: var(--modish-space-10);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: var(--modish-radius-3xl);
 }
 
 @media (min-width: 768px) {
-  .modish-section {
+  .modish-section,
+  #wa-cta {
     padding-top: var(--modish-space-20);
     padding-bottom: var(--modish-space-20);
   }
@@ -210,13 +348,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─── Product Grid ─────────────────────────────────────────────── */
-/* Safe minmax that never overflows on small phones */
+/* Mobile: 2 cards per row; Tablet 640px+: 2 per row; Desktop 1024px+: 3 per row */
 .modish-product-grid {
   display: grid !important;
-  grid-template-columns: 1fr !important;
-  gap: var(--modish-space-6);
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: clamp(6px, 1vw, 16px);
+  padding: 0 8px;
+  box-sizing: border-box;
 }
-@media (min-width: 480px) {
+.modish-product-grid > * {
+  min-width: 0;
+}
+
+@media (max-width: 360px) {
+  .modish-product-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (min-width: 640px) {
   .modish-product-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
@@ -224,6 +374,19 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 1024px) {
   .modish-product-grid {
     grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* Very small screens: single column to avoid overflow */
+/* keep responsive auto-fit behavior for small screens to show multiple columns when space allows */
+
+/* Product Card Image — tall on mobile (show full clothing), short on desktop (just neck) */
+.modish-product-image {
+  aspect-ratio: 3 / 4;
+}
+@media (min-width: 640px) {
+  .modish-product-image {
+    aspect-ratio: 5 / 3;
   }
 }
 
@@ -335,6 +498,54 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: repeat(3, 1fr) !important;
   }
 }
+
+/* ─── Why Choose — Vertical Feature Block Rows ──────────────────── */
+/* Full-width stacked rows with icon left, text right */
+.modish-why-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.modish-why-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--modish-space-5);
+  padding: var(--modish-space-6) 0;
+  border-bottom: 1px solid var(--modish-grey-200);
+}
+.modish-why-row:first-child {
+  border-top: 1px solid var(--modish-grey-200);
+}
+.modish-why-icon-box {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: var(--modish-radius-md);
+  background: var(--modish-yellow);
+  color: var(--modish-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.modish-why-content {
+  flex: 1;
+  min-width: 0;
+}
+/* On desktop: 2-column grid for the rows */
+@media (min-width: 768px) {
+  .modish-why-stack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    column-gap: var(--modish-space-12);
+  }
+  .modish-why-row:nth-child(odd):last-child {
+    grid-column: 1 / -1;
+    max-width: 50%;
+  }
+}
+
 
 /* ─── Diaries Grid ─────────────────────────────────────────────── */
 .modish-diary-grid {
@@ -452,7 +663,261 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Responsive Grid for Hero Section */
+/* Product Button Text — hide on mobile, show on desktop */
+.modish-button-text {
+  display: none;
+}
+@media (min-width: 640px) {
+  .modish-button-text {
+    display: inline;
+  }
+}
+
+/* ─── Hero Section — Full Viewport Mobile ───────────────────────── */
+/* Mobile: min 100svh minus header; desktop: min 90vh */
+.modish-hero-section {
+  min-height: calc(100svh - var(--modish-header-height));
+  padding-top: var(--modish-space-6);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: var(--modish-radius-3xl);
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .modish-hero-section {
+    min-height: calc(90vh - var(--modish-header-height));
+    padding-top: var(--modish-space-10);
+    padding-bottom: var(--modish-space-16);
+  }
+}
+
+/* Two-column layout: stack on mobile, side-by-side on desktop */
+.modish-hero-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--modish-space-4);
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .modish-hero-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--modish-space-10);
+  }
+}
+
+/* Text column */
+.modish-hero-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--modish-space-4);
+}
+@media (min-width: 768px) {
+  .modish-hero-text-col {
+    gap: var(--modish-space-6);
+  }
+}
+
+/* Image column — desktop only (defined inline) */
+.modish-hero-img-col {
+  display: flex;
+}
+
+/* Mobile image: below text, full-width */
+.modish-hero-mobile-img {
+  margin-top: var(--modish-space-5);
+  border-radius: var(--modish-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--modish-shadow-lg);
+}
+
+.modish-hero-img-col img,
+.modish-hero-mobile-img img {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+/* Eyebrow label */
+.modish-hero-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+}
+@media (min-width: 768px) {
+  .modish-hero-eyebrow {
+    font-size: 11px;
+  }
+}
+
+/* Headline — compact on mobile, mild reduce on desktop */
+.modish-hero-headline {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  line-height: 1.05;
+  font-size: clamp(24px, 7vw, 32px);
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .modish-hero-headline {
+    font-size: clamp(32px, 4.5vw, 46px);
+  }
+}
+
+/* Subtext */
+.modish-hero-subtext {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 420px;
+  margin: 0;
+  opacity: 0.8;
+}
+@media (min-width: 768px) {
+  .modish-hero-subtext {
+    font-size: 15px;
+  }
+}
+
+/* CTA row — 2 buttons per row on all screen sizes */
+.modish-hero-ctas-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(6px, 1.5vw, 10px);
+  width: auto;
+  max-width: 340px;
+}
+.modish-hero-ctas-row > * {
+  width: 100% !important;
+  justify-content: center;
+}
+@media (min-width: 480px) {
+  .modish-hero-ctas-row {
+    gap: var(--modish-space-3);
+  }
+  .modish-hero-ctas-row > * {
+    width: 100% !important;
+  }
+}
+
+/* Trust badges row */
+.modish-hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--modish-space-4);
+  margin-top: var(--modish-space-2);
+}
+.modish-hero-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* Browse strip */
+.modish-hero-browse {
+  margin-top: var(--modish-space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--modish-space-3);
+}
+.modish-hero-browse-label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.modish-mobile-range-tabs {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  max-width: min(190px, calc(100vw - 90px));
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scroll-behavior: smooth;
+}
+
+.modish-mobile-range-tab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--modish-black);
+  border-radius: 9999px;
+  padding: 3px 6px;
+  min-width: 72px;
+  max-width: 96px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.modish-mobile-range-tab img {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.modish-mobile-range-tab span {
+  display: inline-block;
+  line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modish-mobile-range-tab:hover,
+.modish-mobile-range-tab:focus-visible {
+  transform: translateY(-1px);
+  background: var(--modish-yellow);
+  color: var(--modish-black);
+}
+
+.modish-mobile-range-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--modish-black);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modish-mobile-range-arrow:hover,
+.modish-mobile-range-arrow:focus-visible {
+  transform: translateX(2px);
+  background: var(--modish-yellow);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 1023px) {
+  .modish-mobile-range-tabs {
+    display: flex;
+  }
+}
+
+section#products {
+  scroll-margin-top: calc(var(--modish-header-height) + 130px);
+}
+
+/* Responsive Grid for Hero Section — KEEP for backward compat */
 .modish-hero-grid {
   display: grid !important;
   grid-template-columns: 1fr !important;
@@ -463,6 +928,31 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 768px) {
   .modish-hero-grid {
     grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* Slide Dots Navigation — Left-aligned on Mobile, Bottom Center on Desktop */
+.modish-slide-dots {
+  position: absolute !important;
+  top: 16px !important;
+  left: 16px !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: 10px !important;
+  max-width: calc(100vw - 32px) !important;
+}
+@media (min-width: 768px) {
+  .modish-slide-dots {
+    top: auto !important;
+    right: auto !important;
+    left: 50% !important;
+    bottom: 24px !important;
+    transform: translateX(-50%) !important;
+    justify-content: center !important;
+    max-width: none !important;
   }
 }
 
@@ -496,5 +986,129 @@ h1, h2, h3, h4, h5, h6 {
 
 .modish-hero-blob-2 {
   animation: float-reverse-slow 25s ease-in-out infinite;
+}
+
+/* ─── About Section Grid ────────────────────────────────────────── */
+/* 1-col mobile → 2-col desktop (replaces broken md:grid-cols-2) */
+.modish-about-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: var(--modish-space-12);
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .modish-about-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* ─── Contact Cards Grid ────────────────────────────────────────── */
+/* 1-col mobile → 2-col tablet → 4-col desktop */
+/* avoids the unsafe auto-fill minmax(240px) which can overflow on small screens */
+.modish-contact-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: var(--modish-space-5);
+}
+@media (min-width: 480px) {
+  .modish-contact-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (min-width: 1024px) {
+  .modish-contact-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   MOBILE UX — Clean additions only (no conflicts with base styles)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── Printing Tech — Responsive Grid across all viewports ───── */
+.modish-printing-carousel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--modish-space-4);
+  overflow-x: visible;
+  margin: 0;
+  padding: 0;
+}
+.modish-printing-carousel-card {
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: var(--modish-radius-xl);
+  overflow: hidden;
+  background: var(--modish-white);
+}
+@media (min-width: 640px) {
+  .modish-printing-carousel {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .modish-printing-carousel {
+    grid-template-columns: repeat(4, minmax(220px, 1fr));
+  }
+}
+
+/* Swipe hint — hidden when grid layout is used */
+.modish-swipe-hint {
+  display: none;
+}
+
+/* ─── Form Fields — 16px prevents iOS zoom-on-focus ─────────────── */
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+/* ─── FAQ section — larger text on mobile ────────────────────────── */
+@media (max-width: 767px) {
+  section#faq button span {
+    font-size: 16px !important;
+  }
+  section#faq p {
+    font-size: 15px !important;
+    line-height: 1.75;
+  }
+}
+
+/* ─── Brand Showcase — Split grid layout ────────────────────────── */
+.modish-showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--modish-space-8);
+}
+@media (min-width: 768px) {
+  .modish-showcase-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--modish-space-12);
+    align-items: center;
+  }
+}
+.modish-showcase-images { order: 2; }
+.modish-showcase-text { order: 1; }
+
+/* ─── Stats items — dividers between cells ───────────────────────── */
+.modish-stat-item {
+  border-right: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.modish-stat-item:nth-child(2n) {
+  border-right: none;
+}
+.modish-stat-item:nth-child(3),
+.modish-stat-item:nth-child(4) {
+  border-bottom: none;
+}
+@media (min-width: 640px) {
+  .modish-stat-item {
+    border-right: 1px solid rgba(0,0,0,0.1);
+    border-bottom: none;
+  }
+  .modish-stat-item:last-child {
+    border-right: none;
+  }
 }
 

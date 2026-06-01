@@ -11,52 +11,72 @@ const clients = [
   "A2Z Diagnostic",
 ];
 
-function ClientChip({ name }: { name: string }) {
-  return (
-    <span style={{
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "var(--modish-space-2)",
-      background: "var(--modish-white)",
-      border: "1px solid var(--modish-grey-200)",
-      borderRadius: "var(--modish-radius-full)",
-      padding: "8px 16px",
-      fontFamily: "var(--font-body)",
-      fontWeight: 600,
-      fontSize: "13px",
-      color: "var(--modish-black)",
-      whiteSpace: "nowrap",
-      boxShadow: "var(--modish-shadow-sm)",
-    }}>
-      <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--modish-yellow)", flexShrink: 0 }} />
-      {name}
-    </span>
-  );
-}
-
 export function TrustedClients() {
   const row1 = [...clients, ...clients];
   const row2 = [...clients.slice(4), ...clients.slice(0, 4), ...clients.slice(4), ...clients.slice(0, 4)];
 
   return (
-    <section id="clients" className="modish-section" style={{ background: "var(--modish-grey-100)" }}>
+    <section id="clients" className="modish-section" style={{ background: "var(--modish-white)" }}>
+
+      {/* Section header */}
       <div style={{ textAlign: "center", marginBottom: "var(--modish-space-10)" }} className="modish-container">
-        <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
+        <p style={{
+          fontFamily: "var(--font-body)",
+          fontWeight: 600,
+          fontSize: "12px",
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+          color: "var(--modish-grey-500)",
+          margin: "0 0 10px 0",
+        }}>
           TRUSTED BY
         </p>
-        <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(32px, 4vw, 52px)", color: "var(--modish-black)", margin: "0 0 12px 0", lineHeight: 1.1 }}>
+        <h2 style={{
+          fontFamily: "var(--font-heading)",
+          fontWeight: 800,
+          fontSize: "clamp(22px, 4vw, 32px)",
+          color: "var(--modish-black)",
+          margin: "0 0 12px 0",
+          lineHeight: 1.1,
+        }}>
           Brands That Wear Modish
         </h2>
-        <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "17px", color: "var(--modish-grey-500)", maxWidth: "500px", margin: "0 auto" }}>
+        <p style={{
+          fontFamily: "var(--font-body)",
+          fontWeight: 400,
+          fontSize: "16px",
+          color: "var(--modish-grey-500)",
+          maxWidth: "480px",
+          margin: "0 auto",
+          lineHeight: 1.65,
+        }}>
           From colleges to corporates — they all trust Modish with their brand.
         </p>
 
-        {/* Real client logos from catalog */}
-        <div className="reveal-on-scroll" style={{ marginTop: "var(--modish-space-8)", borderRadius: "var(--modish-radius-xl)", overflow: "hidden", background: "var(--modish-white)", border: "1px solid var(--modish-grey-200)", boxShadow: "var(--modish-shadow-md)" }}>
+        {/* Logo grid image — cleaner, grayscale-filtered, contained */}
+        <div
+          className="reveal-on-scroll"
+          style={{
+            marginTop: "var(--modish-space-10)",
+            borderRadius: "var(--modish-radius-xl)",
+            overflow: "hidden",
+            background: "var(--modish-grey-50)",
+            border: "1px solid var(--modish-grey-200)",
+            boxShadow: "var(--modish-shadow-sm)",
+            maxWidth: "800px",
+            margin: "var(--modish-space-10) auto 0 auto",
+          }}
+        >
           <img
             src={clientLogosImg}
-            alt="They Chose Modish — Proudly Printed for CSC, ENpower, Agam Yoga, Grain Aura, Gurukrupa, Vatika, Kid's Tutorial, A2Z Diagnostic"
-            style={{ width: "100%", height: "auto", display: "block" }}
+            alt="Clients who trust Modish — CSC, ENpower, Agam Yoga, Grain Aura, Gurukrupa, Vatika, Kid's Tutorial, A2Z Diagnostic"
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block",
+              filter: "grayscale(40%) contrast(1.05)",
+              opacity: 0.9,
+            }}
             loading="lazy"
           />
         </div>
@@ -65,15 +85,42 @@ export function TrustedClients() {
       {/* Marquee Row 1 — left to right */}
       <div
         aria-hidden="true"
-        style={{ overflow: "hidden", marginBottom: "var(--modish-space-4)" }}
+        style={{ overflow: "hidden", marginBottom: "var(--modish-space-3)" }}
       >
         <div style={{
           display: "flex",
-          gap: "var(--modish-space-4)",
-          animation: "marquee 24s linear infinite",
+          gap: "var(--modish-space-3)",
+          animation: "marquee 22s linear infinite",
           width: "max-content",
         }}>
-          {row1.map((c, i) => <ClientChip key={i} name={c} />)}
+          {row1.map((c, i) => (
+            <span
+              key={i}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                background: "var(--modish-grey-50)",
+                border: "1px solid var(--modish-grey-200)",
+                borderRadius: "var(--modish-radius-full)",
+                padding: "10px 20px",
+                fontFamily: "var(--font-body)",
+                fontWeight: 600,
+                fontSize: "14px",
+                color: "var(--modish-black)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: "var(--modish-yellow)",
+                flexShrink: 0,
+              }} />
+              {c}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -84,13 +131,41 @@ export function TrustedClients() {
       >
         <div style={{
           display: "flex",
-          gap: "var(--modish-space-4)",
+          gap: "var(--modish-space-3)",
           animation: "marquee 28s linear infinite reverse",
           width: "max-content",
         }}>
-          {row2.map((c, i) => <ClientChip key={i} name={c} />)}
+          {row2.map((c, i) => (
+            <span
+              key={i}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                background: "var(--modish-grey-100)",
+                border: "1px solid var(--modish-grey-200)",
+                borderRadius: "var(--modish-radius-full)",
+                padding: "10px 20px",
+                fontFamily: "var(--font-body)",
+                fontWeight: 600,
+                fontSize: "14px",
+                color: "var(--modish-grey-500)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: "var(--modish-grey-300)",
+                flexShrink: 0,
+              }} />
+              {c}
+            </span>
+          ))}
         </div>
       </div>
+
     </section>
   );
 }
