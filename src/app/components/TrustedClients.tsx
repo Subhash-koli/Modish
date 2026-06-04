@@ -1,4 +1,4 @@
-import clientLogosImg from "../../imports/Modish catalog/22.png";
+import clientLogosImg from "../../imports/Modish catalog/22.webp";
 
 const clients = [
   "Chandrabhan Sharma College",
@@ -20,7 +20,8 @@ export function TrustedClients() {
 
       {/* Section header */}
       <div style={{ textAlign: "center", marginBottom: "var(--modish-space-10)" }} className="modish-container">
-        <p style={{
+        <span style={{
+          display: "block",
           fontFamily: "var(--font-body)",
           fontWeight: 600,
           fontSize: "12px",
@@ -30,7 +31,7 @@ export function TrustedClients() {
           margin: "0 0 10px 0",
         }}>
           TRUSTED BY
-        </p>
+        </span>
         <h2 style={{
           fontFamily: "var(--font-heading)",
           fontWeight: 800,
@@ -69,7 +70,9 @@ export function TrustedClients() {
         >
           <img
             src={clientLogosImg}
-            alt="Clients who trust Modish — CSC, ENpower, Agam Yoga, Grain Aura, Gurukrupa, Vatika, Kid's Tutorial, A2Z Diagnostic"
+            alt="Brands that trust Modish for custom merchandise — Chandrabhan Sharma College, ENpower, Agam Yoga, Grain Aura, Gurukrupa Catering, Vatika, Kid's Tutorial, A2Z Diagnostic"
+            width={800}
+            height={400}
             style={{
               width: "100%",
               height: "auto",

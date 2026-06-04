@@ -46,7 +46,7 @@ export default function App() {
     <div style={{ fontFamily: "var(--font-body)", background: "var(--modish-white)", minHeight: "100vh" }}>
       <Header />
 
-      <main>
+      <main aria-label="Modish — Custom Merchandise and Corporate Gifting">
         <HeroBanner />
         <MarqueeTicker />
         <ProductGrid />

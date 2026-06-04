@@ -1,7 +1,7 @@
 import { ArrowRight, MessageCircle } from "lucide-react";
-import img6 from "../../imports/Modish catalog/6.png";
-import img12 from "../../imports/Modish catalog/12.png";
-import img9 from "../../imports/Modish catalog/9.png";
+import img6 from "../../imports/Modish catalog/6.webp";
+import img12 from "../../imports/Modish catalog/12.webp";
+import img9 from "../../imports/Modish catalog/9.webp";
 
 const WA_URL = "https://wa.me/919136867622?text=Hi%20Modish!%20I%20want%20to%20place%20a%20custom%20order.%20Can%20you%20help%3F";
 

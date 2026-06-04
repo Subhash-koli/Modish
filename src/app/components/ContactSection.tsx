@@ -45,9 +45,9 @@ export function ContactSection() {
     <section id="contact" className="modish-section" style={{ background: "var(--modish-grey-50)" }}>
       <div className="modish-container">
         <div style={{ textAlign: "center", marginBottom: "var(--modish-space-10)" }}>
-          <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
+          <span style={{ display: "block", fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
             GET IN TOUCH
-          </p>
+          </span>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(24px, 3.2vw, 36px)", color: "var(--modish-black)", margin: "0 0 12px 0", lineHeight: 1.1 }}>
             Let's Talk Merch
           </h2>

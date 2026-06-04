@@ -19,17 +19,17 @@ export interface Product {
 
 const WA_BASE = "https://wa.me/919136867622";
 
-function SpecChip({ label, variant = "light" }: { label: string; variant?: "light" | "yellow" }) {
+function SpecChip({ label, variant = "light", isMobile = false }: { label: string; variant?: "light" | "yellow"; isMobile?: boolean }) {
   return (
     <span style={{
       display: "inline-block",
-      padding: "4px 12px",
+      padding: isMobile ? "2px 6px" : "4px 12px",
       borderRadius: "var(--modish-radius-full)",
       background: variant === "yellow" ? "var(--modish-yellow)" : "var(--modish-grey-100)",
       border: variant === "yellow" ? "none" : "1px solid var(--modish-grey-200)",
       fontFamily: "var(--font-body)",
       fontWeight: 500,
-      fontSize: "12px",
+      fontSize: isMobile ? "10px" : "12px",
       color: variant === "yellow" ? "var(--modish-black)" : "var(--modish-grey-700)",
     }}>
       {label}
@@ -58,6 +58,14 @@ type PanelTab = "spec" | "colors" | "hero";
 export function ProductModal({ product, onClose }: { product: Product; onClose: () => void }) {
   const waMsg = `Hi Modish! I'm interested in your ${product.name}. Can you share pricing?`;
   const waUrl = `${WA_BASE}?text=${encodeURIComponent(waMsg)}`;
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   // Decide initial tab based on what images are available
   const initialTab: PanelTab = product.specImage ? "spec" : product.colorsImage ? "colors" : "hero";
@@ -228,7 +236,7 @@ export function ProductModal({ product, onClose }: { product: Product; onClose: 
           </div>
 
           {/* Right Panel — product details */}
-          <div className="modish-modal-content" style={{ flex: 1, display: "flex", flexDirection: "column", overflowY: "auto" }}>
+          <div className="modish-modal-content" style={{ flex: 1, display: "flex", flexDirection: "column", overflowY: isMobile ? "visible" : "auto" }}>
 
             {/* Header */}
             <div>
@@ -239,48 +247,48 @@ export function ProductModal({ product, onClose }: { product: Product; onClose: 
                   color: "var(--modish-black)",
                   fontFamily: "var(--font-body)",
                   fontWeight: 700,
-                  fontSize: "11px",
-                  padding: "3px 10px",
+                  fontSize: isMobile ? "9px" : "11px",
+                  padding: isMobile ? "2px 6px" : "3px 10px",
                   borderRadius: "var(--modish-radius-full)",
-                  marginBottom: "8px",
+                  marginBottom: "6px",
                   letterSpacing: "0.04em",
                 }}>
                   {product.badge}
                 </span>
               )}
-              <h2 id="modal-product-name" style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(22px, 3vw, 28px)", color: "var(--modish-black)", margin: "0 0 6px 0", lineHeight: 1.1 }}>
+              <h2 id="modal-product-name" style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: isMobile ? "16px" : "clamp(22px, 3vw, 28px)", color: "var(--modish-black)", margin: "0 0 4px 0", lineHeight: 1.1 }}>
                 {product.name}
               </h2>
-              <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "15px", color: "var(--modish-grey-500)", margin: 0 }}>
+              <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: isMobile ? "11px" : "15px", color: "var(--modish-grey-500)", margin: 0 }}>
                 {product.descriptor}
               </p>
             </div>
 
             {/* Description */}
-            <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "15px", color: "var(--modish-grey-700)", lineHeight: 1.7, margin: 0 }}>
+            <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: isMobile ? "12px" : "15px", color: "var(--modish-grey-700)", lineHeight: isMobile ? 1.4 : 1.7, margin: 0 }}>
               {product.description}
             </p>
 
             {/* Specifications */}
             <div>
-              <h4 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "13px", color: "var(--modish-black)", textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 10px 0" }}>
+              <h4 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: isMobile ? "10px" : "13px", color: "var(--modish-black)", textTransform: "uppercase", letterSpacing: "0.08em", margin: isMobile ? "0 0 4px 0" : "0 0 10px 0" }}>
                 Specifications
               </h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--modish-space-2)" }}>
-                {product.specs.map(spec => <SpecChip key={spec} label={spec} />)}
+                {product.specs.map(spec => <SpecChip key={spec} label={spec} isMobile={isMobile} />)}
               </div>
             </div>
 
             {/* Available Colors */}
             <div>
-              <h4 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "13px", color: "var(--modish-black)", textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 10px 0" }}>
+              <h4 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: isMobile ? "10px" : "13px", color: "var(--modish-black)", textTransform: "uppercase", letterSpacing: "0.08em", margin: isMobile ? "0 0 4px 0" : "0 0 10px 0" }}>
                 Available Colors
               </h4>
               <div style={{ display: "flex", gap: "var(--modish-space-2)", flexWrap: "wrap", alignItems: "center" }}>
                 {product.colors.map((c, i) => (
                   <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
                     <ColorSwatch color={c} name={product.colorNames[i]} />
-                    <span style={{ fontFamily: "var(--font-body)", fontSize: "10px", color: "var(--modish-grey-500)", whiteSpace: "nowrap" }}>
+                    <span style={{ fontFamily: "var(--font-body)", fontSize: isMobile ? "8px" : "10px", color: "var(--modish-grey-500)", whiteSpace: "nowrap" }}>
                       {product.colorNames[i]}
                     </span>
                   </div>
@@ -290,14 +298,14 @@ export function ProductModal({ product, onClose }: { product: Product; onClose: 
 
             {/* Best For */}
             <div>
-              <h4 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "13px", color: "var(--modish-black)", textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 10px 0" }}>
+              <h4 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: isMobile ? "10px" : "13px", color: "var(--modish-black)", textTransform: "uppercase", letterSpacing: "0.08em", margin: isMobile ? "0 0 4px 0" : "0 0 10px 0" }}>
                 Best For
               </h4>
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--modish-space-2)" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? "4px" : "var(--modish-space-2)" }}>
                 {product.bestFor.map(use => (
                   <div key={use} style={{ display: "flex", alignItems: "center", gap: "var(--modish-space-2)" }}>
-                    <CheckCircle size={15} style={{ color: "var(--modish-yellow)", flexShrink: 0 }} />
-                    <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "14px", color: "var(--modish-grey-700)" }}>{use}</span>
+                    <CheckCircle size={isMobile ? 12 : 15} style={{ color: "var(--modish-yellow)", flexShrink: 0 }} />
+                    <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: isMobile ? "12px" : "14px", color: "var(--modish-grey-700)" }}>{use}</span>
                   </div>
                 ))}
               </div>
@@ -305,16 +313,16 @@ export function ProductModal({ product, onClose }: { product: Product; onClose: 
 
             {/* Printing Methods */}
             <div>
-              <h4 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "13px", color: "var(--modish-black)", textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 10px 0" }}>
+              <h4 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: isMobile ? "10px" : "13px", color: "var(--modish-black)", textTransform: "uppercase", letterSpacing: "0.08em", margin: isMobile ? "0 0 4px 0" : "0 0 10px 0" }}>
                 Printing Methods
               </h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--modish-space-2)" }}>
-                {product.printing.map(method => <SpecChip key={method} label={method} variant="yellow" />)}
+                {product.printing.map(method => <SpecChip key={method} label={method} variant="yellow" isMobile={isMobile} />)}
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--modish-space-3)", marginTop: "auto" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? "6px" : "var(--modish-space-3)", marginTop: "auto" }}>
               <a
                 href="https://tinyurl.com/Modish-now"
                 target="_blank"
@@ -328,8 +336,8 @@ export function ProductModal({ product, onClose }: { product: Product; onClose: 
                   color: "var(--modish-yellow)",
                   fontFamily: "var(--font-heading)",
                   fontWeight: 700,
-                  fontSize: "15px",
-                  padding: "14px 24px",
+                  fontSize: isMobile ? "11px" : "15px",
+                  padding: isMobile ? "8px 12px" : "14px 24px",
                   borderRadius: "var(--modish-radius-md)",
                   textDecoration: "none",
                   transition: "background 0.2s ease, color 0.2s ease",
@@ -337,7 +345,7 @@ export function ProductModal({ product, onClose }: { product: Product; onClose: 
                 onMouseEnter={e => { const a = e.currentTarget as HTMLAnchorElement; a.style.background = "var(--modish-yellow)"; a.style.color = "var(--modish-black)"; }}
                 onMouseLeave={e => { const a = e.currentTarget as HTMLAnchorElement; a.style.background = "var(--modish-black)"; a.style.color = "var(--modish-yellow)"; }}
               >
-                <Download size={16} />
+                <Download size={isMobile ? 12 : 16} />
                 Download Full Catalog
               </a>
               <a
@@ -353,8 +361,8 @@ export function ProductModal({ product, onClose }: { product: Product; onClose: 
                   color: "var(--modish-white)",
                   fontFamily: "var(--font-heading)",
                   fontWeight: 700,
-                  fontSize: "15px",
-                  padding: "14px 24px",
+                  fontSize: isMobile ? "11px" : "15px",
+                  padding: isMobile ? "8px 12px" : "14px 24px",
                   borderRadius: "var(--modish-radius-md)",
                   textDecoration: "none",
                   transition: "background 0.2s ease",
@@ -362,7 +370,7 @@ export function ProductModal({ product, onClose }: { product: Product; onClose: 
                 onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--modish-whatsapp-dark)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--modish-whatsapp)"; }}
               >
-                <MessageCircle size={16} />
+                <MessageCircle size={isMobile ? 12 : 16} />
                 Chat on WhatsApp ↗
               </a>
             </div>

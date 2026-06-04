@@ -1,5 +1,5 @@
 import { Upload, ImageIcon, Cog, CheckSquare, Package } from "lucide-react";
-import processImg from "../../imports/Modish catalog/19.png";
+import processImg from "../../imports/Modish catalog/19.webp";
 
 const steps = [
   {
@@ -39,9 +39,9 @@ export function HowItWorks() {
     <section id="process" className="modish-section" style={{ background: "var(--modish-white)" }}>
       <div className="modish-container">
         <div style={{ textAlign: "center", marginBottom: "var(--modish-space-12)" }}>
-          <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
+          <span style={{ display: "block", fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
             HOW IT WORKS
-          </p>
+          </span>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(24px, 3.2vw, 36px)", color: "var(--modish-black)", margin: "0 0 12px 0", lineHeight: 1.1 }}>
             From Idea to Doorstep
           </h2>
@@ -54,7 +54,9 @@ export function HowItWorks() {
         <div className="reveal-on-scroll" style={{ marginBottom: "var(--modish-space-10)", borderRadius: "var(--modish-radius-xl)", overflow: "hidden", border: "1px solid var(--modish-grey-200)", boxShadow: "var(--modish-shadow-md)", background: "var(--modish-white)" }}>
           <img
             src={processImg}
-            alt="Print Your Story with Modish — How It Works, What Can I Customize, What About Quality"
+            alt="Modish custom merchandise order process — design, mockup, print, quality check, delivery"
+            width={1200}
+            height={630}
             style={{ width: "100%", height: "auto", display: "block" }}
             loading="lazy"
           />

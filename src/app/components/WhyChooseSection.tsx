@@ -46,7 +46,8 @@ export function WhyChooseSection() {
 
         {/* Section Header */}
         <div style={{ textAlign: "center", marginBottom: "var(--modish-space-6)" }}>
-          <p style={{
+          <span style={{
+            display: "block",
             fontFamily: "var(--font-body)",
             fontWeight: 600,
             fontSize: "10px",
@@ -56,7 +57,7 @@ export function WhyChooseSection() {
             margin: "0 0 8px 0",
           }}>
             WHY MODISH
-          </p>
+          </span>
           <h2 style={{
             fontFamily: "var(--font-heading)",
             fontWeight: 800,

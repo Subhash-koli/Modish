@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
-import heroImg from "../../imports/Modish catalog/2.png";
-import img3_tshirts from "../../imports/Modish catalog/3.png";
-import img6_oversized from "../../imports/Modish catalog/6.png";
-import img9_polo from "../../imports/Modish catalog/9.png";
-import img12_hoodies from "../../imports/Modish catalog/12.png";
-import img15_gymvest from "../../imports/Modish catalog/15.png";
-import img17_accessories from "../../imports/Modish catalog/17.png";
+import heroImg from "../../imports/Modish catalog/2.webp";
+import img3_tshirts from "../../imports/Modish catalog/3.webp";
+import img6_oversized from "../../imports/Modish catalog/6.webp";
+import img9_polo from "../../imports/Modish catalog/9.webp";
+import img12_hoodies from "../../imports/Modish catalog/12.webp";
+import img15_gymvest from "../../imports/Modish catalog/15.webp";
+import img17_accessories from "../../imports/Modish catalog/17.webp";
 
 const previewCategories = [
   { name: "T-Shirts", img: img3_tshirts },
@@ -154,7 +154,7 @@ export function HeroBanner() {
       style={{
         position: "relative",
         marginTop: "var(--modish-header-height)",
-        overflow: "hidden",
+        overflow: "clip",
         background: slide.bg,
         transition: "background 0.4s ease",
         display: "flex",
@@ -355,7 +355,7 @@ export function HeroBanner() {
               <img
                 key={`img-left-${current}`}
                 src={slide.slideImage || heroImg}
-                alt="Modish custom printed apparel showcase left"
+                alt={`Modish ${slide.eyebrow.toLowerCase()} — custom printed apparel Mumbai`}
                 style={{
                   width: "48%",
                   height: "480px",
@@ -370,7 +370,7 @@ export function HeroBanner() {
               <img
                 key={`img-right-${current}`}
                 src={(slide as any).slideImageSecondary || heroImg}
-                alt="Modish custom printed apparel showcase right"
+                alt={`Modish bulk custom merchandise — ${slide.eyebrow.toLowerCase()}`}
                 style={{
                   width: "48%",
                   height: "480px",
@@ -391,7 +391,7 @@ export function HeroBanner() {
           <img
             key={`mobile-img-${current}`}
             src={slide.slideImage || heroImg}
-            alt="Modish custom printed apparel"
+            alt={`Modish custom printed ${slide.eyebrow.toLowerCase()} — premium apparel Mumbai`}
             style={{
               width: "100%",
               height: "240px",
@@ -411,27 +411,38 @@ export function HeroBanner() {
           style={{
             opacity: 0,
             animation: "revealUp 0.7s ease 0.5s forwards",
+            /* Bleed to screen edges on mobile */
+            marginLeft: "calc(-1 * var(--modish-container-pad-mobile))",
+            marginRight: "calc(-1 * var(--modish-container-pad-mobile))",
           }}
         >
           <span className="modish-hero-browse-label" style={{
             color: slide.textColor === "var(--modish-white)" ? "rgba(255,255,255,0.5)" : "var(--modish-grey-500)",
+            paddingLeft: "var(--modish-container-pad-mobile)",
+            display: "block",
           }}>
             Explore Our Range
           </span>
           <div
             style={{
               display: "flex",
-              gap: "var(--modish-space-3)",
+              gap: "12px",
               overflowX: "auto",
-              paddingBottom: "8px",
-              scrollbarWidth: "none",
-            }}
+              overflowY: "visible",
+              WebkitOverflowScrolling: "touch" as React.CSSProperties["WebkitOverflowScrolling"],
+              touchAction: "pan-x",
+              paddingBottom: "10px",
+              paddingLeft: "var(--modish-container-pad-mobile)",
+              paddingRight: "var(--modish-container-pad-mobile)",
+              scrollbarWidth: "none" as const,
+              msOverflowStyle: "none" as const,
+            } as React.CSSProperties}
             className="hide-scrollbar"
           >
             {previewCategories.map((cat, idx) => (
               <a
                 key={idx}
-                href={`#products`}
+                href="#products"
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
@@ -450,6 +461,7 @@ export function HeroBanner() {
                   textDecoration: "none",
                   cursor: "pointer",
                   flexShrink: 0,
+                  minWidth: "max-content",
                   transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
                 onMouseEnter={e => {
@@ -475,6 +487,7 @@ export function HeroBanner() {
                     objectFit: "cover",
                     objectPosition: "top center",
                     background: "var(--modish-grey-100)",
+                    flexShrink: 0,
                   }}
                 />
                 <span style={{
@@ -484,6 +497,7 @@ export function HeroBanner() {
                   letterSpacing: "0.02em",
                   color: slide.textColor,
                   textTransform: "uppercase",
+                  whiteSpace: "nowrap",
                 }}>
                   {cat.name}
                 </span>
@@ -559,14 +573,21 @@ export function HeroBanner() {
         }}
       >
         <div className="modish-mobile-range-tabs hide-scrollbar">
-          {previewCategories.slice(0, 2).map((cat) => (
+          {previewCategories.map((cat) => (
             <button
               key={cat.name}
               type="button"
               className="modish-mobile-range-tab"
               onClick={() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })}
             >
-              <img src={cat.img} alt={cat.name} />
+              <img
+                src={cat.img}
+                alt={`${cat.name} custom printed by Modish`}
+                width={18}
+                height={18}
+                loading="lazy"
+                style={{ width: "18px", height: "18px", objectFit: "cover", borderRadius: "6px", display: "inline-block" }}
+              />
               <span>{cat.name}</span>
             </button>
           ))}

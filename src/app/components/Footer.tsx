@@ -58,7 +58,10 @@ export function Footer() {
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--modish-space-4)" }}>
             <img
               src={logoWhite}
-              alt="Modish"
+              alt="Modish — Custom Printed Apparel Mumbai"
+              width={120}
+              height={36}
+              loading="lazy"
               style={{ height: "36px", width: "auto", objectFit: "contain", objectPosition: "left" }}
             />
             <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "13px", color: "var(--modish-grey-500)", lineHeight: 1.75, margin: 0, maxWidth: "240px" }}>

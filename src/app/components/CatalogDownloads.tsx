@@ -27,9 +27,9 @@ export function CatalogDownloads() {
     <section id="catalogs" className="modish-section" style={{ background: "var(--modish-white)" }}>
       <div className="modish-container">
         <div style={{ textAlign: "center", marginBottom: "var(--modish-space-10)" }}>
-          <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
+          <span style={{ display: "block", fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
             DOWNLOAD CATALOGS
-          </p>
+          </span>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(20px, 3vw, 30px)", color: "var(--modish-black)", margin: "0 0 12px 0", lineHeight: 1.1 }}>
             Explore Our Catalogs
           </h2>

@@ -85,7 +85,10 @@ export function Header() {
           <a href="#home" style={{ display: "flex", alignItems: "center", gap: "var(--modish-space-2)", textDecoration: "none", flexShrink: 0 }}>
             <img
               src={logoWordmark}
-              alt="Modish — Wear Your Mood"
+              alt="Modish — Custom Printed Apparel Mumbai"
+              width={120}
+              height={40}
+              fetchPriority="high"
               style={{ height: "40px", width: "auto", objectFit: "contain" }}
             />
           </a>
@@ -216,7 +219,7 @@ export function Header() {
         >
           {/* Close */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--modish-space-12)" }}>
-            <img src={logoWhite} alt="Modish" style={{ height: "32px", width: "auto" }} />
+            <img src={logoWhite} alt="Modish" width={96} height={32} loading="lazy" style={{ height: "32px", width: "auto" }} />
             {/* using <button> instead of <Button>: drawer close is icon-only flat action on dark bg, no kit variant matches */}
             <button
               onClick={() => setMobileOpen(false)}

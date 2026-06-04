@@ -1,26 +1,27 @@
 import { useState, useEffect } from "react";
 import { Eye } from "lucide-react";
 import { ProductModal, Product } from "./ProductModal";
+import { ExploreRangeSecondaryNav } from "./ExploreRangeSecondaryNav";
 
 // Batch 1 imports (images 3–11)
-import img3_tshirts from "../../imports/Modish catalog/3.png";
-import img4_rneck_spec from "../../imports/Modish catalog/4.png";
-import img5_rneck_colors from "../../imports/Modish catalog/5.png";
-import img6_oversized from "../../imports/Modish catalog/6.png";
-import img7_oversized_spec from "../../imports/Modish catalog/7.png";
-import img8_oversized_colors from "../../imports/Modish catalog/8.png";
-import img9_polo from "../../imports/Modish catalog/9.png";
-import img10_polo_spec from "../../imports/Modish catalog/10.png";
-import img11_polo_colors from "../../imports/Modish catalog/11.png";
+import img3_tshirts from "../../imports/Modish catalog/3.webp";
+import img4_rneck_spec from "../../imports/Modish catalog/4.webp";
+import img5_rneck_colors from "../../imports/Modish catalog/5.webp";
+import img6_oversized from "../../imports/Modish catalog/6.webp";
+import img7_oversized_spec from "../../imports/Modish catalog/7.webp";
+import img8_oversized_colors from "../../imports/Modish catalog/8.webp";
+import img9_polo from "../../imports/Modish catalog/9.webp";
+import img10_polo_spec from "../../imports/Modish catalog/10.webp";
+import img11_polo_colors from "../../imports/Modish catalog/11.webp";
 
 // Batch 2 imports (images 12–18)
-import img12_hoodies from "../../imports/Modish catalog/12.png";
-import img13_hoodies_spec from "../../imports/Modish catalog/13.png";
-import img14_hoodies_colors from "../../imports/Modish catalog/14.png";
-import img15_gymvest from "../../imports/Modish catalog/15.png";
-import img16_gymvest_spec from "../../imports/Modish catalog/16.png";
-import img17_accessories from "../../imports/Modish catalog/17.png";
-import img18_totebag_spec from "../../imports/Modish catalog/18.png";
+import img12_hoodies from "../../imports/Modish catalog/12.webp";
+import img13_hoodies_spec from "../../imports/Modish catalog/13.webp";
+import img14_hoodies_colors from "../../imports/Modish catalog/14.webp";
+import img15_gymvest from "../../imports/Modish catalog/15.webp";
+import img16_gymvest_spec from "../../imports/Modish catalog/16.webp";
+import img17_accessories from "../../imports/Modish catalog/17.webp";
+import img18_totebag_spec from "../../imports/Modish catalog/18.webp";
 
 const WA_BASE = "https://wa.me/919136867622";
 
@@ -226,7 +227,7 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
       }}>
         <img
           src={product.categoryImage}
-          alt={product.name}
+          alt={`Custom printed ${product.name} by Modish Mumbai — ${product.descriptor}`}
           style={{
             width: "100%",
             height: "100%",
@@ -276,18 +277,25 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
         </div>
 
         {/* CTA Buttons */}
-        <div style={{ display: "flex", gap: "8px", marginTop: "auto", flexWrap: "wrap" }}>
+        <div style={{
+          display: "flex",
+          gap: "6px",
+          marginTop: "auto",
+          flexDirection: isMobile ? "column" : "row",
+          width: "100%"
+        }}>
           <button
             onClick={() => onViewDetails(product)}
             style={{
-              flex: "1 1 calc(50% - 6px)",
+              flex: isMobile ? "none" : "1 1 calc(50% - 6px)",
+              width: "100%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               gap: "6px",
               fontFamily: "var(--font-heading)",
               fontWeight: 700,
-              fontSize: isMobile ? "11px" : "13px",
+              fontSize: isMobile ? "10px" : "13px",
               padding: isMobile ? "6px 8px" : "8px 12px",
               border: "1.5px solid var(--modish-black)",
               borderRadius: "var(--modish-radius-sm)",
@@ -300,22 +308,23 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
             onMouseLeave={e => { const b = e.currentTarget; b.style.background = "transparent"; b.style.color = "var(--modish-black)"; }}
           >
             <Eye size={isMobile ? 12 : 14} />
-            <span className="modish-button-text">View</span>
+            <span className="modish-button-text">View Details</span>
           </button>
           <a
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              flex: "1 1 calc(50% - 6px)",
+              flex: isMobile ? "none" : "1 1 calc(50% - 6px)",
+              width: "100%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               gap: "8px",
               fontFamily: "var(--font-heading)",
               fontWeight: 700,
-              fontSize: isMobile ? "12px" : "14px",
-              padding: isMobile ? "7px 10px" : "9px 14px",
+              fontSize: isMobile ? "10px" : "14px",
+              padding: isMobile ? "6px 8px" : "9px 14px",
               borderRadius: "var(--modish-radius-sm)",
               background: "var(--modish-whatsapp)",
               color: "var(--modish-white)",
@@ -326,7 +335,7 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
             onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--modish-whatsapp)"; }}
           >
             {/* Inline WhatsApp icon */}
-            <svg width={isMobile ? 16 : 18} height={isMobile ? 16 : 18} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <svg width={isMobile ? 12 : 18} height={isMobile ? 12 : 18} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
               <path d="M20.52 3.48A11.88 11.88 0 0 0 12 0C5.373 0 .01 5.364.01 12c0 2.115.56 4.078 1.53 5.8L0 24l6.42-1.67A11.92 11.92 0 0 0 12 24c6.627 0 12-5.373 12-12 0-3.2-1.25-6.2-3.48-8.52z" fill="var(--modish-whatsapp)" />
               <path d="M17.5 14.2c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.1l-.5.5c-.1.1-.4.2-.8.1-.8-.1-2.5-1.5-3.3-3.1-.2-.4.2-.8.4-1l.5-.5c.3-.3.3-.5.1-.8-.1-.2-1-2.4-1.4-3.3-.2-.5-.7-.6-1-.6-.4 0-.8.1-1.2.2-.3.1-.8.3-1.2.6-.4.3-.9.8-1.1 1.3-.2.6-.1 1.2.6 2.6.8 1.6 4 6.6 8.4 8.7 3 .95 3.9.4 4.6.3.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.5-.1-.3-1.2-1-1.5-1.1z" fill="#fff" />
             </svg>
@@ -341,9 +350,9 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
 function SectionHeading({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle: string }) {
   return (
     <div style={{ textAlign: "center", marginBottom: "var(--modish-space-10)" }}>
-      <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
+      <span style={{ display: "block", fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
         {eyebrow}
-      </p>
+      </span>
       <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(20px, 3vw, 30px)", color: "var(--modish-black)", margin: "0 0 12px 0", lineHeight: 1.1 }}>
         {title}
       </h2>
@@ -359,6 +368,7 @@ export function ProductGrid() {
 
   return (
     <section id="products" className="modish-section" style={{ background: "var(--modish-white)" }}>
+      <ExploreRangeSecondaryNav />
       <div className="modish-container">
         <SectionHeading
           eyebrow="OUR PRODUCTS"
@@ -370,7 +380,8 @@ export function ProductGrid() {
           {products.map((product, i) => (
             <div
               key={product.id}
-              className="reveal-on-scroll"
+              id={product.id}
+              className="reveal-on-scroll modish-product-card-wrapper"
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <ProductCard product={product} onViewDetails={setSelectedProduct} />

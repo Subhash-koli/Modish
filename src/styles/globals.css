@@ -25,6 +25,23 @@
   --font-heading: 'Syne', sans-serif;
   --font-body: 'Manrope', sans-serif;
 
+  /* ── Fluid Type Scale ──────────────────────────────────────────
+     Formula: clamp(MIN, PREFERRED_VW, MAX)
+     Scales linearly between 320px and 1280px viewport widths.
+     Usage: font-size: var(--text-sm) etc.
+  ─────────────────────────────────────────────────────────────── */
+  --text-xs:   clamp(10px, 2.2vw,  12px);   /* captions, eyebrows     */
+  --text-sm:   clamp(12px, 2.8vw,  14px);   /* small labels, chips    */
+  --text-base: clamp(13px, 3.2vw,  15px);   /* body paragraph text    */
+  --text-md:   clamp(14px, 3.5vw,  16px);   /* large body / UI text   */
+  --text-lg:   clamp(15px, 3.8vw,  18px);   /* card titles            */
+  --text-xl:   clamp(17px, 4.2vw,  20px);   /* section sub-headings   */
+  --text-2xl:  clamp(20px, 5vw,    26px);   /* h3 headings            */
+  --text-3xl:  clamp(24px, 6vw,    32px);   /* h2 section headings    */
+  --text-4xl:  clamp(28px, 7vw,    40px);   /* h2 hero sub-headlines  */
+  --text-5xl:  clamp(32px, 8.5vw,  52px);   /* h1 hero headlines      */
+  --text-6xl:  clamp(40px, 10vw,   72px);   /* stats / display text   */
+
   /* Spacing */
   --modish-space-1: 4px;
   --modish-space-2: 8px;
@@ -35,6 +52,7 @@
   --modish-space-8: 32px;
   --modish-space-10: 40px;
   --modish-space-12: 48px;
+  --modish-space-14: 56px;
   --modish-space-16: 64px;
   --modish-space-20: 80px;
   --modish-space-24: 96px;
@@ -74,7 +92,8 @@ html {
   scroll-behavior: smooth;
   overflow-x: hidden;
   background-color: var(--modish-black);
-  font-size: 16px;
+  /* Fluid root font-size: 14px on 320px screen → 16px on 640px+ */
+  font-size: clamp(14px, 1.5vw + 9.5px, 16px);
 }
 body {
   font-family: var(--font-body);
@@ -102,7 +121,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* H1 — Page/Hero Title */
 h1 {
-  font-size: clamp(32px, 5vw, 58px);
+  font-size: var(--text-5xl);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.01em;
@@ -110,7 +129,7 @@ h1 {
 
 /* H2 — Section Heading */
 h2 {
-  font-size: clamp(22px, 3vw, 34px);
+  font-size: clamp(16px, 3.5vw, 20px);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: 0em;
@@ -119,7 +138,7 @@ h2 {
 
 /* H3 — Subsection Heading */
 h3 {
-  font-size: clamp(18px, 2.5vw, 24px);
+  font-size: var(--text-2xl);
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: 0.002em;
@@ -128,15 +147,15 @@ h3 {
 
 /* H4 — Card/Feature Heading */
 h4 {
-  font-size: clamp(16px, 2.2vw, 22px);
+  font-size: var(--text-xl);
   font-weight: 500;
-  line-height: 1.15;
+  line-height: 1.2;
   margin-bottom: 6px;
 }
 
 /* H5 — Small Heading */
 h5 {
-  font-size: clamp(3px, 0.7vw, 4px);
+  font-size: var(--text-lg);
   font-weight: 500;
   line-height: 1.2;
   margin-bottom: 4px;
@@ -144,7 +163,7 @@ h5 {
 
 /* H6 — Smallest Heading */
 h6 {
-  font-size: clamp(2px, 0.6vw, 3px);
+  font-size: var(--text-sm);
   font-weight: 500;
   line-height: 1.2;
   text-transform: uppercase;
@@ -165,20 +184,14 @@ h6 {
   margin-bottom: 8px;
 }
 
-/* Body Text — Default (applies site-wide)
-   Applied subtle background/padding to all paragraphs as requested */
+/* Body Text — Default */
 p {
   font-family: var(--font-body);
   font-weight: 400;
-  /* Reduced more to keep all paragraphs very small */
-  font-size: clamp(4px, 0.35vw, 5px);
-  line-height: 1.4;
+  font-size: var(--text-base);
+  line-height: 1.65;
   color: var(--modish-grey-700);
   margin: 8px 0;
-  background: var(--modish-grey-50);
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--modish-grey-200);
 }
 
 /* Eyebrow contrast improvement */
@@ -348,37 +361,23 @@ h1, h2, h3, h4 { color: var(--modish-black); }
 }
 
 /* ─── Product Grid ─────────────────────────────────────────────── */
-/* Mobile: 2 cards per row; Tablet 640px+: 2 per row; Desktop 1024px+: 3 per row */
+/* Always 2 cards per row — even on very small phones */
+/* Desktop 1024px+: 3 per row */
 .modish-product-grid {
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: clamp(6px, 1vw, 16px);
-  padding: 0 8px;
-  box-sizing: border-box;
+  gap: clamp(8px, 2vw, 16px);
 }
 .modish-product-grid > * {
   min-width: 0;
 }
-
-@media (max-width: 360px) {
-  .modish-product-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-@media (min-width: 640px) {
-  .modish-product-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
 @media (min-width: 1024px) {
   .modish-product-grid {
     grid-template-columns: repeat(3, 1fr) !important;
+    gap: var(--modish-space-6);
   }
 }
 
-/* Very small screens: single column to avoid overflow */
-/* keep responsive auto-fit behavior for small screens to show multiple columns when space allows */
 
 /* Product Card Image — tall on mobile (show full clothing), short on desktop (just neck) */
 .modish-product-image {
@@ -548,10 +547,11 @@ h1, h2, h3, h4 { color: var(--modish-black); }
 
 
 /* ─── Diaries Grid ─────────────────────────────────────────────── */
+/* 2-col mobile → 3-col tablet → 5-col desktop */
 .modish-diary-grid {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;
-  gap: var(--modish-space-4);
+  gap: clamp(8px, 2vw, 16px);
 }
 @media (min-width: 640px) {
   .modish-diary-grid {
@@ -561,6 +561,7 @@ h1, h2, h3, h4 { color: var(--modish-black); }
 @media (min-width: 1024px) {
   .modish-diary-grid {
     grid-template-columns: repeat(5, 1fr) !important;
+    gap: var(--modish-space-4);
   }
 }
 
@@ -819,10 +820,12 @@ h1, h2, h3, h4 { color: var(--modish-black); }
 
 /* Browse strip */
 .modish-hero-browse {
-  margin-top: var(--modish-space-8);
+  margin-top: var(--modish-space-6);
   display: flex;
   flex-direction: column;
-  gap: var(--modish-space-3);
+  gap: var(--modish-space-2);
+  /* Allow the inner scroll strip to escape the container padding */
+  overflow: visible;
 }
 .modish-hero-browse-label {
   font-family: var(--font-body);
@@ -832,11 +835,20 @@ h1, h2, h3, h4 { color: var(--modish-black); }
   text-transform: uppercase;
 }
 
+/* Hide scrollbar visually but keep scroll functional */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
+}
+
 .modish-mobile-range-tabs {
   display: none;
   align-items: center;
   gap: 5px;
-  max-width: min(190px, calc(100vw - 90px));
+  max-width: min(280px, calc(100vw - 80px));
   overflow-x: auto;
   padding-bottom: 2px;
   scroll-behavior: smooth;
@@ -1002,6 +1014,7 @@ section#products {
   }
 }
 
+
 /* ─── Contact Cards Grid ────────────────────────────────────────── */
 /* 1-col mobile → 2-col tablet → 4-col desktop */
 /* avoids the unsafe auto-fill minmax(240px) which can overflow on small screens */
@@ -1110,5 +1123,166 @@ input, textarea, select {
   .modish-stat-item:last-child {
     border-right: none;
   }
+}
+
+/* ─── Explore Range Secondary Navigation ────────────────────────── */
+/* Hide-on-scroll sticky nav with category thumbnails */
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOutUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.modish-explore-secondary-nav {
+  position: sticky;
+  top: var(--modish-header-height);
+  z-index: calc(var(--modish-z-sticky) - 10);
+  background: var(--modish-white);
+  border-bottom: 1px solid var(--modish-grey-200);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.modish-explore-secondary-nav.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  animation: slideInDown 0.3s ease;
+}
+
+.modish-explore-secondary-inner {
+  max-width: var(--modish-container-max);
+  margin: 0 auto;
+  padding: var(--modish-space-4) clamp(6px, 2.5vw, 48px);
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .modish-explore-secondary-inner {
+    padding: var(--modish-space-6) var(--modish-container-pad-desktop);
+  }
+}
+
+.modish-explore-secondary-heading {
+  display: none;
+}
+
+.modish-explore-secondary-list {
+  display: flex;
+  gap: clamp(8px, 2.5vw, 16px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  /* Mobile: scrollbar hidden but can scroll; Desktop: visible */
+  scrollbar-width: thin;
+  scrollbar-color: var(--modish-grey-300) transparent;
+  padding-bottom: clamp(4px, 1vw, 8px);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar on mobile, show on desktop */
+@media (max-width: 767px) {
+  .modish-explore-secondary-list {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .modish-explore-secondary-list::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.modish-explore-secondary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(4px, 1vw, 8px);
+  padding: clamp(6px, 1.5vw, 12px) clamp(8px, 2vw, 14px);
+  border: 1.5px solid var(--modish-grey-200);
+  border-radius: var(--modish-radius-md);
+  background: var(--modish-white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(10px, 2vw, 12px);
+  color: var(--modish-black);
+  text-decoration: none;
+  -webkit-user-select: none;
+  user-select: none;
+  min-width: fit-content;
+}
+
+.modish-explore-secondary-item:hover,
+.modish-explore-secondary-item:focus-visible {
+  background: var(--modish-yellow);
+  border-color: var(--modish-yellow-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 204, 0, 0.2);
+  outline: none;
+}
+
+.modish-explore-secondary-item:active {
+  transform: translateY(0);
+}
+
+.modish-explore-secondary-thumb {
+  width: clamp(32px, 8vw, 48px);
+  height: clamp(32px, 8vw, 48px);
+  object-fit: cover;
+  border-radius: calc(var(--modish-radius-sm) - 2px);
+  background: var(--modish-grey-100);
+}
+
+/* Responsive adjustments for very small screens */
+@media (max-width: 360px) {
+  .modish-explore-secondary-item {
+    padding: 6px 8px;
+    gap: 4px;
+  }
+  .modish-explore-secondary-thumb {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Desktop: larger presentation */
+@media (min-width: 768px) {
+  .modish-explore-secondary-item {
+    padding: 12px 16px;
+    gap: 8px;
+    border-radius: var(--modish-radius-lg);
+  }
+  .modish-explore-secondary-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--modish-radius-md);
+  }
+}
+
+/* Scroll Offset for Product Cards scroll targets */
+.modish-product-card-wrapper {
+  scroll-margin-top: calc(var(--modish-header-height) + 85px);
 }
 

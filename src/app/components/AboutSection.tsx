@@ -20,9 +20,9 @@ export function AboutSection() {
         }} className="modish-about-grid">
           {/* Left: Text Content */}
           <div>
-            <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
+            <span style={{ display: "block", fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--modish-grey-500)", margin: "0 0 8px 0" }}>
               OUR STORY
-            </p>
+            </span>
             <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(22px, 3vw, 32px)", color: "var(--modish-black)", margin: "0 0 var(--modish-space-5) 0", lineHeight: 1.1 }}>
               Made in Mumbai.<br />Worn Across India.
             </h2>
@@ -67,7 +67,10 @@ export function AboutSection() {
                 {/* Logo */}
                 <img
                   src={logoBlack}
-                  alt="Modish Logo"
+                  alt="Modish logo — premium custom merchandise Mumbai"
+                  width={120}
+                  height={48}
+                  loading="lazy"
                   style={{ height: "48px", width: "auto", objectFit: "contain", filter: "invert(1)", marginBottom: "var(--modish-space-2)" }}
                 />
                 <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "13px", color: "var(--modish-grey-400)", margin: "0 0 var(--modish-space-8) 0", letterSpacing: "0.06em" }}>
