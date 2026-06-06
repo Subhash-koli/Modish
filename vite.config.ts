@@ -26,18 +26,19 @@ export default defineConfig({
     cssMinify: true,
 
     // Split vendor chunks for better caching & faster initial parse
+    // NOTE: Keep chunk splitting simple to avoid circular dependency warnings
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('/node_modules/react-dom/') || id.includes('/node_modules/react/')) {
+          // React core must be isolated — never mix with other vendor chunks
+          if (id.includes('/node_modules/react/') || id.includes('/node_modules/react-dom/') || id.includes('/node_modules/scheduler/')) {
             return 'vendor-react';
           }
-          if (id.includes('/node_modules/framer-motion/') || id.includes('/node_modules/motion/')) {
-            return 'vendor-motion';
-          }
+          // Large independent packages get their own chunks
           if (id.includes('/node_modules/lucide-react/')) {
             return 'vendor-icons';
           }
+          // Everything else bundles together (avoids circular deps from over-splitting)
           if (id.includes('/node_modules/')) {
             return 'vendor-misc';
           }
