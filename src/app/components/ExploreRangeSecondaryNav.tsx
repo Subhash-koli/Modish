@@ -18,6 +18,12 @@ const categories = [
 export function ExploreRangeSecondaryNav() {
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  // Track whether the user is dragging vs tapping
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const isDragging = useRef(false);
 
   useEffect(() => {
     const updateVisibility = () => {
@@ -26,11 +32,9 @@ export function ExploreRangeSecondaryNav() {
       const productsTop = productsEl ? productsEl.offsetTop - 120 : 600;
       const delta = currentY - lastScrollY.current;
 
-      // If we are above the products section, keep it visible in normal flow
       if (currentY < productsTop) {
         setVisible(true);
       } else {
-        // Hide on scroll down, show on scroll up
         if (delta > 8) {
           setVisible(false);
         } else if (delta < -8) {
@@ -46,10 +50,66 @@ export function ExploreRangeSecondaryNav() {
     return () => window.removeEventListener("scroll", updateVisibility);
   }, []);
 
+  // Native touch scroll handling — much more reliable than CSS alone
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+
+    let startX = 0;
+    let startScrollLeft = 0;
+    let isDown = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      isDown = true;
+      isDragging.current = false;
+      startX = e.touches[0].clientX;
+      startScrollLeft = list.scrollLeft;
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isDown) return;
+      const dx = e.touches[0].clientX - startX;
+      const dy = Math.abs(e.touches[0].clientY - (touchStartY.current ?? 0));
+      const absDx = Math.abs(dx);
+
+      // If horizontal movement dominates → it's a horizontal drag
+      if (absDx > dy && absDx > 5) {
+        isDragging.current = true;
+        // Prevent the page from scrolling vertically during horizontal drag
+        e.preventDefault();
+        list.scrollLeft = startScrollLeft - dx;
+      }
+    };
+
+    const onTouchEnd = () => {
+      isDown = false;
+      // Reset drag flag after a short delay so onClick can check it first
+      setTimeout(() => { isDragging.current = false; }, 150);
+    };
+
+    list.addEventListener("touchstart", onTouchStart, { passive: true });
+    list.addEventListener("touchmove", onTouchMove, { passive: false }); // non-passive to allow preventDefault
+    list.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    return () => {
+      list.removeEventListener("touchstart", onTouchStart);
+      list.removeEventListener("touchmove", onTouchMove);
+      list.removeEventListener("touchend", onTouchEnd);
+    };
+  }, []);
+
   const scrollToCategory = (targetId: string) => {
     const target = document.getElementById(targetId);
     if (!target) return;
     target.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleItemClick = (targetId: string) => {
+    // Block navigation if user was dragging the list horizontally
+    if (isDragging.current) return;
+    scrollToCategory(targetId);
   };
 
   return (
@@ -59,13 +119,16 @@ export function ExploreRangeSecondaryNav() {
     >
       <div className="modish-explore-secondary-inner">
         <div className="modish-explore-secondary-heading" aria-hidden="true" />
-        <div className="modish-explore-secondary-list">
+        <div
+          ref={listRef}
+          className="modish-explore-secondary-list"
+        >
           {categories.map((item) => (
             <button
               key={item.label}
               type="button"
               className="modish-explore-secondary-item"
-              onClick={() => scrollToCategory(item.targetId)}
+              onClick={() => handleItemClick(item.targetId)}
             >
               <img
                 src={item.img}

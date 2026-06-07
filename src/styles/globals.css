@@ -1192,12 +1192,17 @@ input, textarea, select {
   gap: clamp(8px, 2.5vw, 16px);
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-behavior: smooth;
-  /* Mobile: scrollbar hidden but can scroll; Desktop: visible */
+  /* DO NOT use scroll-behavior: smooth here — it causes rubber-band snap-back on touch drag */
   scrollbar-width: thin;
   scrollbar-color: var(--modish-grey-300) transparent;
   padding-bottom: clamp(4px, 1vw, 8px);
   -webkit-overflow-scrolling: touch;
+  /* KEY FIX: tell browser this container owns horizontal touch — stops page scroll stealing the drag */
+  touch-action: pan-x;
+  /* Prevent scroll from bubbling to page when list reaches its end */
+  overscroll-behavior-x: contain;
+  /* GPU-accelerated scroll on mobile */
+  will-change: scroll-position;
 }
 
 /* Hide scrollbar on mobile, show on desktop */
