@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Header } from "./components/Header";
 import { HeroBanner } from "./components/HeroBanner";
 import { MarqueeTicker } from "./components/MarqueeTicker";
@@ -69,6 +70,7 @@ export default function App() {
       <FloatingWhatsApp />
       <MobileBottomBar />
       <Analytics />
+      <SpeedInsights />
     </div>
   );
 }
