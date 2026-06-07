@@ -45,13 +45,16 @@
 
       <!-- ═══════════════════════════════════════════════════════════
            FAVICON & BRANDING
+           favicon.jpg lives in /public/ → served at /favicon.jpg
+           This stable URL (no build hash) lets Google index the icon.
       ════════════════════════════════════════════════════════════ -->
-      <link rel="icon" type="image/jpeg" href="/src/imports/LOGO_BLACK.jpeg" sizes="32x32" />
-      <link rel="apple-touch-icon" href="/src/imports/LOGO_BLACK.jpeg" />
-      <link rel="shortcut icon" href="/src/imports/LOGO_BLACK.jpeg" />
+      <link rel="icon" type="image/jpeg" href="/favicon.jpg" sizes="32x32" />
+      <link rel="icon" type="image/jpeg" href="/favicon.jpg" sizes="96x96" />
+      <link rel="apple-touch-icon" href="/favicon.jpg" />
+      <link rel="shortcut icon" href="/favicon.jpg" />
       <meta name="theme-color" content="#FFCC00" />
       <meta name="msapplication-TileColor" content="#FFCC00" />
-      <meta name="msapplication-TileImage" content="/src/imports/LOGO_BLACK.jpeg" />
+      <meta name="msapplication-TileImage" content="/favicon.jpg" />
 
       <!-- ═══════════════════════════════════════════════════════════
            PERFORMANCE HINTS
