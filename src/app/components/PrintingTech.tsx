@@ -12,7 +12,7 @@ const technologies = [
     description: "The most versatile printing method — supports photorealistic full-color designs on any fabric.",
     bestFor: ["Multicolor Designs", "Photo Prints", "Complex Artwork"],
     benefits: ["No minimum order", "Vibrant colors", "Soft hand-feel", "Wash-resistant"],
-    cropPosition: "15% 25%",  // Top-left quadrant of 20.webp
+    cropPosition: "0% 30%",  // Top-left quadrant (DTF Good Vibes image)
   },
   {
     icon: <Layers2 size={28} />,
@@ -21,7 +21,7 @@ const technologies = [
     description: "The industry standard for bulk orders — crisp, long-lasting prints at the best per-unit cost.",
     bestFor: ["Single-Color Bulk", "Long-Run Orders", "Simple Logos"],
     benefits: ["Lowest per-unit cost", "Durable print", "Pantone accurate", "Ideal for 50+"],
-    cropPosition: "85% 25%",  // Top-right quadrant
+    cropPosition: "100% 30%",  // Top-right quadrant (Screen Printing squeegee)
   },
   {
     icon: <Star size={28} />,
@@ -30,7 +30,7 @@ const technologies = [
     description: "Premium, textured branding that looks and feels luxurious — the go-to for corporate workwear.",
     bestFor: ["Corporate Polo", "Premium Caps", "Workwear Logos"],
     benefits: ["3D texture look", "Long-lasting", "Premium feel", "Sharp edges"],
-    cropPosition: "15% 85%",  // Bottom-left quadrant
+    cropPosition: "0% 100%",  // Bottom-left quadrant (Embroidery hoop)
   },
   {
     icon: <Waves size={28} />,
@@ -39,7 +39,7 @@ const technologies = [
     description: "All-over prints that go edge-to-edge — perfect for sportswear, jerseys, and vibrant full prints.",
     bestFor: ["All-Over Prints", "Sportswear", "Full-Color Jerseys"],
     benefits: ["Edge-to-edge print", "Fade-proof", "Lightweight", "Breathable fabric"],
-    cropPosition: "85% 85%",  // Bottom-right quadrant
+    cropPosition: "100% 100%",  // Bottom-right quadrant (Sublimation tote)
   },
 ];
 
@@ -105,24 +105,17 @@ function TechCard({ tech, delay }: { tech: typeof technologies[0]; delay: number
           width: "100%",
           height: "180px",
           overflow: "hidden",
-          position: "relative",
           flexShrink: 0,
-        }}>
-          <img
-            src={printingImg}
-            alt={`${tech.name} printing example`}
-            style={{
-              width: "200%",
-              height: "200%",
-              objectFit: "cover",
-              objectPosition: tech.cropPosition,
-              display: "block",
-              transition: "transform 0.4s ease",
-              transform: hovered ? "scale(1.05)" : "scale(1)",
-            }}
-            loading="lazy"
-          />
-        </div>
+          backgroundImage: `url(${printingImg})`,
+          backgroundSize: "200% 200%",
+          backgroundPosition: tech.cropPosition,
+          backgroundRepeat: "no-repeat",
+          transition: "transform 0.4s ease",
+          transform: hovered ? "scale(1.05)" : "scale(1)",
+        }}
+          role="img"
+          aria-label={`${tech.name} printing example`}
+        />
 
         {/* Card Content */}
         <div style={{
