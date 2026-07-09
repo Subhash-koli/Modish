@@ -363,8 +363,23 @@ function SectionHeading({ eyebrow, title, subtitle }: { eyebrow: string; title: 
   );
 }
 
+const categoryFilters = [
+  { label: "All", ids: null },
+  { label: "T-Shirts", ids: ["round-neck"] },
+  { label: "Oversized", ids: ["oversized"] },
+  { label: "Polos", ids: ["polo"] },
+  { label: "Hoodies", ids: ["hoodie"] },
+  { label: "Gym Vests", ids: ["gym-vest"] },
+  { label: "Accessories", ids: ["tote-bag"] },
+];
+
 export function ProductGrid() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string | null>(null);
+
+  const filteredProducts = activeFilter
+    ? products.filter((p) => p.id === activeFilter)
+    : products;
 
   return (
     <section id="products" className="modish-section" style={{ background: "var(--modish-white)" }}>
@@ -376,8 +391,48 @@ export function ProductGrid() {
           subtitle="Premium custom merchandise, crafted to represent your brand."
         />
 
+        {/* Filter Pills */}
+        <div
+          style={{
+            display: "flex",
+            gap: "8px",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            marginBottom: "var(--modish-space-8)",
+          }}
+          role="group"
+          aria-label="Filter products by category"
+        >
+          {categoryFilters.map((f) => {
+            const isActive = activeFilter === (f.ids ? f.ids[0] : null);
+            return (
+              <button
+                key={f.label}
+                onClick={() => setActiveFilter(f.ids ? f.ids[0] : null)}
+                aria-pressed={isActive}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 600,
+                  fontSize: "13px",
+                  padding: "8px 18px",
+                  borderRadius: "var(--modish-radius-full)",
+                  border: isActive ? "none" : "1.5px solid var(--modish-grey-200)",
+                  background: isActive ? "var(--modish-black)" : "var(--modish-white)",
+                  color: isActive ? "var(--modish-yellow)" : "var(--modish-black)",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                  minHeight: "40px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {f.label}
+              </button>
+            );
+          })}
+        </div>
+
         <div className="modish-product-grid">
-          {products.map((product, i) => (
+          {filteredProducts.map((product, i) => (
             <div
               key={product.id}
               id={product.id}

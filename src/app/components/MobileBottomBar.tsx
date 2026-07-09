@@ -25,6 +25,7 @@ export function MobileBottomBar() {
       <a
         href="#inquiry"
         title="Get Quote"
+        aria-label="Get a free quote"
         onMouseEnter={() => setHoveredBtn("quote")}
         onMouseLeave={() => setHoveredBtn(null)}
         style={{
@@ -52,8 +53,8 @@ export function MobileBottomBar() {
         target="_blank"
         rel="noopener noreferrer"
         title="Chat on WhatsApp"
-        onMouseEnter={() => setHoveredBtn("wa")}
-        onMouseLeave={() => setHoveredBtn(null)}
+        aria-label="Chat with Modish on WhatsApp"
+        onMouseEnter={() => setHoveredBtn("wa")}        onMouseLeave={() => setHoveredBtn(null)}
         style={{
           pointerEvents: "auto",
           width: "48px",

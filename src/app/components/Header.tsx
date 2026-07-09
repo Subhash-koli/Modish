@@ -63,12 +63,14 @@ export function Header() {
           top: 0,
           left: 0,
           right: 0,
-          height: "var(--modish-header-height)",
-          background: "var(--modish-nav-bg)",
+          height: scrolled ? "58px" : "var(--modish-header-height)",
+          background: scrolled ? "rgba(255, 204, 0, 0.90)" : "var(--modish-nav-bg)",
+          backdropFilter: scrolled ? "blur(12px) saturate(180%)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(12px) saturate(180%)" : "none",
           zIndex: "var(--modish-z-sticky)",
-          boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.12)" : "none",
-          borderBottom: scrolled ? "1px solid var(--modish-yellow-dark)" : "1px solid transparent",
-          transition: "box-shadow 0.3s ease, border-color 0.3s ease",
+          boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.08)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(0, 0, 0, 0.05)" : "1px solid transparent",
+          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         <div
@@ -89,7 +91,12 @@ export function Header() {
               width={120}
               height={40}
               fetchPriority="high"
-              style={{ height: "40px", width: "auto", objectFit: "contain" }}
+              style={{
+                height: scrolled ? "34px" : "40px",
+                width: "auto",
+                objectFit: "contain",
+                transition: "height 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              }}
             />
           </a>
 
@@ -113,9 +120,9 @@ export function Header() {
                     color: "var(--modish-black)",
                     textDecoration: "none",
                     background: isActive ? "rgba(0,0,0,0.10)" : "transparent",
-                    padding: "5px 10px",
+                    padding: "5px 12px",
                     borderRadius: "var(--modish-radius-sm)",
-                    transition: "background 0.2s ease, color 0.2s ease",
+                    transition: "all 0.2s ease",
                   }}
                   onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(0,0,0,0.08)"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = isActive ? "rgba(0,0,0,0.10)" : "transparent"; }}
@@ -141,10 +148,10 @@ export function Header() {
                 fontFamily: "var(--font-heading)",
                 fontWeight: 700,
                 fontSize: "13px",
-                padding: "9px 16px",
+                padding: scrolled ? "7px 14px" : "9px 16px",
                 borderRadius: "var(--modish-radius-sm)",
                 textDecoration: "none",
-                transition: "opacity 0.2s ease",
+                transition: "all 0.3s ease",
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.85"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
@@ -162,10 +169,10 @@ export function Header() {
                 fontFamily: "var(--font-heading)",
                 fontWeight: 700,
                 fontSize: "13px",
-                padding: "9px 20px",
+                padding: scrolled ? "7px 18px" : "9px 20px",
                 borderRadius: "var(--modish-radius-sm)",
                 textDecoration: "none",
-                transition: "opacity 0.2s ease",
+                transition: "all 0.3s ease",
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.8"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
@@ -185,104 +192,124 @@ export function Header() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: "48px",
-                height: "48px",
-                background: "rgba(0,0,0,0.10)",
-                border: "2px solid rgba(0,0,0,0.15)",
+                width: scrolled ? "40px" : "48px",
+                height: scrolled ? "40px" : "48px",
+                background: "rgba(0,0,0,0.08)",
+                border: "1.5px solid rgba(0,0,0,0.12)",
                 borderRadius: "var(--modish-radius-sm)",
                 cursor: "pointer",
                 color: "var(--modish-black)",
                 flexShrink: 0,
+                transition: "all 0.3s ease",
               }}
             >
-              <Menu size={22} />
+              <Menu size={scrolled ? 18 : 22} />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer Overlay */}
-      {mobileOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Navigation menu"
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "var(--modish-black)",
-            zIndex: "var(--modish-z-modal)",
-            display: "flex",
-            flexDirection: "column",
-            padding: "var(--modish-space-6)",
-          }}
-        >
-          {/* Close */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--modish-space-12)" }}>
-            <img src={logoWhite} alt="Modish" width={96} height={32} loading="lazy" style={{ height: "32px", width: "auto" }} />
-            {/* using <button> instead of <Button>: drawer close is icon-only flat action on dark bg, no kit variant matches */}
-            <button
-              onClick={() => setMobileOpen(false)}
-              aria-label="Close menu"
-              style={{ background: "transparent", border: "none", cursor: "pointer", color: "var(--modish-white)" }}
-            >
-              <X size={28} />
-            </button>
-          </div>
-
-          {/* Nav Links */}
-          <nav style={{ flex: 1 }}>
-            {navLinks.map(link => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                style={{
-                  display: "block",
-                  fontFamily: "var(--font-heading)",
-                  fontWeight: 700,
-                  fontSize: "24px",
-                  color: "var(--modish-white)",
-                  textDecoration: "none",
-                  padding: "var(--modish-space-4) 0",
-                  borderBottom: "1px solid rgba(255,255,255,0.08)",
-                  transition: "color 0.2s ease",
-                }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--modish-yellow)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--modish-white)"; }}
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          {/* WA CTA at bottom */}
-          <a
-            href={WA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* Mobile Drawer Overlay — Slide-in Transition */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+        style={{
+          position: "fixed",
+          inset: 0,
+          background: "var(--modish-black)",
+          zIndex: "var(--modish-z-modal)",
+          display: "flex",
+          flexDirection: "column",
+          padding: "var(--modish-space-6)",
+          transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease",
+          transform: mobileOpen ? "translateX(0)" : "translateX(100%)",
+          opacity: mobileOpen ? 1 : 0,
+          pointerEvents: mobileOpen ? "auto" : "none",
+        }}
+      >
+        {/* Close */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--modish-space-12)" }}>
+          <img src={logoWhite} alt="Modish" width={96} height={32} loading="lazy" style={{ height: "32px", width: "auto" }} />
+          {/* using <button> instead of <Button>: drawer close is icon-only flat action on dark bg, no kit variant matches */}
+          <button
             onClick={() => setMobileOpen(false)}
+            aria-label="Close menu"
             style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              color: "var(--modish-white)",
+              width: "44px",
+              height: "44px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "var(--modish-space-2)",
-              background: "var(--modish-whatsapp)",
-              color: "var(--modish-white)",
-              fontFamily: "var(--font-heading)",
-              fontWeight: 700,
-              fontSize: "16px",
-              padding: "16px",
-              borderRadius: "var(--modish-radius-md)",
-              textDecoration: "none",
-              marginTop: "var(--modish-space-8)",
             }}
           >
-            <MessageCircle size={20} />
-            Chat on WhatsApp
-          </a>
+            <X size={28} />
+          </button>
         </div>
-      )}
+
+        {/* Nav Links */}
+        <nav style={{ flex: 1 }}>
+          {navLinks.map((link, idx) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileOpen(false)}
+              style={{
+                display: "block",
+                fontFamily: "var(--font-heading)",
+                fontWeight: 700,
+                fontSize: "24px",
+                color: "var(--modish-white)",
+                textDecoration: "none",
+                padding: "var(--modish-space-4) 0",
+                borderBottom: "1px solid rgba(255,255,255,0.08)",
+                transition: "all 0.3s ease",
+                transform: mobileOpen ? "translateY(0)" : "translateY(20px)",
+                opacity: mobileOpen ? 1 : 0,
+                transitionDelay: `${idx * 50}ms`,
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--modish-yellow)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "var(--modish-white)"; }}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        {/* WA CTA at bottom */}
+        <a
+          href={WA_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setMobileOpen(false)}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "var(--modish-space-2)",
+            background: "var(--modish-whatsapp)",
+            color: "var(--modish-white)",
+            fontFamily: "var(--font-heading)",
+            fontWeight: 700,
+            fontSize: "16px",
+            padding: "16px",
+            borderRadius: "var(--modish-radius-md)",
+            textDecoration: "none",
+            marginTop: "var(--modish-space-8)",
+            transform: mobileOpen ? "translateY(0)" : "translateY(20px)",
+            opacity: mobileOpen ? 1 : 0,
+            transition: "all 0.4s ease",
+            transitionDelay: "300ms",
+          }}
+        >
+          <MessageCircle size={20} />
+          Chat on WhatsApp
+        </a>
+      </div>
     </>
   );
 }

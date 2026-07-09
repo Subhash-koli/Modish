@@ -328,7 +328,29 @@ export function HeroBanner() {
                 animation: "revealUp 0.6s ease 0.4s forwards",
               }}
             >
-              {["5000+ Orders", "180+ Cities", "Free Mockup"].map((badge) => (
+              {/* Google Reviews badge */}
+              <a
+                href="https://g.page/r/CYatrYCuXpkREAE/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="modish-hero-trust-badge"
+                style={{
+                  color: slide.textColor,
+                  textDecoration: "none",
+                  background: slide.bg === "var(--modish-yellow)" ? "rgba(0,0,0,0.08)" : "rgba(255,204,0,0.15)",
+                  borderRadius: "var(--modish-radius-full)",
+                  padding: "4px 10px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "5px",
+                  fontWeight: 600,
+                }}
+                aria-label="See our 26 Google Reviews"
+              >
+                <span style={{ color: "#F5A623", fontSize: "13px" }}>★★★★★</span>
+                <span>5.0 · 26 Reviews</span>
+              </a>
+              {["Starting ₹449/pc", "Free Mockup", "Pan India"].map((badge) => (
                 <span key={badge} className="modish-hero-trust-badge" style={{ color: slide.textColor }}>
                   <span style={{
                     width: "6px",

@@ -1125,169 +1125,34 @@ input, textarea, select {
   }
 }
 
-/* ─── Explore Range Secondary Navigation ────────────────────────── */
-/* Hide-on-scroll sticky nav with category thumbnails */
-
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideOutUp {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-}
-
-.modish-explore-secondary-nav {
-  position: sticky;
-  top: var(--modish-header-height);
-  z-index: calc(var(--modish-z-sticky) - 10);
-  background: var(--modish-white);
-  border-bottom: 1px solid var(--modish-grey-200);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  opacity: 0;
-  transform: translateY(-100%);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
-}
-
-.modish-explore-secondary-nav.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-  animation: slideInDown 0.3s ease;
-}
-
-.modish-explore-secondary-inner {
-  max-width: var(--modish-container-max);
-  margin: 0 auto;
-  padding: var(--modish-space-4) clamp(6px, 2.5vw, 48px);
-  box-sizing: border-box;
-}
-
-@media (min-width: 768px) {
-  .modish-explore-secondary-inner {
-    padding: var(--modish-space-6) var(--modish-container-pad-desktop);
-  }
-}
-
-.modish-explore-secondary-heading {
-  display: none;
-}
-
-.modish-explore-secondary-list {
-  display: flex;
-  gap: clamp(8px, 2.5vw, 16px);
-  overflow-x: auto;
-  overflow-y: hidden;
-  /* DO NOT use scroll-behavior: smooth here — it causes rubber-band snap-back on touch drag */
-  scrollbar-width: thin;
-  scrollbar-color: var(--modish-grey-300) transparent;
-  padding-bottom: clamp(4px, 1vw, 8px);
-  -webkit-overflow-scrolling: touch;
-  /* KEY FIX: tell browser this container owns horizontal touch — stops page scroll stealing the drag */
-  touch-action: pan-x;
-  /* Prevent scroll from bubbling to page when list reaches its end */
-  overscroll-behavior-x: contain;
-  /* GPU-accelerated scroll on mobile */
-  will-change: scroll-position;
-}
-
-/* Hide scrollbar on mobile, show on desktop */
-@media (max-width: 767px) {
-  .modish-explore-secondary-list {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .modish-explore-secondary-list::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-.modish-explore-secondary-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(4px, 1vw, 8px);
-  padding: clamp(6px, 1.5vw, 12px) clamp(8px, 2vw, 14px);
-  border: 1.5px solid var(--modish-grey-200);
-  border-radius: var(--modish-radius-md);
-  background: var(--modish-white);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-  white-space: nowrap;
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: clamp(10px, 2vw, 12px);
-  color: var(--modish-black);
-  text-decoration: none;
-  -webkit-user-select: none;
-  user-select: none;
-  min-width: fit-content;
-}
-
-.modish-explore-secondary-item:hover,
-.modish-explore-secondary-item:focus-visible {
-  background: var(--modish-yellow);
-  border-color: var(--modish-yellow-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 204, 0, 0.2);
-  outline: none;
-}
-
-.modish-explore-secondary-item:active {
-  transform: translateY(0);
-}
-
-.modish-explore-secondary-thumb {
-  width: clamp(32px, 8vw, 48px);
-  height: clamp(32px, 8vw, 48px);
-  object-fit: cover;
-  border-radius: calc(var(--modish-radius-sm) - 2px);
-  background: var(--modish-grey-100);
-}
-
-/* Responsive adjustments for very small screens */
-@media (max-width: 360px) {
-  .modish-explore-secondary-item {
-    padding: 6px 8px;
-    gap: 4px;
-  }
-  .modish-explore-secondary-thumb {
-    width: 28px;
-    height: 28px;
-  }
-}
-
-/* Desktop: larger presentation */
-@media (min-width: 768px) {
-  .modish-explore-secondary-item {
-    padding: 12px 16px;
-    gap: 8px;
-    border-radius: var(--modish-radius-lg);
-  }
-  .modish-explore-secondary-thumb {
-    width: 56px;
-    height: 56px;
-    border-radius: var(--modish-radius-md);
-  }
-}
-
 /* Scroll Offset for Product Cards scroll targets */
 .modish-product-card-wrapper {
   scroll-margin-top: calc(var(--modish-header-height) + 85px);
+}
+
+/* ─── ACCESSIBILITY: FOCUS VISIBLE ─────────────────────────────── */
+/* Clear, visible focus ring for keyboard users — uses yellow brand colour */
+:focus-visible {
+  outline: 3px solid var(--modish-yellow);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── ACCESSIBILITY: REDUCED MOTION ────────────────────────────── */
+/* Stop all animations for users who prefer reduced motion (vestibular disorders) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Keep marquee static instead of scrolling */
+  [style*="animation: marquee"] {
+    animation: none !important;
+  }
 }
 

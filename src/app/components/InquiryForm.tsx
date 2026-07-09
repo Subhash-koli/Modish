@@ -40,7 +40,32 @@ const WA_BASE = "https://wa.me/919136867622";
 export function InquiryForm() {
   const [form, setForm] = useState<FormData>({ name: "", mobile: "", email: "", product: "", quantity: "", city: "", message: "" });
   const [errors, setErrors] = useState<Errors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [submitted, setSubmitted] = useState(false);
+
+  const validateField = (name: keyof FormData, value: string) => {
+    let err = "";
+    if (name === "name" && (!value || value.trim().length < 2)) {
+      err = "Please enter your full name";
+    } else if (name === "mobile" && (!value || !/^[6-9]\d{9}$/.test(value.trim()))) {
+      err = "Enter a valid 10-digit mobile number";
+    } else if (name === "email" && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      err = "Enter a valid email address";
+    } else if (name === "product" && !value) {
+      err = "Please select a product";
+    } else if (name === "quantity" && (!value || parseInt(value) < 1)) {
+      err = "Please enter a valid quantity";
+    } else if (name === "city" && (!value || value.trim().length < 2)) {
+      err = "Please enter your city";
+    }
+
+    setErrors((prev) => ({ ...prev, [name]: err ? err : undefined }));
+  };
+
+  const handleBlur = (field: keyof FormData) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    validateField(field, form[field]);
+  };
 
   const validate = (): boolean => {
     const e: Errors = {};
@@ -50,6 +75,12 @@ export function InquiryForm() {
     if (!form.product) e.product = "Please select a product";
     if (!form.quantity || parseInt(form.quantity) < 1) e.quantity = "Please enter a quantity";
     if (!form.city || form.city.trim().length < 2) e.city = "Please enter your city";
+    
+    // Set all as touched
+    const touchedFields: Record<string, boolean> = {};
+    Object.keys(form).forEach(key => touchedFields[key] = true);
+    setTouched(touchedFields);
+    
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -64,6 +95,20 @@ export function InquiryForm() {
   };
 
   const waAlt = `${WA_BASE}?text=${encodeURIComponent("Hi Modish! I've submitted an inquiry and would like to discuss further.")}`;
+
+  const getInputStyle = (field: keyof Errors) => {
+    const baseStyle = {
+      fontFamily: "var(--font-body)",
+      transition: "border-color 0.25s ease, box-shadow 0.25s ease",
+    };
+    if (errors[field]) {
+      return { ...baseStyle, borderColor: "#E53E3E", boxShadow: "0 0 0 1px #E53E3E" };
+    }
+    if (touched[field] && form[field]) {
+      return { ...baseStyle, borderColor: "var(--modish-whatsapp)", boxShadow: "0 0 0 1px var(--modish-whatsapp)" };
+    }
+    return baseStyle;
+  };
 
   if (submitted) {
     return (
@@ -154,7 +199,8 @@ export function InquiryForm() {
                       placeholder="Your full name"
                       value={form.name}
                       onChange={e => { setForm(f => ({ ...f, name: e.target.value })); setErrors(err => ({ ...err, name: undefined })); }}
-                      style={{ fontFamily: "var(--font-body)" }}
+                      onBlur={() => handleBlur("name")}
+                      style={getInputStyle("name")}
                     />
                     {errors.name && (
                       <p style={{ fontFamily: "var(--font-body)", fontSize: "12px", color: "#E53E3E", margin: "4px 0 0 0" }}>{errors.name}</p>
@@ -166,9 +212,12 @@ export function InquiryForm() {
                     </label>
                     <Input
                       placeholder="10-digit mobile number"
+                      type="tel"
+                      inputMode="tel"
                       value={form.mobile}
                       onChange={e => { setForm(f => ({ ...f, mobile: e.target.value })); setErrors(err => ({ ...err, mobile: undefined })); }}
-                      style={{ fontFamily: "var(--font-body)" }}
+                      onBlur={() => handleBlur("mobile")}
+                      style={getInputStyle("mobile")}
                     />
                     {errors.mobile && (
                       <p style={{ fontFamily: "var(--font-body)", fontSize: "12px", color: "#E53E3E", margin: "4px 0 0 0" }}>{errors.mobile}</p>
@@ -186,7 +235,8 @@ export function InquiryForm() {
                     type="email"
                     value={form.email}
                     onChange={e => { setForm(f => ({ ...f, email: e.target.value })); setErrors(err => ({ ...err, email: undefined })); }}
-                    style={{ fontFamily: "var(--font-body)" }}
+                    onBlur={() => handleBlur("email")}
+                    style={getInputStyle("email")}
                   />
                   {errors.email && (
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "12px", color: "#E53E3E", margin: "4px 0 0 0" }}>{errors.email}</p>
@@ -199,8 +249,13 @@ export function InquiryForm() {
                     <label style={{ display: "block", fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "14px", color: "var(--modish-black)", marginBottom: "8px" }}>
                       Product Required *
                     </label>
-                    <Select value={form.product} onValueChange={val => { setForm(f => ({ ...f, product: val })); setErrors(err => ({ ...err, product: undefined })); }}>
-                      <SelectTrigger style={{ fontFamily: "var(--font-body)" }}>
+                    <Select value={form.product} onValueChange={val => { setForm(f => ({ ...f, product: val })); setErrors(err => ({ ...err, product: undefined })); setTouched(t => ({ ...t, product: true })); }}>
+                      <SelectTrigger
+                        style={{
+                          fontFamily: "var(--font-body)",
+                          borderColor: errors.product ? "#E53E3E" : (touched.product && form.product ? "var(--modish-whatsapp)" : undefined),
+                        }}
+                      >
                         <SelectValue placeholder="Select a product" />
                       </SelectTrigger>
                       <SelectContent>
@@ -220,9 +275,11 @@ export function InquiryForm() {
                     <Input
                       placeholder="e.g. 50, 100, 500"
                       type="number"
+                      inputMode="numeric"
                       value={form.quantity}
                       onChange={e => { setForm(f => ({ ...f, quantity: e.target.value })); setErrors(err => ({ ...err, quantity: undefined })); }}
-                      style={{ fontFamily: "var(--font-body)" }}
+                      onBlur={() => handleBlur("quantity")}
+                      style={getInputStyle("quantity")}
                     />
                     {errors.quantity && (
                       <p style={{ fontFamily: "var(--font-body)", fontSize: "12px", color: "#E53E3E", margin: "4px 0 0 0" }}>{errors.quantity}</p>
@@ -239,7 +296,8 @@ export function InquiryForm() {
                     placeholder="Your city"
                     value={form.city}
                     onChange={e => { setForm(f => ({ ...f, city: e.target.value })); setErrors(err => ({ ...err, city: undefined })); }}
-                    style={{ fontFamily: "var(--font-body)" }}
+                    onBlur={() => handleBlur("city")}
+                    style={getInputStyle("city")}
                   />
                   {errors.city && (
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "12px", color: "#E53E3E", margin: "4px 0 0 0" }}>{errors.city}</p>
@@ -283,6 +341,7 @@ export function InquiryForm() {
                     minHeight: "52px",
                   }}
                   onMouseEnter={e => { const b = e.currentTarget; b.style.background = "var(--modish-yellow)"; b.style.color = "var(--modish-black)"; }}
+
                   onMouseLeave={e => { const b = e.currentTarget; b.style.background = "var(--modish-black)"; b.style.color = "var(--modish-yellow)"; }}
                 >
                   Get My Quote →

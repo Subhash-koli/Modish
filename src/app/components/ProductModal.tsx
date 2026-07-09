@@ -148,8 +148,8 @@ export function ProductModal({ product, onClose }: { product: Product; onClose: 
             top: "14px",
             right: "14px",
             zIndex: 2,
-            width: "36px",
-            height: "36px",
+            width: "44px",
+            height: "44px",
             borderRadius: "50%",
             background: "rgba(0,0,0,0.08)",
             border: "none",
@@ -163,7 +163,7 @@ export function ProductModal({ product, onClose }: { product: Product; onClose: 
           onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,0,0,0.18)"; }}
           onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,0,0,0.08)"; }}
         >
-          <X size={18} />
+          <X size={20} />
         </button>
 
         <div className="modish-modal-body">

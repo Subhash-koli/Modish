@@ -122,8 +122,10 @@ function FAQItem({ question, answer, isOpen, onToggle }: { question: string; ans
       <div
         style={{
           maxHeight: isOpen ? "400px" : "0",
+          opacity: isOpen ? 1 : 0,
+          transform: isOpen ? "translateY(0)" : "translateY(-8px)",
           overflow: "hidden",
-          transition: "max-height 0.3s ease",
+          transition: "max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, transform 0.3s ease",
         }}
       >
         <p style={{
@@ -134,6 +136,8 @@ function FAQItem({ question, answer, isOpen, onToggle }: { question: string; ans
           lineHeight: 1.7,
           margin: "0 0 var(--modish-space-5) 0",
           paddingTop: "var(--modish-space-2)",
+          paddingLeft: isOpen ? "var(--modish-space-4)" : 0,
+          paddingRight: isOpen ? "var(--modish-space-4)" : 0,
         }}>
           {answer}
         </p>
