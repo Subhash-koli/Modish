@@ -18,34 +18,51 @@ export function HowItWorks() {
       id="how-it-works"
       className="modish-section"
       style={{
-        background: "var(--modish-white)",
-        padding: 0,
+        background: "var(--modish-grey-50)",
+        padding: isMobile ? "var(--modish-space-8) var(--modish-space-4)" : "var(--modish-space-12) var(--modish-space-8)",
         overflow: "hidden",
       }}
     >
-      {isMobile ? (
-        <img
-          src={howItWorksMobile}
-          alt="How Modish works — 5 simple steps: Send your design, receive digital mockup, production begins, quality check, delivery to your door"
+      <div
+        className="modish-container"
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+        }}
+      >
+        <div
           style={{
-            width: "100%",
-            height: "auto",
-            display: "block",
+            borderRadius: isMobile ? "var(--modish-radius-lg)" : "var(--modish-radius-xl)",
+            overflow: "hidden",
+            boxShadow: "var(--modish-shadow-lg)",
+            border: "1px solid rgba(0,0,0,0.06)",
           }}
-          loading="lazy"
-        />
-      ) : (
-        <img
-          src={howItWorksDesktop}
-          alt="How Modish works — 5 simple steps: Send your design, receive digital mockup, production begins, quality check, delivery to your door"
-          style={{
-            width: "100%",
-            height: "auto",
-            display: "block",
-          }}
-          loading="lazy"
-        />
-      )}
+        >
+          {isMobile ? (
+            <img
+              src={howItWorksMobile}
+              alt="How Modish works — 5 simple steps: Send your design, receive digital mockup, production begins, quality check, delivery to your door"
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+              loading="lazy"
+            />
+          ) : (
+            <img
+              src={howItWorksDesktop}
+              alt="How Modish works — 5 simple steps: Send your design, receive digital mockup, production begins, quality check, delivery to your door"
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+              loading="lazy"
+            />
+          )}
+        </div>
+      </div>
     </section>
   );
 }

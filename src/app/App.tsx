@@ -83,9 +83,9 @@ export default function App() {
       <main aria-label="Modish — Custom Merchandise and Corporate Gifting">
         <HeroBanner />
         <MarqueeTicker />
+        <HowItWorks />
         <ProductGrid />
         <WhyChooseSection />
-        <HowItWorks />
         <PrintingTech />
         <StatsCounter />
         <TestimonialsSection />
