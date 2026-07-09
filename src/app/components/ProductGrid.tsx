@@ -644,36 +644,24 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
       </div>
 
       {/* Content */}
-      <div style={{ padding: "clamp(5px, 1.2vw, 12px)", flex: 1, display: "flex", flexDirection: "column", gap: "clamp(2px, 0.3vw, 6px)" }}>
-        <div style={{ maxHeight: "clamp(35px, 7vw, 48px)", overflow: "hidden" }}>
-          <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(12px, 2.8vw, 16px)", color: "var(--modish-black)", margin: "0 0 1px 0", lineHeight: 1.2 }}>
+      <div style={{ padding: "clamp(8px, 2vw, 14px)", flex: 1, display: "flex", flexDirection: "column", gap: "clamp(4px, 1vw, 8px)" }}>
+        <div>
+          <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(13px, 2.8vw, 17px)", color: "var(--modish-black)", margin: "0 0 2px 0", lineHeight: 1.2 }}>
             {product.name}
           </h3>
-          <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "clamp(9px, 1.8vw, 12px)", color: "var(--modish-grey-500)", margin: 0, lineHeight: 1.2 }}>
+          <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "clamp(10px, 2vw, 13px)", color: "var(--modish-grey-500)", margin: 0, lineHeight: 1.3 }}>
             {product.descriptor}
           </p>
         </div>
 
-        {/* Description */}
-        <p style={{ margin: 0, color: "var(--modish-grey-700)", fontSize: "8px", lineHeight: 1.2, display: "-webkit-box", WebkitLineClamp: 3 as any, WebkitBoxOrient: "vertical" as any, overflow: "hidden" }}>
-          {product.description}
-        </p>
-
-        {/* Spec Chips — Fixed Height */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(3px, 0.5vw, 8px)", minHeight: "26px", alignContent: "flex-start" }}>
-          {product.specs.slice(0, 2).map(spec => (
-            <SpecChip key={spec} label={spec} />
-          ))}
-        </div>
-
-        {/* Color Swatches — Fixed Height */}
-        <div style={{ display: "flex", gap: "clamp(4px, 1vw, 8px)", flexWrap: "wrap", minHeight: "22px", alignContent: "flex-start" }}>
-          {product.colors.slice(0, 4).map((c, i) => (
+        {/* Color Swatches */}
+        <div style={{ display: "flex", gap: "clamp(4px, 1vw, 6px)", flexWrap: "wrap", alignItems: "center" }}>
+          {product.colors.slice(0, 5).map((c, i) => (
             <ColorSwatch key={i} color={c} name={product.colorNames[i]} />
           ))}
-          {product.colors.length > 4 && (
-            <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "var(--modish-grey-500)", alignSelf: "center" }}>
-              +{product.colors.length - 4}
+          {product.colors.length > 5 && (
+            <span style={{ fontFamily: "var(--font-body)", fontSize: "11px", color: "var(--modish-grey-500)" }}>
+              +{product.colors.length - 5}
             </span>
           )}
         </div>
@@ -683,22 +671,20 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
           display: "flex",
           gap: "6px",
           marginTop: "auto",
-          flexDirection: isMobile ? "column" : "row",
           width: "100%"
         }}>
           <button
             onClick={() => onViewDetails(product)}
             style={{
-              flex: isMobile ? "none" : "1 1 calc(50% - 6px)",
-              width: "100%",
+              flex: 1,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "6px",
+              gap: "5px",
               fontFamily: "var(--font-heading)",
               fontWeight: 700,
-              fontSize: isMobile ? "10px" : "13px",
-              padding: isMobile ? "6px 8px" : "8px 12px",
+              fontSize: "clamp(10px, 2vw, 13px)",
+              padding: "clamp(6px, 1.5vw, 10px) 8px",
               border: "1.5px solid var(--modish-black)",
               borderRadius: "var(--modish-radius-sm)",
               background: "transparent",
@@ -710,23 +696,22 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
             onMouseLeave={e => { const b = e.currentTarget; b.style.background = "transparent"; b.style.color = "var(--modish-black)"; }}
           >
             <Eye size={isMobile ? 12 : 14} />
-            <span className="modish-button-text">View Details</span>
+            Details
           </button>
           <a
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              flex: isMobile ? "none" : "1 1 calc(50% - 6px)",
-              width: "100%",
+              flex: 1,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "8px",
+              gap: "5px",
               fontFamily: "var(--font-heading)",
               fontWeight: 700,
-              fontSize: isMobile ? "10px" : "14px",
-              padding: isMobile ? "6px 8px" : "9px 14px",
+              fontSize: "clamp(10px, 2vw, 13px)",
+              padding: "clamp(6px, 1.5vw, 10px) 8px",
               borderRadius: "var(--modish-radius-sm)",
               background: "var(--modish-whatsapp)",
               color: "var(--modish-white)",
@@ -736,12 +721,11 @@ function ProductCard({ product, onViewDetails }: { product: Product; onViewDetai
             onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--modish-whatsapp-dark)"; }}
             onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--modish-whatsapp)"; }}
           >
-            {/* Inline WhatsApp icon */}
-            <svg width={isMobile ? 12 : 18} height={isMobile ? 12 : 18} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
               <path d="M20.52 3.48A11.88 11.88 0 0 0 12 0C5.373 0 .01 5.364.01 12c0 2.115.56 4.078 1.53 5.8L0 24l6.42-1.67A11.92 11.92 0 0 0 12 24c6.627 0 12-5.373 12-12 0-3.2-1.25-6.2-3.48-8.52z" fill="var(--modish-whatsapp)" />
               <path d="M17.5 14.2c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.1l-.5.5c-.1.1-.4.2-.8.1-.8-.1-2.5-1.5-3.3-3.1-.2-.4.2-.8.4-1l.5-.5c.3-.3.3-.5.1-.8-.1-.2-1-2.4-1.4-3.3-.2-.5-.7-.6-1-.6-.4 0-.8.1-1.2.2-.3.1-.8.3-1.2.6-.4.3-.9.8-1.1 1.3-.2.6-.1 1.2.6 2.6.8 1.6 4 6.6 8.4 8.7 3 .95 3.9.4 4.6.3.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.5-.1-.3-1.2-1-1.5-1.1z" fill="#fff" />
             </svg>
-            <span className="modish-button-text">WhatsApp</span>
+            Enquire
           </a>
         </div>
       </div>
@@ -778,10 +762,20 @@ const categoryFilters = [
 export function ProductGrid() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
   const filteredProducts = activeFilter
     ? products.filter((p) => p.category === activeFilter)
     : products;
+
+  const INITIAL_COUNT = 6;
+  const displayedProducts = showAll ? filteredProducts : filteredProducts.slice(0, INITIAL_COUNT);
+  const hasMore = filteredProducts.length > INITIAL_COUNT;
+
+  // Reset showAll when filter changes
+  useEffect(() => {
+    setShowAll(false);
+  }, [activeFilter]);
 
   return (
     <section id="products" className="modish-section" style={{ background: "var(--modish-white)" }}>
@@ -815,15 +809,15 @@ export function ProductGrid() {
                 style={{
                   fontFamily: "var(--font-body)",
                   fontWeight: 600,
-                  fontSize: "13px",
-                  padding: "8px 18px",
+                  fontSize: "clamp(11px, 2.5vw, 14px)",
+                  padding: "8px 16px",
                   borderRadius: "var(--modish-radius-full)",
-                  border: isActive ? "none" : "1.5px solid var(--modish-grey-200)",
+                  border: isActive ? "2px solid var(--modish-yellow)" : "1.5px solid var(--modish-grey-200)",
                   background: isActive ? "var(--modish-black)" : "var(--modish-white)",
                   color: isActive ? "var(--modish-yellow)" : "var(--modish-black)",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
-                  minHeight: "40px",
+                  minHeight: "38px",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -834,7 +828,7 @@ export function ProductGrid() {
         </div>
 
         <div className="modish-product-grid">
-          {filteredProducts.map((product, i) => (
+          {displayedProducts.map((product, i) => (
             <div
               key={product.id}
               id={product.id}
@@ -845,6 +839,33 @@ export function ProductGrid() {
             </div>
           ))}
         </div>
+
+        {/* View More / Show Less button */}
+        {hasMore && !activeFilter && (
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--modish-space-8)" }}>
+            <button
+              onClick={() => setShowAll(!showAll)}
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontWeight: 700,
+                fontSize: "clamp(13px, 2.5vw, 15px)",
+                padding: "12px 32px",
+                borderRadius: "var(--modish-radius-full)",
+                border: "2px solid var(--modish-black)",
+                background: showAll ? "var(--modish-black)" : "transparent",
+                color: showAll ? "var(--modish-yellow)" : "var(--modish-black)",
+                cursor: "pointer",
+                transition: "all 0.25s ease",
+                minHeight: "48px",
+                letterSpacing: "0.02em",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = "var(--modish-black)"; e.currentTarget.style.color = "var(--modish-yellow)"; }}
+              onMouseLeave={e => { if (!showAll) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--modish-black)"; } }}
+            >
+              {showAll ? "Show Less" : `View All ${filteredProducts.length} Products`}
+            </button>
+          </div>
+        )}
       </div>
 
       {selectedProduct && (
