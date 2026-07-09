@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Eye } from "lucide-react";
 import { ProductModal, Product } from "./ProductModal";
-import { ExploreRangeSecondaryNav } from "./ExploreRangeSecondaryNav";
+
 
 // Batch 1 imports (images 3–11)
 import img3_tshirts from "../../imports/Modish catalog/3.webp";
@@ -368,7 +368,7 @@ export function ProductGrid() {
 
   return (
     <section id="products" className="modish-section" style={{ background: "var(--modish-white)" }}>
-      <ExploreRangeSecondaryNav />
+
       <div className="modish-container">
         <SectionHeading
           eyebrow="OUR PRODUCTS"
