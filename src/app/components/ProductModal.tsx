@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 export interface Product {
   id: string;
   name: string;
+  category?: string;
   categoryImage: string;              // category header shot (shown in card)
   specImage: string | null;           // spec sheet image (shown in modal left panel)
   colorsImage: string | null;         // color variant grid image (shown in modal)
