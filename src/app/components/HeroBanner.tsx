@@ -25,9 +25,9 @@ const slides = [
     bg: "var(--modish-grey-50)",
     accentColor: "#A67B00",
     textColor: "var(--modish-black)",
-    eyebrow: "CUSTOM T-SHIRTS",
-    headline: ["Your Brand,", "Your Style,", "Your Story."],
-    subtext: "Premium custom printed apparel — from 1 piece to 10,000. Bulk orders with bulk discounts.",
+    eyebrow: "CUSTOM APPAREL",
+    headline: ["Premium Custom", "Printed Apparel."],
+    subtext: "High-quality custom printed clothing for teams, brands, and events. Delivered pan India.",
     cta1: { label: "Browse Catalog", href: "https://tinyurl.com/Modish-now", target: "_blank", style: "yellow" },
     cta2: { label: "WhatsApp Now", href: `${WA_BASE}?text=Hi%20Modish!%20I'm%20interested%20in%20placing%20an%20order.`, target: "_blank", style: "wa" },
     dotColor: "var(--modish-black)",
@@ -40,8 +40,8 @@ const slides = [
     accentColor: "var(--modish-black)",
     textColor: "var(--modish-black)",
     eyebrow: "BULK ORDERS",
-    headline: ["Scale Up.", "Stand Out.", "Ship Fast."],
-    subtext: "Pan India delivery. DTF, Screen, Embroidery & Sublimation printing for every requirement.",
+    headline: ["High Volume.", "Delivered Fast."],
+    subtext: "Scale your custom merch with automated screen printing, DTF, and premium embroidery.",
     cta1: { label: "Get a Quote", href: "#inquiry", target: "_self", style: "black" },
     cta2: { label: "WhatsApp Now", href: `${WA_BASE}?text=Hi%20Modish!%20I%20need%20a%20quote%20for%20a%20bulk%20order.`, target: "_blank", style: "wa" },
     dotColor: "var(--modish-black)",
@@ -54,8 +54,8 @@ const slides = [
     accentColor: "#A67B00",
     textColor: "var(--modish-black)",
     eyebrow: "CORPORATE DIARIES",
-    headline: ["Gifts That", "Make a", "Lasting Impression."],
-    subtext: "Premium custom diaries and corporate gift sets crafted for brands that want to leave a lasting impression.",
+    headline: ["Premium Custom", "Corporate Diaries."],
+    subtext: "Bespoke gift sets and notebooks designed to leave a lasting impression.",
     cta1: { label: "View Diary Catalog", href: "https://tinyurl.com/Diary-modish", target: "_blank", style: "yellow" },
     cta2: { label: "WhatsApp Now", href: `${WA_BASE}?text=Hi%20Modish!%20I%20just%20viewed%20your%20catalog.%20Can%20we%20discuss%20an%20order%3F`, target: "_blank", style: "wa" },
     dotColor: "var(--modish-black)",
@@ -68,8 +68,8 @@ const slides = [
     accentColor: "#A67B00",
     textColor: "var(--modish-black)",
     eyebrow: "EVENT MERCHANDISE",
-    headline: ["Merch That", "Moves the", "Crowd."],
-    subtext: "Custom merchandise for college fests, corporate events, startups, and every occasion in between.",
+    headline: ["Custom Event", "Merchandise."],
+    subtext: "High-impact promotional apparel and accessories for launches, fests, and meets.",
     cta1: { label: "Explore Products", href: "#products", target: "_self", style: "black" },
     cta2: { label: "WhatsApp Now", href: `${WA_BASE}?text=Hi%20Modish!%20I%20m%20interested%20in%20event%20merchandise.%20Can%20you%20help%3F`, target: "_blank", style: "wa" },
     dotColor: "var(--modish-black)",
@@ -81,9 +81,9 @@ const slides = [
     bg: "var(--modish-grey-50)",
     accentColor: "var(--modish-yellow)",
     textColor: "var(--modish-black)",
-    eyebrow: "DESIGNED FOR BRANDS & CREATORS",
-    headline: ["Merch That", "Moves the", "Crowd."],
-    subtext: "From oversized hoodies to custom polo tees — we craft apparel that carries your identity. For startups, college fests, corporate events, and more.",
+    eyebrow: "CREATORS & BRANDS",
+    headline: ["Apparel Built", "For Your Brand."],
+    subtext: "Your custom designs on retail-grade fabric. From streetwear hoodies to premium polo tees.",
     cta1: { label: "Explore Products", href: "#products", target: "_self", style: "yellow" },
     cta2: { label: "Get a Quote", href: "#inquiry", target: "_self", style: "black" },
     dotColor: "var(--modish-black)",
@@ -427,106 +427,6 @@ export function HeroBanner() {
           />
         </div>
 
-        {/* Product Quick-Browse Strip */}
-        <div
-          className="modish-hero-browse"
-          style={{
-            opacity: 0,
-            animation: "revealUp 0.7s ease 0.5s forwards",
-            /* Bleed to screen edges on mobile */
-            marginLeft: "calc(-1 * var(--modish-container-pad-mobile))",
-            marginRight: "calc(-1 * var(--modish-container-pad-mobile))",
-          }}
-        >
-          <span className="modish-hero-browse-label" style={{
-            color: slide.textColor === "var(--modish-white)" ? "rgba(255,255,255,0.5)" : "var(--modish-grey-500)",
-            paddingLeft: "var(--modish-container-pad-mobile)",
-            display: "block",
-          }}>
-            Explore Our Range
-          </span>
-          <div
-            style={{
-              display: "flex",
-              gap: "12px",
-              overflowX: "auto",
-              overflowY: "visible",
-              WebkitOverflowScrolling: "touch" as React.CSSProperties["WebkitOverflowScrolling"],
-              touchAction: "pan-x",
-              paddingBottom: "10px",
-              paddingLeft: "var(--modish-container-pad-mobile)",
-              paddingRight: "var(--modish-container-pad-mobile)",
-              scrollbarWidth: "none" as const,
-              msOverflowStyle: "none" as const,
-            } as React.CSSProperties}
-            className="hide-scrollbar"
-          >
-            {previewCategories.map((cat, idx) => (
-              <a
-                key={idx}
-                href="#products"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="modish-hero-chip"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  background: "rgba(255, 255, 255, 0.45)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1px solid rgba(255, 255, 255, 0.55)",
-                  borderRadius: "var(--modish-radius-md)",
-                  padding: "8px 16px 8px 8px",
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  flexShrink: 0,
-                  minWidth: "max-content",
-                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                }}
-                onMouseEnter={e => {
-                  const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.background = "rgba(255, 255, 255, 0.8)";
-                  el.style.border = "1px solid var(--modish-yellow)";
-                  el.style.transform = "translateY(-3px)";
-                }}
-                onMouseLeave={e => {
-                  const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.background = "rgba(255, 255, 255, 0.45)";
-                  el.style.border = "1px solid rgba(255, 255, 255, 0.55)";
-                  el.style.transform = "translateY(0)";
-                }}
-              >
-                <img
-                  src={cat.img}
-                  alt={cat.name}
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "8px",
-                    objectFit: "cover",
-                    objectPosition: "top center",
-                    background: "var(--modish-grey-100)",
-                    flexShrink: 0,
-                  }}
-                />
-                <span style={{
-                  fontFamily: "var(--font-heading)",
-                  fontWeight: 700,
-                  fontSize: "13px",
-                  letterSpacing: "0.02em",
-                  color: slide.textColor,
-                  textTransform: "uppercase",
-                  whiteSpace: "nowrap",
-                }}>
-                  {cat.name}
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Slide Controls — desktop only */}
@@ -591,37 +491,9 @@ export function HeroBanner() {
           transform: "translateX(-50%)",
           display: "flex",
           alignItems: "center",
-          gap: "var(--modish-space-2)",
+          gap: "8px",
         }}
       >
-        <div className="modish-mobile-range-tabs hide-scrollbar">
-          {previewCategories.map((cat) => (
-            <button
-              key={cat.name}
-              type="button"
-              className="modish-mobile-range-tab"
-              onClick={() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              <img
-                src={cat.img}
-                alt={`${cat.name} custom printed by Modish`}
-                width={18}
-                height={18}
-                loading="lazy"
-                style={{ width: "18px", height: "18px", objectFit: "cover", borderRadius: "6px", display: "inline-block" }}
-              />
-              <span>{cat.name}</span>
-            </button>
-          ))}
-        </div>
-        <button
-          type="button"
-          className="modish-mobile-range-arrow"
-          onClick={next}
-          aria-label="Next slide"
-        >
-          <ArrowRight size={16} />
-        </button>
         {slides.map((_, i) => (
           <button
             key={i}
@@ -631,7 +503,7 @@ export function HeroBanner() {
             onClick={() => goTo(i)}
             style={{
               height: "8px",
-              width: i === current ? "28px" : "8px",
+              width: i === current ? "24px" : "8px",
               borderRadius: "9999px",
               background: i === current ? slide.dotColor : "rgba(0,0,0,0.2)",
               border: "none",
