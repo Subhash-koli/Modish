@@ -24,48 +24,56 @@ const slides = [
     id: "slide-1",
     slideImage: img3_tshirts,
     slideImageSecondary: img9_polo,
+    slideImageTertiary: img6_oversized,
     dotColor: "var(--modish-black)",
   },
   {
     id: "slide-2",
     slideImage: img6_oversized,
     slideImageSecondary: img12_hoodies,
+    slideImageTertiary: img15_gymvest,
     dotColor: "var(--modish-black)",
   },
   {
     id: "slide-3",
     slideImage: img15_gymvest,
     slideImageSecondary: img17_accessories,
+    slideImageTertiary: img3_tshirts,
     dotColor: "var(--modish-black)",
   },
   {
     id: "slide-4",
     slideImage: img9_polo,
     slideImageSecondary: img6_oversized,
+    slideImageTertiary: img12_hoodies,
     dotColor: "var(--modish-black)",
   },
   {
     id: "slide-5",
     slideImage: img12_hoodies,
     slideImageSecondary: img3_tshirts,
+    slideImageTertiary: img17_accessories,
     dotColor: "var(--modish-black)",
   },
   {
     id: "slide-6",
     slideImage: img3_tshirts,
     slideImageSecondary: img15_gymvest,
+    slideImageTertiary: img9_polo,
     dotColor: "var(--modish-black)",
   },
   {
     id: "slide-7",
     slideImage: img6_oversized,
     slideImageSecondary: img17_accessories,
+    slideImageTertiary: img12_hoodies,
     dotColor: "var(--modish-black)",
   },
   {
     id: "slide-8",
     slideImage: img12_hoodies,
     slideImageSecondary: img9_polo,
+    slideImageTertiary: img6_oversized,
     dotColor: "var(--modish-black)",
   },
 ];
@@ -91,36 +99,13 @@ export function HeroBanner() {
   }, [current, isHovered, next]);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 640);
+    const check = () => setIsMobile(window.innerWidth <= 768);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
 
   const slide = slides[current];
-
-  const ctaStyle = (style: string) => {
-    const scale = isMobile ? 0.7 : 1.05; // increase CTA sizes, especially on mobile
-    const base = {
-      display: "inline-flex" as const,
-      alignItems: "center" as const,
-      gap: `${8 * scale}px`,
-      fontFamily: "var(--font-heading)",
-      fontWeight: 700,
-      fontSize: `${16 * scale}px`,
-      padding: `${Math.round(10 * scale)}px ${Math.round(20 * scale)}px`,
-      borderRadius: "var(--modish-radius-md)",
-      textDecoration: "none",
-      transition: "all 0.3s ease",
-      cursor: "pointer" as const,
-      minHeight: `${Math.round(48 * scale)}px`,
-      whiteSpace: "nowrap" as const,
-    };
-    if (style === "yellow") return { ...base, background: "var(--modish-yellow)", color: "var(--modish-black)" };
-    if (style === "black") return { ...base, background: "var(--modish-black)", color: "var(--modish-yellow)" };
-    if (style === "wa") return { ...base, background: "var(--modish-whatsapp)", color: "var(--modish-white)" };
-    return base;
-  };
 
   return (
     <section
@@ -133,8 +118,7 @@ export function HeroBanner() {
         position: "relative",
         marginTop: "var(--modish-header-height)",
         overflow: "clip",
-        background: slide.bg,
-        transition: "background 0.4s ease",
+        background: "var(--modish-grey-50)",
         display: "flex",
         alignItems: "center",
       }}
@@ -190,69 +174,100 @@ export function HeroBanner() {
           paddingBottom: "var(--modish-space-6)",
         }}
       >
-        <div className="modish-hero-layout" style={{ gridTemplateColumns: "1fr" }}>
-          {/* ── RIGHT: Hero Visual (now centered and full width) ── */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1.2fr 0.8fr" : "1.3fr 0.7fr",
+            gap: isMobile ? "8px" : "20px",
+            width: "100%",
+            alignItems: "stretch",
+          }}
+        >
+          {/* Main Visual: Left Large Panel */}
           <div
-            className="modish-desktop-only"
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
+              position: "relative",
+              borderRadius: "var(--modish-radius-xl)",
+              overflow: "hidden",
+              boxShadow: "var(--modish-shadow-lg)",
+              height: isMobile ? "300px" : "560px",
+              border: "1.5px solid rgba(0,0,0,0.04)",
             }}
           >
-            <div style={{ display: "flex", gap: "24px", width: "100%", justifyContent: "center" }}>
-              <img
-                key={`img-left-${current}`}
-                src={slide.slideImage || heroImg}
-                alt={`Modish premium apparel design`}
-                style={{
-                  width: "calc(50% - 12px)",
-                  height: "560px",
-                  objectFit: "cover",
-                  objectPosition: "top center",
-                  borderRadius: "var(--modish-radius-xl)",
-                  boxShadow: "var(--modish-shadow-lg)",
-                  animation: "fadeInScale 0.6s ease forwards",
-                }}
-                loading="eager"
-              />
+            <img
+              key={`img-left-${current}`}
+              src={slide.slideImage}
+              alt="Modish custom apparel showcases"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "top center",
+                animation: "fadeInScale 0.6s ease forwards",
+              }}
+              loading="eager"
+            />
+          </div>
+
+          {/* Secondary & Tertiary Visuals: Right Stacked Panel */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: isMobile ? "8px" : "20px",
+            }}
+          >
+            <div
+              style={{
+                flex: 1,
+                position: "relative",
+                borderRadius: "var(--modish-radius-xl)",
+                overflow: "hidden",
+                boxShadow: "var(--modish-shadow-md)",
+                height: "100%",
+                border: "1.5px solid rgba(0,0,0,0.04)",
+              }}
+            >
               <img
                 key={`img-right-${current}`}
-                src={(slide as any).slideImageSecondary || heroImg}
-                alt={`Modish premium apparel print`}
+                src={slide.slideImageSecondary}
+                alt="Modish premium custom print details"
                 style={{
-                  width: "calc(50% - 12px)",
-                  height: "560px",
+                  width: "100%",
+                  height: "100%",
                   objectFit: "cover",
                   objectPosition: "top center",
-                  borderRadius: "var(--modish-radius-xl)",
-                  boxShadow: "var(--modish-shadow-lg)",
                   animation: "fadeInScale 0.6s ease 0.1s forwards",
                 }}
                 loading="eager"
               />
             </div>
+            <div
+              style={{
+                flex: 1,
+                position: "relative",
+                borderRadius: "var(--modish-radius-xl)",
+                overflow: "hidden",
+                boxShadow: "var(--modish-shadow-md)",
+                height: "100%",
+                border: "1.5px solid rgba(0,0,0,0.04)",
+              }}
+            >
+              <img
+                key={`img-tertiary-${current}`}
+                src={slide.slideImageTertiary}
+                alt="Modish custom brand merchandise designs"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "top center",
+                  animation: "fadeInScale 0.6s ease 0.2s forwards",
+                }}
+                loading="eager"
+              />
+            </div>
           </div>
-        </div>
-
-        {/* Hero Image — mobile only */}
-        <div className="modish-hero-mobile-img modish-mobile-only" style={{ marginTop: 0 }}>
-          <img
-            key={`mobile-img-${current}`}
-            src={slide.slideImage || heroImg}
-            alt={`Modish custom printed product`}
-            style={{
-              width: "100%",
-              height: "420px",
-              objectFit: "cover",
-              objectPosition: "top center",
-              borderRadius: "var(--modish-radius-xl)",
-              display: "block",
-              animation: "fadeInScale 0.6s ease forwards",
-            }}
-            loading="eager"
-          />
         </div>
       </div>
 
