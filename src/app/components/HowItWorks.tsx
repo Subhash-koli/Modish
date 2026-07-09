@@ -1,5 +1,5 @@
 import { Upload, ImageIcon, Cog, CheckSquare, Package } from "lucide-react";
-import processImg from "../../imports/Modish catalog/19.webp";
+import processImg from "../../imports/Modish catalog/20.webp";
 
 const steps = [
   {

@@ -769,8 +769,11 @@ export function ProductGrid() {
     : products;
 
   const INITIAL_COUNT = 6;
-  const displayedProducts = showAll ? filteredProducts : filteredProducts.slice(0, INITIAL_COUNT);
-  const hasMore = filteredProducts.length > INITIAL_COUNT;
+  // When a filter is active, show ALL matching products. Only limit when showing "All".
+  const displayedProducts = activeFilter
+    ? filteredProducts
+    : (showAll ? filteredProducts : filteredProducts.slice(0, INITIAL_COUNT));
+  const hasMore = !activeFilter && filteredProducts.length > INITIAL_COUNT;
 
   // Reset showAll when filter changes
   useEffect(() => {
@@ -832,8 +835,11 @@ export function ProductGrid() {
             <div
               key={product.id}
               id={product.id}
-              className="reveal-on-scroll modish-product-card-wrapper"
-              style={{ animationDelay: `${i * 80}ms` }}
+              className="modish-product-card-wrapper"
+              style={{
+                animationDelay: `${i * 80}ms`,
+                opacity: 1,
+              }}
             >
               <ProductCard product={product} onViewDetails={setSelectedProduct} />
             </div>
@@ -841,7 +847,7 @@ export function ProductGrid() {
         </div>
 
         {/* View More / Show Less button */}
-        {hasMore && !activeFilter && (
+        {hasMore && (
           <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--modish-space-8)" }}>
             <button
               onClick={() => setShowAll(!showAll)}
