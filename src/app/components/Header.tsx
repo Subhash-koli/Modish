@@ -6,7 +6,6 @@ import logoWhite from "../../imports/LOGO_WHITE.jpeg";
 const navLinks = [
   { label: "Home", href: "#home" },
   { label: "Products", href: "#products" },
-  { label: "Diaries", href: "#diaries" },
   { label: "Services", href: "#printing" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },

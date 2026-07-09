@@ -5,7 +5,6 @@ const WA_URL = "https://wa.me/919136867622?text=Hi%20Modish!%20I%20need%20a%20qu
 
 const quickLinks = [
   { label: "Products", href: "#products" },
-  { label: "Diaries", href: "#diaries" },
   { label: "Catalogs", href: "#catalogs" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "About Us", href: "#about" },
@@ -20,7 +19,6 @@ const products = [
   "Premium Hoodie",
   "Gym Vest",
   "Tote Bag",
-  "Corporate Diary",
 ];
 
 const linkStyle = {

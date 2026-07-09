@@ -10,7 +10,6 @@ import { HowItWorks } from "./components/HowItWorks";
 import { PrintingTech } from "./components/PrintingTech";
 import { StatsCounter } from "./components/StatsCounter";
 import { TestimonialsSection } from "./components/TestimonialsSection";
-import { DiariesSection } from "./components/DiariesSection";
 import { TrustedClients } from "./components/TrustedClients";
 import { CatalogDownloads } from "./components/CatalogDownloads";
 import { InquiryForm } from "./components/InquiryForm";
@@ -90,7 +89,6 @@ export default function App() {
         <PrintingTech />
         <StatsCounter />
         <TestimonialsSection />
-        <DiariesSection />
         <TrustedClients />
         <CatalogDownloads />
         <InquiryForm />

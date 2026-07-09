@@ -208,179 +208,29 @@ export function HeroBanner() {
           width: "100%",
           position: "relative",
           zIndex: 2,
-          paddingTop: "var(--modish-space-8)",
-          paddingBottom: "var(--modish-space-8)",
+          paddingTop: "var(--modish-space-6)",
+          paddingBottom: "var(--modish-space-6)",
         }}
       >
-        {/* Two-column layout: text left, image right on desktop */}
-        <div className="modish-hero-layout">
-
-          {/* ── LEFT: Text Block ── */}
-          <div className="modish-hero-text-col">
-
-            {/* Eyebrow */}
-            <span
-              key={`eyebrow-${current}`}
-              className="modish-hero-eyebrow"
-              style={{
-                color: slide.accentColor,
-                opacity: 0,
-                animation: "revealUp 0.6s ease forwards",
-              }}
-            >
-              {slide.eyebrow}
-            </span>
-
-            {/* Headline */}
-            <h1
-              key={`headline-${current}`}
-              className="modish-hero-headline"
-              style={{
-                color: slide.textColor,
-                opacity: 0,
-                animation: "revealUp 0.6s ease 0.1s forwards",
-              }}
-            >
-              {slide.headline.map((line, i) => (
-                <span key={i} style={{ display: "block" }}>
-                  {i === 0 ? (
-                    <span style={{
-                      position: "relative",
-                      display: "inline-block",
-                      zIndex: 1,
-                    }}>
-                      <span style={{
-                        position: "absolute",
-                        left: "-4px",
-                        right: "-4px",
-                        bottom: "8%",
-                        height: "28%",
-                        background: slide.bg === "var(--modish-yellow)" ? "var(--modish-white)" : "var(--modish-yellow)",
-                        zIndex: -1,
-                        borderRadius: "2px",
-                        opacity: 0.95,
-                      }} />
-                      <span style={{ color: "var(--modish-black)", position: "relative" }}>
-                        {line}
-                      </span>
-                    </span>
-                  ) : line}
-                </span>
-              ))}
-            </h1>
-
-            {/* Subtext */}
-            <p
-              key={`sub-${current}`}
-              className="modish-hero-subtext"
-              style={{
-                color: slide.textColor,
-                opacity: 0,
-                animation: "revealUp 0.6s ease 0.2s forwards",
-              }}
-            >
-              {slide.subtext}
-            </p>
-
-            {/* CTAs */}
-            <div
-              key={`ctas-${current}`}
-              className="modish-hero-ctas-row"
-              style={{
-                opacity: 0,
-                animation: "revealUp 0.6s ease 0.3s forwards",
-                display: "flex",
-                gap: "12px",
-                flexWrap: "wrap",
-                marginTop: "var(--modish-space-4)",
-                maxWidth: "720px",
-              }}
-            >
-              <a
-                href={slide.cta1.href}
-                target={slide.cta1.target as "_blank" | "_self"}
-                rel="noopener noreferrer"
-                style={{ ...ctaStyle(slide.cta1.style), flex: "1 1 calc(50% - 6px)", justifyContent: "center" }}
-              >
-                {slide.cta1.label}
-                <ArrowRight size={isMobile ? 12 : 16} />
-              </a>
-              <a
-                href={slide.cta2.href}
-                target={slide.cta2.target as "_blank" | "_self"}
-                rel="noopener noreferrer"
-                style={{ ...ctaStyle(slide.cta2.style), flex: "1 1 calc(50% - 6px)", justifyContent: "center" }}
-              >
-                {/* Inline WhatsApp SVG icon for accurate branding */}
-                <svg width={isMobile ? 18 : 20} height={isMobile ? 18 : 20} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                  <path d="M20.52 3.48A11.88 11.88 0 0 0 12 0C5.373 0 .01 5.364.01 12c0 2.115.56 4.078 1.53 5.8L0 24l6.42-1.67A11.92 11.92 0 0 0 12 24c6.627 0 12-5.373 12-12 0-3.2-1.25-6.2-3.48-8.52z" fill="var(--modish-whatsapp)" />
-                  <path d="M17.5 14.2c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.1l-.5.5c-.1.1-.4.2-.8.1-.8-.1-2.5-1.5-3.3-3.1-.2-.4.2-.8.4-1l.5-.5c.3-.3.3-.5.1-.8-.1-.2-1-2.4-1.4-3.3-.2-.5-.7-.6-1-.6-.4 0-.8.1-1.2.2-.3.1-.8.3-1.2.6-.4.3-.9.8-1.1 1.3-.2.6-.1 1.2.6 2.6.8 1.6 4 6.6 8.4 8.7 3 .95 3.9.4 4.6.3.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.5-.1-.3-1.2-1-1.5-1.1z" fill="#fff" />
-                </svg>
-                <span style={{ marginLeft: 6 }}>{slide.cta2.label}</span>
-              </a>
-            </div>
-
-            {/* Trust badge row */}
-            <div
-              className="modish-hero-trust"
-              style={{
-                opacity: 0,
-                animation: "revealUp 0.6s ease 0.4s forwards",
-              }}
-            >
-              {/* Google Reviews badge */}
-              <a
-                href="https://g.page/r/CYatrYCuXpkREAE/review"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="modish-hero-trust-badge"
-                style={{
-                  color: slide.textColor,
-                  textDecoration: "none",
-                  background: slide.bg === "var(--modish-yellow)" ? "rgba(0,0,0,0.08)" : "rgba(255,204,0,0.15)",
-                  borderRadius: "var(--modish-radius-full)",
-                  padding: "4px 10px",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "5px",
-                  fontWeight: 600,
-                }}
-                aria-label="See our 26 Google Reviews"
-              >
-                <span style={{ color: "#F5A623", fontSize: "13px" }}>★★★★★</span>
-                <span>5.0 · 26 Reviews</span>
-              </a>
-              {["Starting ₹449/pc", "Free Mockup", "Pan India"].map((badge) => (
-                <span key={badge} className="modish-hero-trust-badge" style={{ color: slide.textColor }}>
-                  <span style={{
-                    width: "6px",
-                    height: "6px",
-                    borderRadius: "50%",
-                    background: slide.bg === "var(--modish-yellow)" ? "var(--modish-black)" : "var(--modish-yellow)",
-                    flexShrink: 0,
-                  }} />
-                  {badge}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* ── RIGHT: Hero Visual (desktop only) ── */}
+        <div className="modish-hero-layout" style={{ gridTemplateColumns: "1fr" }}>
+          {/* ── RIGHT: Hero Visual (now centered and full width) ── */}
           <div
-            className="modish-desktop-only modish-hero-img-col"
+            className="modish-desktop-only"
             style={{
+              display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              width: "100%",
             }}
           >
-            <div style={{ display: "flex", gap: "12px", width: "100%" }}>
+            <div style={{ display: "flex", gap: "24px", width: "100%", justifyContent: "center" }}>
               <img
                 key={`img-left-${current}`}
                 src={slide.slideImage || heroImg}
-                alt={`Modish ${slide.eyebrow.toLowerCase()} — custom printed apparel Mumbai`}
+                alt={`Modish premium apparel design`}
                 style={{
-                  width: "48%",
-                  height: "480px",
+                  width: "calc(50% - 12px)",
+                  height: "560px",
                   objectFit: "cover",
                   objectPosition: "top center",
                   borderRadius: "var(--modish-radius-xl)",
@@ -392,10 +242,10 @@ export function HeroBanner() {
               <img
                 key={`img-right-${current}`}
                 src={(slide as any).slideImageSecondary || heroImg}
-                alt={`Modish bulk custom merchandise — ${slide.eyebrow.toLowerCase()}`}
+                alt={`Modish premium apparel print`}
                 style={{
-                  width: "48%",
-                  height: "480px",
+                  width: "calc(50% - 12px)",
+                  height: "560px",
                   objectFit: "cover",
                   objectPosition: "top center",
                   borderRadius: "var(--modish-radius-xl)",
@@ -408,15 +258,15 @@ export function HeroBanner() {
           </div>
         </div>
 
-        {/* Hero Image — mobile only, shown below CTAs */}
-        <div className="modish-hero-mobile-img modish-mobile-only">
+        {/* Hero Image — mobile only */}
+        <div className="modish-hero-mobile-img modish-mobile-only" style={{ marginTop: 0 }}>
           <img
             key={`mobile-img-${current}`}
             src={slide.slideImage || heroImg}
-            alt={`Modish custom printed ${slide.eyebrow.toLowerCase()} — premium apparel Mumbai`}
+            alt={`Modish custom printed product`}
             style={{
               width: "100%",
-              height: "240px",
+              height: "420px",
               objectFit: "cover",
               objectPosition: "top center",
               borderRadius: "var(--modish-radius-xl)",
@@ -426,7 +276,6 @@ export function HeroBanner() {
             loading="eager"
           />
         </div>
-
       </div>
 
       {/* Slide Controls — desktop only */}
