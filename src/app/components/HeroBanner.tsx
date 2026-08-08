@@ -182,7 +182,7 @@ function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
   const { index, next, prev, go } = useCarousel(cards.length, 3500);
   const [touchX, setTouchX] = useState<number | null>(null);
 
-  const visibleCount = isMobile ? 3 : 7;
+  const visibleCount = 3;
   const centerOffset = Math.floor(visibleCount / 2);
 
   const visibleIndices: number[] = [];
@@ -206,21 +206,21 @@ function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: isMobile ? "8px" : "12px",
+          gap: isMobile ? "8px" : "20px",
           transition: "all 0.5s cubic-bezier(0.4,0,0.2,1)",
-          padding: isMobile ? "0 4px" : "0",
+          padding: isMobile ? "0 4px" : "0 20px",
         }}
       >
         {visibleIndices.map((cardIdx, pos) => {
           const isCenter = pos === centerOffset;
-          // On desktop, calculate card width to fill viewport: ~(100vw / visibleCount) minus gaps
-          // On mobile: prominent 66vw hero center card with 16vw peeking side cards & 340px height
+          // Desktop: 3 prominent cards (center 28vw, sides 22vw)
+          // Mobile: 3 cards (center 66vw, sides 16vw)
           const w = isMobile
             ? (isCenter ? "calc(66vw)" : "calc(16vw)")
-            : (isCenter ? "calc(17vw)" : "calc(14vw)");
+            : (isCenter ? "calc(28vw)" : "calc(22vw)");
           const h = isMobile
             ? (isCenter ? "340px" : "280px")
-            : (isCenter ? "420px" : "360px");
+            : (isCenter ? "440px" : "380px");
 
           return (
             <div
