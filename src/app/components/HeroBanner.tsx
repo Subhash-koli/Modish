@@ -179,7 +179,7 @@ function ArrowBtn({ dir, onClick, variant = "default" }: { dir: "left" | "right"
    ────────────────────────────────────────────────────────────── */
 function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
   const cards = section1Cards;
-  const { index, next, prev } = useCarousel(cards.length, 3500);
+  const { index, next, prev, go } = useCarousel(cards.length, 3500);
   const [touchX, setTouchX] = useState<number | null>(null);
 
   const visibleCount = isMobile ? 3 : 7;
@@ -206,7 +206,7 @@ function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: isMobile ? "6px" : "12px",
+          gap: isMobile ? "8px" : "12px",
           transition: "all 0.5s cubic-bezier(0.4,0,0.2,1)",
           padding: isMobile ? "0 4px" : "0",
         }}
@@ -214,12 +214,12 @@ function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
         {visibleIndices.map((cardIdx, pos) => {
           const isCenter = pos === centerOffset;
           // On desktop, calculate card width to fill viewport: ~(100vw / visibleCount) minus gaps
-          // On mobile: 3 cards filling width
+          // On mobile: prominent 66vw hero center card with 16vw peeking side cards & 340px height
           const w = isMobile
-            ? (isCenter ? "calc(40vw)" : "calc(29vw)")
+            ? (isCenter ? "calc(66vw)" : "calc(16vw)")
             : (isCenter ? "calc(17vw)" : "calc(14vw)");
           const h = isMobile
-            ? (isCenter ? "185px" : "158px")
+            ? (isCenter ? "340px" : "280px")
             : (isCenter ? "420px" : "360px");
 
           return (
@@ -228,12 +228,12 @@ function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
               style={{
                 width: w,
                 height: h,
-                borderRadius: isMobile ? "12px" : "18px",
+                borderRadius: isMobile ? "16px" : "18px",
                 overflow: "hidden",
                 flexShrink: 0,
                 transition: "all 0.5s cubic-bezier(0.4,0,0.2,1)",
                 boxShadow: isCenter
-                  ? "0 8px 30px rgba(0,0,0,0.18)"
+                  ? "0 10px 32px rgba(0,0,0,0.22)"
                   : "0 2px 12px rgba(0,0,0,0.06)",
                 position: "relative",
                 border: isCenter
@@ -259,12 +259,14 @@ function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  padding: isMobile ? "18px 6px 6px" : "30px 12px 12px",
-                  background: "linear-gradient(transparent, rgba(0,0,0,0.55))",
+                  padding: isMobile
+                    ? (isCenter ? "22px 8px 8px" : "14px 4px 4px")
+                    : "30px 12px 12px",
+                  background: "linear-gradient(transparent, rgba(0,0,0,0.65))",
                   color: "#fff",
                   fontFamily: "var(--font-heading)",
                   fontWeight: 700,
-                  fontSize: isMobile ? "10px" : "14px",
+                  fontSize: isMobile ? (isCenter ? "12px" : "9px") : "14px",
                   textAlign: "center",
                   letterSpacing: "0.02em",
                 }}
@@ -276,7 +278,27 @@ function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
         })}
       </div>
 
-      {!isMobile && (
+      {isMobile ? (
+        <div style={{ display: "flex", justifyContent: "center", gap: "6px", marginTop: "12px" }}>
+          {cards.map((_, i) => (
+            <button
+              key={`dot-${i}`}
+              onClick={() => go(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              style={{
+                width: i === index ? "18px" : "6px",
+                height: "6px",
+                borderRadius: "3px",
+                background: i === index ? "var(--modish-yellow)" : "rgba(0,0,0,0.18)",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+              }}
+            />
+          ))}
+        </div>
+      ) : (
         <>
           <ArrowBtn dir="left" onClick={prev} />
           <ArrowBtn dir="right" onClick={next} />
@@ -658,7 +680,7 @@ export function HeroBanner() {
       <Divider isMobile={isMobile} />
 
       {/* ── Section 2: Latest Prints ── */}
-      <div style={{ position: "relative", zIndex: 1, marginTop: isMobile ? "4px" : "8px" }}>
+      <div style={{ position: "relative", zIndex: 1, marginTop: isMobile ? "6px" : "8px" }}>
         <SectionTitle title="Latest Prints" isMobile={isMobile} />
         <ElevatedCarousel isMobile={isMobile} />
       </div>
@@ -666,7 +688,7 @@ export function HeroBanner() {
       <Divider isMobile={isMobile} />
 
       {/* ── Section 3: Explore Collection ── */}
-      <div style={{ position: "relative", zIndex: 1, marginTop: isMobile ? "4px" : "8px" }}>
+      <div style={{ position: "relative", zIndex: 1, marginTop: isMobile ? "6px" : "8px" }}>
         <SectionTitle title="Explore Collection" isMobile={isMobile} />
         <StripCarousel isMobile={isMobile} />
       </div>
