@@ -216,10 +216,10 @@ function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
           // On desktop, calculate card width to fill viewport: ~(100vw / visibleCount) minus gaps
           // On mobile: 3 cards filling width
           const w = isMobile
-            ? (isCenter ? "calc(48vw)" : "calc(34vw)")
+            ? (isCenter ? "calc(40vw)" : "calc(29vw)")
             : (isCenter ? "calc(17vw)" : "calc(14vw)");
           const h = isMobile
-            ? (isCenter ? "280px" : "240px")
+            ? (isCenter ? "185px" : "158px")
             : (isCenter ? "420px" : "360px");
 
           return (
@@ -655,25 +655,21 @@ export function HeroBanner() {
         <PortraitCarousel isMobile={isMobile} />
       </div>
 
-      {!isMobile && <Divider isMobile={isMobile} />}
+      <Divider isMobile={isMobile} />
 
-      {/* ── Section 2: Latest Prints (desktop only) ── */}
-      {!isMobile && (
-        <>
-          <div style={{ position: "relative", zIndex: 1, marginTop: "8px" }}>
-            <SectionTitle title="Latest Prints" isMobile={isMobile} />
-            <ElevatedCarousel isMobile={isMobile} />
-          </div>
+      {/* ── Section 2: Latest Prints ── */}
+      <div style={{ position: "relative", zIndex: 1, marginTop: isMobile ? "4px" : "8px" }}>
+        <SectionTitle title="Latest Prints" isMobile={isMobile} />
+        <ElevatedCarousel isMobile={isMobile} />
+      </div>
 
-          <Divider isMobile={isMobile} />
+      <Divider isMobile={isMobile} />
 
-          {/* ── Section 3: Explore Collection (desktop only) ── */}
-          <div style={{ position: "relative", zIndex: 1, marginTop: "8px" }}>
-            <SectionTitle title="Explore Collection" isMobile={isMobile} />
-            <StripCarousel isMobile={isMobile} />
-          </div>
-        </>
-      )}
+      {/* ── Section 3: Explore Collection ── */}
+      <div style={{ position: "relative", zIndex: 1, marginTop: isMobile ? "4px" : "8px" }}>
+        <SectionTitle title="Explore Collection" isMobile={isMobile} />
+        <StripCarousel isMobile={isMobile} />
+      </div>
     </section>
   );
 }
