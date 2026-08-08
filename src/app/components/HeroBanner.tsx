@@ -85,8 +85,9 @@ function SectionTitle({ title, isMobile, highlight }: { title: string; isMobile:
       style={{
         display: "flex",
         alignItems: "center",
+        justifyContent: highlight ? "center" : "flex-start",
         gap: isMobile ? "8px" : "14px",
-        padding: isMobile ? "0 12px 4px" : "0 40px 10px",
+        padding: isMobile ? "0 12px 6px" : "0 40px 12px",
       }}
     >
       {highlight ? (
@@ -94,15 +95,15 @@ function SectionTitle({ title, isMobile, highlight }: { title: string; isMobile:
           style={{
             display: "inline-block",
             background: "var(--modish-yellow)",
-            padding: isMobile ? "3px 10px" : "5px 16px",
+            padding: isMobile ? "5px 14px" : "7px 24px",
             borderRadius: "var(--modish-radius-full)",
             fontFamily: "var(--font-heading)",
             fontWeight: 800,
-            fontSize: isMobile ? "13px" : "18px",
+            fontSize: isMobile ? "14px" : "20px",
             color: "var(--modish-black)",
             letterSpacing: "0.01em",
             lineHeight: 1.3,
-            boxShadow: "0 2px 8px rgba(255,204,0,0.3)",
+            boxShadow: "0 4px 14px rgba(255,204,0,0.35)",
           }}
         >
           {title}
@@ -146,11 +147,11 @@ function ArrowBtn({ dir, onClick, variant = "default" }: { dir: "left" | "right"
       aria-label={dir === "left" ? "Previous" : "Next"}
       style={{
         position: "absolute",
-        [dir === "left" ? "left" : "right"]: "8px",
+        [dir === "left" ? "left" : "right"]: "24px",
         top: "50%",
         transform: "translateY(-50%)",
-        width: "38px",
-        height: "38px",
+        width: "42px",
+        height: "42px",
         borderRadius: "50%",
         background: isGlass ? "rgba(255,255,255,0.85)" : "var(--modish-yellow)",
         backdropFilter: isGlass ? "blur(8px)" : "none",
@@ -160,14 +161,14 @@ function ArrowBtn({ dir, onClick, variant = "default" }: { dir: "left" | "right"
         alignItems: "center",
         justifyContent: "center",
         color: "var(--modish-black)",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.12)",
+        boxShadow: "0 4px 14px rgba(0,0,0,0.18)",
         zIndex: 10,
         transition: "transform 0.15s ease",
       }}
       onMouseEnter={e => (e.currentTarget.style.transform = "translateY(-50%) scale(1.1)")}
       onMouseLeave={e => (e.currentTarget.style.transform = "translateY(-50%) scale(1)")}
     >
-      {dir === "left" ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
+      {dir === "left" ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
     </button>
   );
 }
@@ -175,7 +176,7 @@ function ArrowBtn({ dir, onClick, variant = "default" }: { dir: "left" | "right"
 /* ──────────────────────────────────────────────────────────────
    Section 1 — Trending Categories (Portrait Cards)
    Full-width, edge-to-edge. Center card highlighted.
-   Desktop: 5-7 cards | Mobile: 3 cards
+   Desktop: 3 prominent large cards | Mobile: 3 cards
    ────────────────────────────────────────────────────────────── */
 function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
   const cards = section1Cards;
@@ -206,21 +207,21 @@ function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: isMobile ? "8px" : "20px",
+          gap: isMobile ? "10px" : "24px",
           transition: "all 0.5s cubic-bezier(0.4,0,0.2,1)",
           padding: isMobile ? "0 4px" : "0 20px",
         }}
       >
         {visibleIndices.map((cardIdx, pos) => {
           const isCenter = pos === centerOffset;
-          // Desktop: 3 prominent cards (center 28vw, sides 22vw)
-          // Mobile: 3 cards (center 66vw, sides 16vw)
+          // Desktop: 3 large prominent cards (center 32vw x 500px, sides 24vw x 430px)
+          // Mobile: 3 cards (center 74vw x 380px, sides 18vw x 310px)
           const w = isMobile
-            ? (isCenter ? "calc(66vw)" : "calc(16vw)")
-            : (isCenter ? "calc(28vw)" : "calc(22vw)");
+            ? (isCenter ? "calc(74vw)" : "calc(18vw)")
+            : (isCenter ? "calc(32vw)" : "calc(24vw)");
           const h = isMobile
-            ? (isCenter ? "340px" : "280px")
-            : (isCenter ? "440px" : "380px");
+            ? (isCenter ? "380px" : "310px")
+            : (isCenter ? "500px" : "430px");
 
           return (
             <div
@@ -228,16 +229,16 @@ function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
               style={{
                 width: w,
                 height: h,
-                borderRadius: isMobile ? "16px" : "18px",
+                borderRadius: isMobile ? "18px" : "22px",
                 overflow: "hidden",
                 flexShrink: 0,
                 transition: "all 0.5s cubic-bezier(0.4,0,0.2,1)",
                 boxShadow: isCenter
-                  ? "0 10px 32px rgba(0,0,0,0.22)"
-                  : "0 2px 12px rgba(0,0,0,0.06)",
+                  ? "0 12px 36px rgba(0,0,0,0.25)"
+                  : "0 4px 16px rgba(0,0,0,0.08)",
                 position: "relative",
                 border: isCenter
-                  ? "2.5px solid var(--modish-yellow)"
+                  ? "3px solid var(--modish-yellow)"
                   : "1px solid rgba(0,0,0,0.06)",
               }}
             >
@@ -260,13 +261,15 @@ function PortraitCarousel({ isMobile }: { isMobile: boolean }) {
                   left: 0,
                   right: 0,
                   padding: isMobile
-                    ? (isCenter ? "22px 8px 8px" : "14px 4px 4px")
-                    : "30px 12px 12px",
-                  background: "linear-gradient(transparent, rgba(0,0,0,0.65))",
+                    ? (isCenter ? "24px 10px 10px" : "14px 4px 4px")
+                    : (isCenter ? "36px 16px 16px" : "28px 12px 12px"),
+                  background: "linear-gradient(transparent, rgba(0,0,0,0.70))",
                   color: "#fff",
                   fontFamily: "var(--font-heading)",
                   fontWeight: 700,
-                  fontSize: isMobile ? (isCenter ? "12px" : "9px") : "14px",
+                  fontSize: isMobile
+                    ? (isCenter ? "13px" : "9px")
+                    : (isCenter ? "16px" : "13px"),
                   textAlign: "center",
                   letterSpacing: "0.02em",
                 }}
