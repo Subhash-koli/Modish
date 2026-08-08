@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Eye } from "lucide-react";
+import { Eye, LayoutGrid, Shirt, Maximize, Flame, Dumbbell, Watch } from "lucide-react";
 import { ProductModal, Product } from "./ProductModal";
 
 
@@ -750,13 +750,13 @@ function SectionHeading({ eyebrow, title, subtitle }: { eyebrow: string; title: 
 }
 
 const categoryFilters = [
-  { label: "All", category: null },
-  { label: "T-Shirts", category: "T-Shirts" },
-  { label: "Oversized", category: "Oversized" },
-  { label: "Polos", category: "Polos" },
-  { label: "Hoodies", category: "Hoodies" },
-  { label: "Gym Vests", category: "Gym Vests" },
-  { label: "Accessories", category: "Accessories" },
+  { label: "All", category: null, Icon: LayoutGrid },
+  { label: "T-Shirts", category: "T-Shirts", Icon: Shirt },
+  { label: "Oversized", category: "Oversized", Icon: Maximize },
+  { label: "Polos", category: "Polos", Icon: Shirt },
+  { label: "Hoodies", category: "Hoodies", Icon: Flame },
+  { label: "Gym Vests", category: "Gym Vests", Icon: Dumbbell },
+  { label: "Accessories", category: "Accessories", Icon: Watch },
 ];
 
 export function ProductGrid() {
@@ -791,43 +791,61 @@ export function ProductGrid() {
         />
 
         {/* Filter Pills */}
-        <div
-          style={{
-            display: "flex",
-            gap: "8px",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            marginBottom: "var(--modish-space-8)",
+        <div 
+          style={{ 
+            width: "100%", 
+            overflowX: "auto", 
+            WebkitOverflowScrolling: "touch", 
+            scrollbarWidth: "none", 
+            msOverflowStyle: "none" 
           }}
-          role="group"
-          aria-label="Filter products by category"
         >
-          {categoryFilters.map((f) => {
-            const isActive = activeFilter === f.category;
-            return (
-              <button
-                key={f.label}
-                onClick={() => setActiveFilter(f.category)}
-                aria-pressed={isActive}
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontWeight: 600,
-                  fontSize: "clamp(11px, 2.5vw, 14px)",
-                  padding: "8px 16px",
-                  borderRadius: "var(--modish-radius-full)",
-                  border: isActive ? "2px solid var(--modish-yellow)" : "1.5px solid var(--modish-grey-200)",
-                  background: isActive ? "var(--modish-black)" : "var(--modish-white)",
-                  color: isActive ? "var(--modish-yellow)" : "var(--modish-black)",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                  minHeight: "38px",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {f.label}
-              </button>
-            );
-          })}
+          <div
+            style={{
+              display: "flex",
+              gap: "8px",
+              flexWrap: "nowrap",
+              width: "max-content",
+              margin: "0 auto",
+              padding: "4px 16px",
+              marginBottom: "var(--modish-space-8)",
+            }}
+            role="group"
+            aria-label="Filter products by category"
+          >
+            {categoryFilters.map((f) => {
+              const isActive = activeFilter === f.category;
+              const Icon = f.Icon;
+              return (
+                <button
+                  key={f.label}
+                  onClick={() => setActiveFilter(f.category)}
+                  aria-pressed={isActive}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    fontFamily: "var(--font-body)",
+                    fontWeight: 600,
+                    fontSize: "clamp(12px, 2.5vw, 14px)",
+                    padding: "8px 20px",
+                    borderRadius: "var(--modish-radius-full)",
+                    border: isActive ? "2px solid var(--modish-yellow)" : "1.5px solid var(--modish-grey-200)",
+                    background: isActive ? "var(--modish-black)" : "var(--modish-white)",
+                    color: isActive ? "var(--modish-yellow)" : "var(--modish-black)",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                    minHeight: "42px",
+                    whiteSpace: "nowrap",
+                    boxShadow: isActive ? "0 4px 12px rgba(0,0,0,0.1)" : "none"
+                  }}
+                >
+                  <Icon size={16} strokeWidth={isActive ? 2.5 : 2} style={{ opacity: isActive ? 1 : 0.7 }} />
+                  {f.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         <div className="modish-product-grid">

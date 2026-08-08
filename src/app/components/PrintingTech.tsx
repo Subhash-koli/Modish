@@ -12,7 +12,7 @@ const technologies = [
     description: "The most versatile printing method — supports photorealistic full-color designs on any fabric.",
     bestFor: ["Multicolor Designs", "Photo Prints", "Complex Artwork"],
     benefits: ["No minimum order", "Vibrant colors", "Soft hand-feel", "Wash-resistant"],
-    cropPosition: "0% 30%",  // Top-left quadrant (DTF Good Vibes image)
+    cropPosition: "5% 46%",   // Top-left photo (DTF Good Vibes photo)
   },
   {
     icon: <Layers2 size={28} />,
@@ -21,7 +21,7 @@ const technologies = [
     description: "The industry standard for bulk orders — crisp, long-lasting prints at the best per-unit cost.",
     bestFor: ["Single-Color Bulk", "Long-Run Orders", "Simple Logos"],
     benefits: ["Lowest per-unit cost", "Durable print", "Pantone accurate", "Ideal for 50+"],
-    cropPosition: "100% 30%",  // Top-right quadrant (Screen Printing squeegee)
+    cropPosition: "95% 46%",  // Top-right photo (Screen Printing squeegee photo)
   },
   {
     icon: <Star size={28} />,
@@ -30,7 +30,7 @@ const technologies = [
     description: "Premium, textured branding that looks and feels luxurious — the go-to for corporate workwear.",
     bestFor: ["Corporate Polo", "Premium Caps", "Workwear Logos"],
     benefits: ["3D texture look", "Long-lasting", "Premium feel", "Sharp edges"],
-    cropPosition: "0% 100%",  // Bottom-left quadrant (Embroidery hoop)
+    cropPosition: "5% 96%",   // Bottom-left photo (Embroidery hoop photo)
   },
   {
     icon: <Waves size={28} />,
@@ -39,7 +39,7 @@ const technologies = [
     description: "All-over prints that go edge-to-edge — perfect for sportswear, jerseys, and vibrant full prints.",
     bestFor: ["All-Over Prints", "Sportswear", "Full-Color Jerseys"],
     benefits: ["Edge-to-edge print", "Fade-proof", "Lightweight", "Breathable fabric"],
-    cropPosition: "100% 100%",  // Bottom-right quadrant (Sublimation tote)
+    cropPosition: "95% 96%",  // Bottom-right photo (Sublimation tote photo)
   },
 ];
 

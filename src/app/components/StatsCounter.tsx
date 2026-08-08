@@ -53,11 +53,12 @@ function StatItem({ value, suffix, label, sublabel, active, index }: {
       <div style={{
         fontFamily: "var(--font-heading)",
         fontWeight: 800,
-        fontSize: "clamp(22px, 8vw, 36px)",
-        color: "var(--modish-black)",
+        fontSize: "clamp(26px, 8vw, 42px)",
+        color: "var(--modish-yellow)",
         lineHeight: 1,
         letterSpacing: "-0.02em",
         marginBottom: "var(--modish-space-2)",
+        textShadow: "0 0 20px rgba(255,204,0,0.25)",
       }}>
         {formatted}{suffix}
       </div>
@@ -67,7 +68,7 @@ function StatItem({ value, suffix, label, sublabel, active, index }: {
         fontFamily: "var(--font-heading)",
         fontWeight: 700,
         fontSize: "clamp(12px, 3.2vw, 14px)",
-        color: "var(--modish-black)",
+        color: "var(--modish-white)",
         marginBottom: "4px",
       }}>
         {label}
@@ -78,7 +79,7 @@ function StatItem({ value, suffix, label, sublabel, active, index }: {
         fontFamily: "var(--font-body)",
         fontWeight: 400,
         fontSize: "11px",
-        color: "var(--modish-grey-500)",
+        color: "rgba(255,255,255,0.5)",
         letterSpacing: "0.02em",
       }}>
         {sublabel}
@@ -111,7 +112,9 @@ export function StatsCounter() {
       id="stats"
       ref={sectionRef}
       style={{
-        background: "var(--modish-yellow)",
+        background: "#080808",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
         position: "relative",
         overflow: "hidden",
       }}

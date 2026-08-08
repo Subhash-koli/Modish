@@ -127,12 +127,17 @@ export function TestimonialsSection() {
               key={i}
               className="reveal-on-scroll"
               style={{
-                background: i === active ? "var(--modish-yellow)" : "rgba(255,255,255,0.05)",
+                background: i === active
+                  ? "rgba(255, 204, 0, 0.06)"
+                  : "rgba(255,255,255,0.04)",
                 borderRadius: "var(--modish-radius-lg)",
                 padding: "var(--modish-space-6)",
                 border: i === active
-                  ? "1.5px solid var(--modish-yellow)"
-                  : "1.5px solid rgba(255,255,255,0.08)",
+                  ? "2px solid var(--modish-yellow)"
+                  : "1px solid rgba(255,255,255,0.08)",
+                boxShadow: i === active
+                  ? "0 8px 32px rgba(255, 204, 0, 0.15)"
+                  : "none",
                 transition: "all 0.4s ease",
                 cursor: "pointer",
                 animationDelay: `${i * 80}ms`,
@@ -147,7 +152,7 @@ export function TestimonialsSection() {
                 fontFamily: "Georgia, serif",
                 fontSize: "48px",
                 lineHeight: "1",
-                color: i === active ? "rgba(0,0,0,0.2)" : "rgba(255,204,0,0.3)",
+                color: i === active ? "var(--modish-yellow)" : "rgba(255,204,0,0.3)",
                 marginBottom: "4px",
                 marginTop: "-8px",
               }}>
@@ -161,7 +166,7 @@ export function TestimonialsSection() {
                 fontWeight: 400,
                 fontSize: "14px",
                 lineHeight: 1.7,
-                color: i === active ? "var(--modish-black)" : "rgba(255,255,255,0.75)",
+                color: i === active ? "var(--modish-white)" : "rgba(255,255,255,0.75)",
                 margin: "var(--modish-space-4) 0",
               }}>
                 {t.review}
@@ -173,8 +178,8 @@ export function TestimonialsSection() {
                   width: "40px",
                   height: "40px",
                   borderRadius: "50%",
-                  background: i === active ? "var(--modish-black)" : "var(--modish-yellow)",
-                  color: i === active ? "var(--modish-yellow)" : "var(--modish-black)",
+                  background: "var(--modish-yellow)",
+                  color: "var(--modish-black)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -190,14 +195,14 @@ export function TestimonialsSection() {
                     fontFamily: "var(--font-heading)",
                     fontWeight: 700,
                     fontSize: "14px",
-                    color: i === active ? "var(--modish-black)" : "var(--modish-white)",
+                    color: "var(--modish-white)",
                   }}>
                     {t.name}
                   </div>
                   <div style={{
                     fontFamily: "var(--font-body)",
                     fontSize: "12px",
-                    color: i === active ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.5)",
+                    color: "rgba(255,255,255,0.5)",
                   }}>
                     {t.role}
                   </div>

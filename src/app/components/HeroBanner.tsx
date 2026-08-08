@@ -674,26 +674,10 @@ export function HeroBanner() {
         }}
       />
 
-      {/* ── Section 1: Trending Categories ── */}
+      {/* ── Trending Categories Hero Slider ── */}
       <div style={{ position: "relative", zIndex: 1 }}>
         <SectionTitle title="Trending Categories" isMobile={isMobile} highlight />
         <PortraitCarousel isMobile={isMobile} />
-      </div>
-
-      <Divider isMobile={isMobile} />
-
-      {/* ── Section 2: Latest Prints ── */}
-      <div style={{ position: "relative", zIndex: 1, marginTop: isMobile ? "6px" : "8px" }}>
-        <SectionTitle title="Latest Prints" isMobile={isMobile} />
-        <ElevatedCarousel isMobile={isMobile} />
-      </div>
-
-      <Divider isMobile={isMobile} />
-
-      {/* ── Section 3: Explore Collection ── */}
-      <div style={{ position: "relative", zIndex: 1, marginTop: isMobile ? "6px" : "8px" }}>
-        <SectionTitle title="Explore Collection" isMobile={isMobile} />
-        <StripCarousel isMobile={isMobile} />
       </div>
     </section>
   );
