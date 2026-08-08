@@ -44,6 +44,20 @@ function useScrollReveal() {
 export default function App() {
   useScrollReveal();
 
+  // Preloader dismissal
+  useEffect(() => {
+    const preloader = document.getElementById("modish-preloader");
+    if (preloader) {
+      const timer = setTimeout(() => {
+        preloader.classList.add("fade-out");
+        setTimeout(() => {
+          preloader.style.display = "none";
+        }, 400);
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   // Scroll progress bar
   const [scrollPct, setScrollPct] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);

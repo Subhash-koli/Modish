@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pure CSS Skeleton Loading Screen</title>
+  <style>
+    /* ─── CSS CUSTOM PROPERTIES ────────────────────────────────────────── */
+    :root {
+      /* Theme colors (Dark mode default) */
+      --bg-color: #0a0a0a;
+      --card-bg: #121212;
+      --card-border: rgba(255, 255, 255, 0.06);
+      --divider-color: rgba(255, 255, 255, 0.06);
+      
+      /* Skeleton Custom Properties (Themeable) */
+      --skeleton-base: #1a1a1a;
+      --skeleton-shimmer: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.04) 30%,
+        rgba(255, 255, 255, 0.08) 50%,
+        rgba(255, 255, 255, 0.04) 70%,
+        transparent 100%
+      );
+      --skeleton-speed: 1.8s;
+      --skeleton-radius: 8px;
+      --skeleton-radius-circle: 50%;
+    }
+
+    /* Light theme modifier example (uncomment or apply class to root) */
+    /*
+    .theme-light {
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --card-border: rgba(0, 0, 0, 0.08);
+      --divider-color: rgba(0, 0, 0, 0.08);
+      --skeleton-base: #e9ecef;
+      --skeleton-shimmer: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 0, 0, 0.03) 30%,
+        rgba(0, 0, 0, 0.06) 50%,
+        rgba(0, 0, 0, 0.03) 70%,
+        transparent 100%
+      );
+    }
+    */
+
+    /* ─── BASE STYLES ─────────────────────────────────────────────────── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 16px;
+    }
+
+    /* ─── SKELETON BASE & ANIMATION ──────────────────────────────────── */
+    .skeleton {
+      background-color: var(--skeleton-base);
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--skeleton-radius);
+      display: inline-block;
+    }
+
+    .skeleton::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: var(--skeleton-shimmer);
+      background-size: 200% 100%;
+      animation: skeleton-shimmer var(--skeleton-speed) ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes skeleton-shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    /* Shape Modifiers */
+    .skeleton--circle {
+      border-radius: var(--skeleton-radius-circle);
+      flex-shrink: 0;
+    }
+
+    .skeleton--text {
+      height: 14px;
+    }
+
+    .skeleton--text-sm {
+      height: 11px;
+    }
+
+    .skeleton--image {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+    }
+
+    /* ─── PATTERN 1: PROFILE HEADER ───────────────────────────────────── */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .profile-header__avatar {
+      width: 56px;
+      height: 56px;
+    }
+
+    .profile-header__info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    /* ─── PATTERN 2: CARD GRID ────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 640px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card__content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ─── PATTERN 3: CONTENT LIST ────────────────────────────────────── */
+    .content-list {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .list-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--divider-color);
+    }
+
+    .list-row:last-child {
+      border-bottom: none;
+    }
+
+    .list-row__avatar {
+      width: 40px;
+      height: 40px;
+    }
+
+    .list-row__info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    /* ─── ACCESSIBILITY: REDUCED MOTION ─────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .skeleton::after {
+        animation: none;
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container" aria-busy="true" aria-live="polite">
+    
+    <!-- PATTERN 1: PROFILE HEADER -->
+    <section>
+      <div class="section-title">1. Profile Header Pattern</div>
+      <div class="profile-header">
+        <div class="skeleton skeleton--circle profile-header__avatar" aria-hidden="true"></div>
+        <div class="profile-header__info">
+          <div class="skeleton skeleton--text" style="width: 40%;" aria-hidden="true"></div>
+          <div class="skeleton skeleton--text-sm" style="width: 65%;" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PATTERN 2: CARD GRID -->
+    <section>
+      <div class="section-title">2. Card Grid Pattern</div>
+      <div class="card-grid">
+        
+        <!-- Card 1 -->
+        <article class="card">
+          <div class="skeleton skeleton--image" aria-hidden="true"></div>
+          <div class="card__content">
+            <div class="skeleton skeleton--text" style="width: 100%;" aria-hidden="true"></div>
+            <div class="skeleton skeleton--text-sm" style="width: 80%;" aria-hidden="true"></div>
+            <div class="skeleton skeleton--text-sm" style="width: 50%;" aria-hidden="true"></div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <div class="skeleton skeleton--image" aria-hidden="true"></div>
+          <div class="card__content">
+            <div class="skeleton skeleton--text" style="width: 100%;" aria-hidden="true"></div>
+            <div class="skeleton skeleton--text-sm" style="width: 80%;" aria-hidden="true"></div>
+            <div class="skeleton skeleton--text-sm" style="width: 50%;" aria-hidden="true"></div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <div class="skeleton skeleton--image" aria-hidden="true"></div>
+          <div class="card__content">
+            <div class="skeleton skeleton--text" style="width: 100%;" aria-hidden="true"></div>
+            <div class="skeleton skeleton--text-sm" style="width: 80%;" aria-hidden="true"></div>
+            <div class="skeleton skeleton--text-sm" style="width: 50%;" aria-hidden="true"></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- PATTERN 3: CONTENT LIST -->
+    <section>
+      <div class="section-title">3. Content List Pattern</div>
+      <div class="content-list">
+        
+        <!-- Row 1 -->
+        <div class="list-row">
+          <div class="skeleton skeleton--circle list-row__avatar" aria-hidden="true"></div>
+          <div class="list-row__info">
+            <div class="skeleton skeleton--text" style="width: 55%;" aria-hidden="true"></div>
+            <div class="skeleton skeleton--text-sm" style="width: 35%;" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="list-row">
+          <div class="skeleton skeleton--circle list-row__avatar" aria-hidden="true"></div>
+          <div class="list-row__info">
+            <div class="skeleton skeleton--text" style="width: 55%;" aria-hidden="true"></div>
+            <div class="skeleton skeleton--text-sm" style="width: 35%;" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="list-row">
+          <div class="skeleton skeleton--circle list-row__avatar" aria-hidden="true"></div>
+          <div class="list-row__info">
+            <div class="skeleton skeleton--text" style="width: 55%;" aria-hidden="true"></div>
+            <div class="skeleton skeleton--text-sm" style="width: 35%;" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- Row 4 -->
+        <div class="list-row">
+          <div class="skeleton skeleton--circle list-row__avatar" aria-hidden="true"></div>
+          <div class="list-row__info">
+            <div class="skeleton skeleton--text" style="width: 55%;" aria-hidden="true"></div>
+            <div class="skeleton skeleton--text-sm" style="width: 35%;" aria-hidden="true"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

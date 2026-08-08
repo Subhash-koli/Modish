@@ -87,23 +87,49 @@
   --modish-bottom-bar-height: 64px;
 }
 
-/* ─── GLOBAL OVERFLOW PROTECTION ───────────────────────────────── */
+/* ─── LIGHT THEME & OS DARK MODE OVERRIDE PREVENTION ─────────── */
+:root, html, body {
+  color-scheme: light !important;
+  supported-color-schemes: light !important;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
-  background-color: var(--modish-black);
+  background-color: var(--modish-white) !important;
+  color: var(--modish-black) !important;
   /* Fluid root font-size: 14px on 320px screen → 16px on 640px+ */
   font-size: clamp(14px, 1.5vw + 9.5px, 16px);
 }
 body {
   font-family: var(--font-body);
-  background-color: var(--modish-white);
-  color: var(--modish-black);
+  background-color: var(--modish-white) !important;
+  color: var(--modish-black) !important;
   overflow-x: hidden;
   max-width: 100vw;
-  /* Better mobile rendering */
+  /* Better mobile rendering & text adjustments */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+}
+
+/* Force light scheme on form controls to prevent dark background on inputs in iOS dark mode */
+input, textarea, select, button, optgroup, option {
+  color-scheme: light !important;
+  background-color: #FFFFFF;
+  color: #0A0A0A;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root, html, body {
+    color-scheme: light !important;
+    background-color: #FFFFFF !important;
+    color: #0A0A0A !important;
+  }
+  input, textarea, select, button {
+    color-scheme: light !important;
+    background-color: #FFFFFF !important;
+    color: #0A0A0A !important;
+  }
 }
 
 /* ─── RESPONSIVE IMAGES (Global Default) ───────────────────────── */
